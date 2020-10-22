@@ -1,0 +1,58 @@
+package com.maro.manager.common.dao;
+
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.platform.web.system.pojo.base.TSDepart;
+import org.jeecgframework.minidao.annotation.Arguments;
+import org.jeecgframework.minidao.annotation.Sql;
+import org.springframework.stereotype.Repository;
+
+import com.maro.manager.common.entity.ComboTree;
+
+import java.util.List;
+import java.util.Map;
+/**
+ * 查询部门信息
+ */
+@Repository
+public interface UtilDao {
+    @Arguments({"id","id_field_name","pid_field_name","tree_field","table_name"})
+	public List<ComboTree> getComboTree(
+			String id,String id_field_name, String pid_field_name, String tree_field,
+			String table_name);
+
+    @Arguments({"id","text","table_name","conditions"})
+	public List<Map> getCombobox(String id, String text, String table_name,
+			String conditions);
+
+    @Arguments("userId")
+    @Sql("SELECT count(*) FROM t_s_role_user t, t_s_role t1 WHERE t.roleid = t1.ID AND t.userid = :userId AND t1.rolecode = 'admin'")
+	public int isAdmin(String userId);
+
+    @Arguments("departId")
+    @Sql("SELECT t.departname FROM t_s_depart t WHERE t.ID = :departId")
+	public String getDepartNameByDepartId(String departId);
+
+    @Arguments("userId")
+    @Sql("SELECT t1.id FROM t_s_user_org t, maro_shop t1 WHERE t.org_id = t1.depart_id AND t.user_id = :userId")
+	public String getShopIdByUserId(String userId);
+
+    @Arguments("shopId")
+    @Sql("SELECT t.id FROM maro_shop_store t WHERE t.shop_id =:shopId")
+	public List<Map> getStoreIdsByShopId(String shopId);
+
+    @Arguments("queueName")
+    @Sql("SELECT t.id departId, t1.id shopId FROM t_s_depart t LEFT JOIN maro_shop t1 ON t.ID = t1.depart_id WHERE t.org_code = :queueName")
+	public Map getDepartIdAndShopId(String queueName);
+
+    @Arguments("userId")
+    @Sql("SELECT * FROM t_s_depart t WHERE t.id IN ( SELECT t1.org_id FROM t_s_user_org t1 WHERE t1.user_id = :userId ) LIMIT 0,1")
+    TSDepart getDepartByUserId(String userId);
+
+    @Arguments("departId")
+    @Sql("SELECT t.`name` from maro_shop t where t.depart_id=:departId")
+    String getShopNameByDepartId(String departId);
+
+    @Arguments("userId")
+    @Sql("SELECT t.* FROM maro_shop t WHERE t.depart_id IN ( SELECT t1.org_id FROM t_s_user_org t1 WHERE t1.user_id = :userId)")
+    List<MaroShopEntity> getShopInfoByUserId(String userId);
+}

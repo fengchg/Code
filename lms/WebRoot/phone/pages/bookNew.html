@@ -1,0 +1,106 @@
+<div data-controller="BookNewController">
+    <div class="pages">
+        <div data-page="bookNewPage" class="page no-tabbar">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="back link">
+                            <i class="icon icon-backgray"></i>
+                        </a>
+                    </div>
+                    <div class="center">新增图书</div>
+                    <div class="right addrNewPage-address-submit">
+                        <a href="#">保存</a>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="user-list">
+                    <div class="list-block all-order  m-b-0">
+                        <form id="form-ContactManage">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            图书分类
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入图书类型" value="生物类" name="cFullName">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            编号
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="number" placeholder="请输入图书编号" name="cMobile">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">书名</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入书名" name="cAge">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">作者</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入作者" name="cPosition">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">出版时间</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入出版时间" name="cPosition">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            备注
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" value="" name="comment">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="last-item isDefault">
+                                    <!--勾选上时加上default即可-->
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">是否可借阅</div>
+                                            <div class="item-input">
+                                            </div>
+                                            <div class="item-after">
+                                                <i class="icon icon-undefault"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="list-block m-t-10" id="delete-book">
+                        <ul>
+                            <li class="item-content contactPage-btn-del" style="padding-left: 0px;">
+                                <div class="only-one-btn">
+                                    <a class="color-red font-14">删除图书</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../phone/js/pages/BookNewController.js"></script>
+</div>

@@ -1,0 +1,147 @@
+
+delete from t_s_typegroup where typegroupcode = 'commonTypeEnum';
+delete from t_s_type where typegroupid = 'commonTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('30a3247a-472f-4dee-900c-aac1c8c5a109', 'commonTypeEnum', '常用的类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('3fe63faa-8a71-45e7-85cf-367917fab1b2', '0', '不删除', NULL, '30a3247a-472f-4dee-900c-aac1c8c5a109', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('2f6860d7-c17f-41b9-85b4-2663da7cd929', '1', '删除', NULL, '30a3247a-472f-4dee-900c-aac1c8c5a109', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'foodOrderStatusEnum';
+delete from t_s_type where typegroupid = 'foodOrderStatusEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('2e154378-860f-435e-bfc6-0cf42b96072e', 'foodOrderStatusEnum', '点餐订单状态', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('35764687-ae77-47fb-aecd-5a56e7b1e207', '0', '下单', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('7f395bee-6463-46fa-a91d-06e970a09aea', '1', '下锅', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('6fbe5396-7b5b-4801-998a-b193bd2e6cfc', '2', '出锅', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('37d7df52-407e-4636-bf3e-7e7c403a864e', '3', '换菜', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('d7fe5e09-90a4-49ec-a5f2-3f0f5a6aae46', '4', '催菜', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('e1162d51-b9d6-4b4f-8a6b-18f00287a2f4', '5', '退菜', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('1e8b5d40-a773-4fe9-b39a-a51e496e2ff6', '6', '已上', NULL, '2e154378-860f-435e-bfc6-0cf42b96072e', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'foodTypeEnum';
+delete from t_s_type where typegroupid = 'foodTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('2b710d2f-0c0b-4546-900d-e93b6820391f', 'foodTypeEnum', '菜品类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('30484999-7e4f-409a-985d-6d18620a33c9', '0', '普通', NULL, '2b710d2f-0c0b-4546-900d-e93b6820391f', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('e00b8f5e-9b30-462f-a0ee-245c7bc97073', '1', '赠品', NULL, '2b710d2f-0c0b-4546-900d-e93b6820391f', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'kitChenNotifyStatusEnum';
+delete from t_s_type where typegroupid = 'kitChenNotifyStatusEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('83ba2e9b-c0fd-4fc7-ad8a-6f09c7ae7f62', 'kitChenNotifyStatusEnum', '打厨状态', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('df2c5da3-2a90-483c-b583-0c97f72a4822', '1', '打厨', NULL, '83ba2e9b-c0fd-4fc7-ad8a-6f09c7ae7f62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('5a849c36-19f5-4d9b-9174-8bc888500d6f', '0', '未打厨', NULL, '83ba2e9b-c0fd-4fc7-ad8a-6f09c7ae7f62', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'makeBillTypeEnum';
+delete from t_s_type where typegroupid = 'makeBillTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('411431f7-d159-4442-ae40-555c65e82953', 'makeBillTypeEnum', '开票状态', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('a130d93c-1a54-4e12-be99-3feb8301bb0c', '0', '不开票', NULL, '411431f7-d159-4442-ae40-555c65e82953', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('a2410bec-e8d9-4b01-99f7-063b3fe926c6', '1', '开票', NULL, '411431f7-d159-4442-ae40-555c65e82953', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'reservePeriodEnum';
+delete from t_s_type where typegroupid = 'reservePeriodEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('179a6318-7275-488b-9b2e-f708c4832432', 'reservePeriodEnum', '预定时段', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('e3d64fae-94dc-441c-b394-ad5913b0168f', '0', '早上', NULL, '179a6318-7275-488b-9b2e-f708c4832432', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('cd5f3e92-daf7-4dc6-8527-9ade9217898e', '1', '中午', NULL, '179a6318-7275-488b-9b2e-f708c4832432', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('0fbbd81e-eaca-478c-8589-95bb2f6a7cd5', '2', '下午', NULL, '179a6318-7275-488b-9b2e-f708c4832432', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('fb87ffb7-95df-42b6-bf39-2c56317b2339', '3', '晚上', NULL, '179a6318-7275-488b-9b2e-f708c4832432', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'reserveStatusEnum';
+delete from t_s_type where typegroupid = 'reserveStatusEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('542170a2-4403-4297-875f-0e2b95e948a0', 'reserveStatusEnum', '预定状态', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('78c8e9bd-df83-4a73-92ba-4c7f9cd5d5e5', '0', '预定', NULL, '542170a2-4403-4297-875f-0e2b95e948a0', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('ac6511b0-f8dd-4ec8-b5f9-b6f9b86335fd', '1', '已开单', NULL, '542170a2-4403-4297-875f-0e2b95e948a0', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('ed2781ec-b4f4-4a3d-9254-3af51c5a2830', '2', '取消预订', NULL, '542170a2-4403-4297-875f-0e2b95e948a0', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'reserveTypeEnum';
+delete from t_s_type where typegroupid = 'reserveTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', 'reserveTypeEnum', '预定类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('02cceb9b-de2b-49c6-8d32-40159d5f647e', '0', '普通', NULL, 'c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('167cbde4-a619-4e99-921a-0be5b69d7734', '1', '婚庆', NULL, 'c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('12fdaadf-8ece-41d2-9544-30fa87d2a9a1', '2', '寿庆', NULL, 'c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('6bfe5622-ba0a-4e2e-96e5-da6598c152e8', '3', '公司活动', NULL, 'c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('90b16b5f-5a6a-4c27-ae98-3390671291db', '4', '其他', NULL, 'c56a7f7c-7ecf-4dda-a4d4-dbf0da41a708', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'serverOrderLogTypeEnum';
+delete from t_s_type where typegroupid = 'serverOrderLogTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('ffc76082-c151-47c8-94a0-1fc089193d62', 'serverOrderLogTypeEnum', '流水订单日志类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('92023faa-07d8-4431-bb60-73b1b6c548f4', '0', '上桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('9e140ebc-266e-459a-945d-29455fe61027', '1', '结账', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('ceb8b3e8-3143-45bc-be36-568c764411a6', '2', '下桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f8fb19de-1b86-4fab-81ba-b5447bf377bb', '3', '取消上桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('1903171e-b645-4af3-ba22-63cbe5678f77', '4', '退款', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('0bbcf691-3ae8-405c-9ea9-2d4f095a5067', '5', '作废', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('3844c720-6d09-4cb1-94b5-378ce9a97729', '6', '评价', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('d5d426ae-44ed-4429-a305-a12d647cbb62', '11', '换桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('553646aa-65fc-4566-b4fb-1af6202c539e', '12', '并桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('51dfa912-d0ad-4e09-b0c2-4a4cd747641b', '13', '拆桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('7ceabed9-a243-4e49-99d6-7be56db3b4d8', '14', '取消并桌', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('1ec29c68-d019-4699-ad4b-5ae4c80b6e45', '21', '下单', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('d71ac545-7178-4f39-89ed-7a633fd51a1a', '22', '下锅', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('23eac3d8-5714-4851-b85a-d3064dcf45ef', '23', '出锅', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('bdf1612a-c2b1-4ab2-933e-92ba4f9bb912', '24', '退菜', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('9984c218-3c1e-4a7b-814c-9fb78ee1621b', '25', '赠菜', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('85967ca4-afe8-420b-a8e0-d9c9ce463c7f', '26', '已上', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('7d77f4fb-459a-4bc9-bd31-2e061c7fd3c7', '27', '取消已上', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('3652599d-600e-4417-981e-2589f82dffe8', '28', '催菜', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('56eb7263-8e25-4895-ae3a-413a9bce950f', '29', '菜品转台出去', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('bdd9630e-3577-4059-9923-12e093ea1cb9', '30', '菜品转台接受', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('280f6e77-8a71-4f0b-b107-4d8f313f31c2', '50', '修改服务订单信息', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('c3a773aa-2bbd-46bc-b86c-37bfcd2bc927', '51', '菜肴临时改价', NULL, 'ffc76082-c151-47c8-94a0-1fc089193d62', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'serverOrderPayedTerminalTypeEnum';
+delete from t_s_type where typegroupid = 'serverOrderPayedTerminalTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('94ee790f-022b-4b58-a0d2-b45c01986073', 'serverOrderPayedTerminalTypeEnum', '流水订单支付终端类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('e9640b9e-8ac9-45a1-9bef-bcea64df38ea', '0', '收银机', NULL, '94ee790f-022b-4b58-a0d2-b45c01986073', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('08d65b82-b5fd-4e4a-b710-d957e82c6470', '1', '微信支付宝', NULL, '94ee790f-022b-4b58-a0d2-b45c01986073', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'serverOrderPayedTypeEnum';
+delete from t_s_type where typegroupid = 'serverOrderPayedTypeEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('c6811f73-3e47-4bde-85b0-42c6748c20b5', 'serverOrderPayedTypeEnum', '流水订单支付类型', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('8ed7dd7e-0b1e-4b7f-89bf-8de812fcae24', '0', '现金', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('801bcf0d-4c46-414c-9c98-1a6e6598d4f4', '1', '微信支付宝', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('719b23c0-8620-442d-be93-09342030789a', '2', '会员卡', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('3f4f36ee-d354-405e-8999-053f16a44ab6', '3', '银联刷卡', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('6d7c52f1-b473-4b27-b722-ba263a5b4920', '4', '预付费', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('bdedc989-9506-4926-addf-7367f190146c', '5', '其他', NULL, 'c6811f73-3e47-4bde-85b0-42c6748c20b5', '2018-05-16 12:57:34', '管理员');
+
+
+
+delete from t_s_typegroup where typegroupcode = 'serverOrderStatusEnum';
+delete from t_s_type where typegroupid = 'serverOrderStatusEnum';
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('19dfd558-64b5-4810-ba68-89e81522608a', 'serverOrderStatusEnum', '流水订单状态', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('40e05bae-5818-4de5-969d-51ab4124adec', '0', '上桌', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('79a8f6f4-c97c-4689-b873-69e8ebe55c69', '1', '点餐', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f2945783-2c3c-44bc-a76a-46be2d08217d', '2', '结账', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('5494d2f3-7251-4335-8078-6da000a16e30', '3', '下桌', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('48a1e2c1-685a-46a4-b6e2-6cd3f6295afa', '4', '取消上桌', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('1b57ad6e-8bbb-480c-a7c6-8016813d8a45', '5', '退款', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('942de38b-5226-46fd-9702-a8516cd027ff', '6', '作废', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f3a92c8b-aebb-4fda-9bca-e4790231d0be', '7', '完成', NULL, '19dfd558-64b5-4810-ba68-89e81522608a', '2018-05-16 12:57:34', '管理员');
+
+
+
+
+
+
+
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`) VALUES ('94ee790f-022b-4b58-a0d2-b45c01300490', 'terminalMessageTemplate', '终端短信模板', '2018-06-7 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f3a92c8b-aebb-4fda-9bca-e47902300491', '01', '快上菜', NULL, '94ee790f-022b-4b58-a0d2-b300490', '2018-06-07 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f3a92c8b-aebb-4fda-9bca-e47902300492', '02', '台快上菜', NULL, '94ee790f-022b-4b58-a0d2-b300490', '2018-06-07 12:57:34', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('f3a92c8b-aebb-4fda-9bca-e47902300493', '03', '结账', NULL, '994ee790f-022b-4b58-a0d2-b300490', '2018-06-07 12:57:34', '管理员');

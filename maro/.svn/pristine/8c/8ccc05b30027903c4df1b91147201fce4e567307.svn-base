@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>主页</title>
+		<script type="text/javascript" src="js/setHtmlRem.js" ></script>
+		<link rel="shortcut icon" type="image/x-icon" href="#">
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/zepto.mdatetimer.css" />
+	</head>
+	<body>
+		<div class="container ub ub-ver" id="index" v-cloak>
+			<div class="tab-label ub">
+				<div class="tab-label-item" v-for="(item, index) in info">
+					<button type="button" class="tab-label-btn" @click="tabDeskType(index)" :class="{active: tab===index}">
+						<span>{{item.typeString}}</span>
+					</button>
+				</div>
+			</div>
+			<div class="tab-body ub-f1">
+				<div class="tab-body-item ub-con clearfix" v-for="(itm, idx) in info" v-show="idx===tab">
+					<div class="desk ub ub-ver ub-pe" v-for="(item, index) in itm.list" :data-status="item.status" :class="{hide: item.status!==switchPrp && switchPrp!==null}" @click="alarm(item)">
+						<div class="desk-line ub ub-ac">
+							<div class="desk-text">{{item.name}}</div>
+							<div class="desk-text-sub">{{item.flag}}</div>
+						</div>
+						<div class="desk-line desk-line-money ub ub-ac ub-pc" v-if="item.status==2">
+							<div class="desk-text-paid">已结账</div>
+						</div>
+						<div class="desk-line desk-line-money ub ub-ac" v-if="item.status==1">
+							<div class="desk-text-money" v-if="item.maroClientSeatchangeVO.maroClientServerorderVO">{{item.maroClientSeatchangeVO.maroClientServerorderVO.amount}}</div>
+						</div>
+						<div class="desk-line desk-line-money ub ub-ver ub-ac ub-pj" v-if="item.status===-1&&item.maroClientReserveVOList.length>0"  >
+							<div class="desk-text-file">{{item.maroClientReserveVOList[0].phone}}</div>
+							<div class="desk-text-file">{{item.maroClientReserveVOList[0].customerName}}</div>
+						</div>
+						<div class="desk-line ub ub-ac ub-pe ub-rev">
+							<div class="desk-text" v-if="item.status==1">{{item.maroClientSeatchangeVO.maroClientServerorderVO.personNumber}}人</div>
+							<div class="desk-text" v-if="item.status==-1">{{item.maroClientReserveVOList[0].personNumber}}人</div>
+							<div class="desk-text" v-if="item.status!=1 && item.status!=-1">{{item.number}}座</div>
+						</div>
+						<div class="desk-badge-box clearfix">
+							<div class="desk-badge desk-badge-blue fr" v-if="item.status===-1?item.maroClientReserveVOList.length>1:(item.maroClientReserveVOList.length && item.status!=1)">预定</div>
+							<!--<div class="desk-badge desk-badge-yellow fr" v-if="item.status===1&&item.openInfo.isPrepay">预结</div>-->
+							<div class="desk-badge desk-badge-blue fr" v-if="item.status===1&&item.maroClientSeatchangeVO && item.maroClientSeatchangeVO.group!=null && item.maroClientSeatchangeVO && item.maroClientSeatchangeVO.groupLead==true">主</div>
+							<div class="desk-badge desk-badge-blue fr" v-if="item.status===1&&item.maroClientSeatchangeVO && item.maroClientSeatchangeVO.group!=null">{{item.maroClientSeatchangeVO.groupString}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="room-filter ub">
+				<div class="ub-f1 clearfix">
+					<div class="room-filter-item ub ub-ac ub-pc" v-for="(item, index) in switchArr" :data-prop="item.prop" @click="filterDesk(item, index)" :class="{active: switchIdx===index}">
+						<div class="room-filter-clr room-filter-clr-all"></div>
+						<div class="room-filter-text">{{item.type}}({{lenSwitch(item.prop).length}}桌)</div>
+					</div>
+					<div class="room-filter-input ub ub-ac ub-pc">
+						<input type="text" class="room-filter-ipt" placeholder="输入桌位编号" v-model="deskIdx" @keyup.enter="openDeskModal()">
+					</div>
+				</div>
+				<div class="room-exit">
+					<div class="room-filter-item ub ub-ac ub-pc active" @click="openModal(-3)">
+						<div class="room-filter-text">交班</div>
+					</div>
+					<div class="room-filter-item ub ub-ac ub-pc active" @click="openModal(-2)">
+						<div class="room-filter-text">退出</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="openDesk" :class="{active:myModal===0}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===0">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{objModal.name}}</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="openDesk()">开台</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">就餐人数</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]*" v-model="objModal.people" />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">服务员</div>
+									<div class="modal-form-cell ub-f1">
+										<!--<input type="number" class="input" pattern="[0-9]*" v-model="objModal.waiter" />-->
+										<select class="select"  v-model="objModal.ownWaiter">
+											<!--<template v-for="(item,index) in objModal.waiter">
+												<option :value="item.id" v-if="index == 0" selected>
+													{{item.realName}}
+												</option>
+												<option :value="item.id" v-else>
+													{{item.realName}}
+												</option>
+											</template>-->
+										    <option  v-for="(item,index) in objModal.waiter" :value="item.id" >{{item.realName}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label-top">备注</div>
+									<div class="modal-form-cell ub-f1">
+										<textarea class="textarea" v-model="objModal.remark"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">开台后</div>
+									<div class="modal-form-cell ub-f1">
+										<button type="button" class="btns btns-set" @click="objModal.after=1" :class="{'btns-active': objModal.after===1}">点餐</button>
+										<button type="button" class="btns btns-set" @click="objModal.after=0" :class="{'btns-active': objModal.after===0}">无操作</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="bookDesk" :class="{active:myModal===1}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===1">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{objModal.name}}</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="bookDesk()">提交</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">就餐人数</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]*" min="1" :max="objModal.number" v-model="objModal.people" v-num-only />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">顾客手机</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="tel" class="input" pattern="[0-9]*" v-model="objModal.phone" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">预定日期</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="text" class="input" readonly="" @click="callMdatetimer()" v-model="objModal.bookDate" />
+									</div>
+								</div>
+							</div>
+
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">预定时段</div>
+									<div class="modal-form-cell ub-f1">
+										<button type="button" class="btns btns-set" @click="objModal.period=0" :class="{'btns-active': objModal.period===0}">早</button>
+										<button type="button" class="btns btns-set" @click="objModal.period=1" :class="{'btns-active': objModal.period===1}">午</button>
+										<button type="button" class="btns btns-set" @click="objModal.period=3" :class="{'btns-active': objModal.period===3}">晚</button>
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">预定人</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="text" class="input" v-model="objModal.bookName" />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">用途</div>
+									<div class="modal-form-cell ub-f1">
+										<select class="select" v-model="objModal.usage">
+										    <option v-for="(item,index) in usage"  :value="item.usageVal">{{item.usageName}}</option>
+										</select>
+										<!--<input type="text" class="input" v-model="objModal.usage" />-->
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">订金</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" v-model="objModal.deposit" pattern="[0-9]" v-num-only />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">备注</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="text" class="input" v-model="objModal.remark" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="shade" id="bookDeskHistory" :class="{active:myModal===2||myModal===6  }" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===2||myModal===6  ">
+					<div class="modal-head ub">
+						<div class="ub-f1">预定记录</div>
+					</div>
+					<div class="modal-foot" v-if="objModal.bookInfo.length">
+						<button type="button" v-if="myModal===2" class="btns btns-set btns-submit" @click="bookOpenDesk()">开台</button>
+						<button type="button" v-if="myModal===6" class="btns btns-set btns-submit" @click="cancelOrder()">取消预定</button>
+
+					</div>
+					<div class="modal-body ub-f1">
+						<table class="modal-table modal-table-book">
+							<tr class="modal-table-tr">
+								<th>预定时间</th>
+								<th>预定人</th>
+								<th>顾客手机</th>
+								<th>人数</th>
+								<th>桌位</th>
+							</tr>
+							<tr class="modal-table-tr" v-for="(item, index) in objModal.bookInfo" v-if="objModal.status==-1 || objModal.status==0 " @click="pickBookHistory(item)" :class="{active: curBook&&curBook.id===item.id}">
+								<td>{{item.reserveTimeString}}&nbsp{{item.periodString}}</td>
+								<td>{{item.customerName}}</td>
+								<td>{{item.phone}}</td>
+								<td>{{item.personNumber}}</td>
+								<td>{{item.destSeatName}}</td>
+							</tr>
+							<tr v-if="objModal.status!==-1&&objModal.bookInfo.length===0 ">
+								<td colspan="5">无预定记录</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="mask ub ub-ver" id="deskOperation" :class="{active:myModal===3||myModal===4}">
+				<div class="tab-label ub">
+					<div class="tab-label-item" v-for="(item, index) in info">
+						<button type="button" class="tab-label-btn" @click="tabDeskType(index)" :class="{active: tab===index}">
+							<span>{{item.typeString}}</span>
+						</button>
+					</div>
+				</div>
+				<div class="tab-body ub-f1">
+					<div class="tab-body-item ub-con clearfix" v-for="(itm, idx) in info" v-show="idx===tab">
+						<div class="desk ub ub-ver ub-pe" v-for="(item, index) in itm.list" :data-status="item.status" :class="{hide: (item.status!==0&& myModal===3) || ((item.status!==1 && myModal===4) && item.status!==0 ) || (item.status===1 && myModal===4 && item.maroClientSeatchangeVO && item.maroClientSeatchangeVO.groupString!=null)}" @click="pickDesk(item)">
+							<div class="desk-line ub ub-ac">
+								<div class="desk-text">{{item.name}}</div>
+								<div class="desk-text-sub">{{item.flag}}</div>
+								<!--<div class="desk-text-sub">{{item.no}}</div>-->
+							</div>
+							<div class="desk-line desk-line-money ub ub-ac" v-if="item.status==1">
+								<div class="desk-text-money" v-if="item.maroClientSeatchangeVO.maroClientServerorderVO">{{item.maroClientSeatchangeVO.maroClientServerorderVO.amount}}</div>
+							</div>
+							<div class="desk-line ub ub-ac ub-pe ub-rev">
+								<div class="desk-text" v-if="item.status==1">{{item.maroClientSeatchangeVO.maroClientServerorderVO.personNumber}}人</div>
+								<div class="desk-text" v-if="item.status==-1">{{item.maroClientReserveVOList[0].personNumber}}人</div>
+								<div class="desk-text" v-if="item.status!=1 && item.status!=-1">{{item.number}}座</div>
+							</div>
+							<div class="desk-badge-box clearfix">
+								<!--<div class="desk-badge desk-badge-blue" v-if="item.status===-1?item.bookInfo.length>1:item.bookInfo.length">预定</div>-->
+							</div>
+							<i class="iconfont icon-tick desk-tick" :class="{active: objModal&&(myModal===3&&objModal.newId===item.id || myModal===4&&objModal.newId.indexOf(item.id)!==-1)}"></i>
+						</div>
+					</div>
+				</div>
+				<div class="room-filter desk-opt-btn">
+					<button type="button" class="btns btns-set" @click="clsModal()">返回</button>
+					<button type="button" class="btns btns-set btns-confirm" @click="optDesk()">确定</button>
+				</div>
+			</div>
+			
+			<div class="shade" id="orderCancel" :class="{active:myModal===5}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===5">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{objModal.name}}</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="cancelOrder()">确定取消</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub ub-ac">
+									<div class="modal-form-label-top">取消原因</div>
+									<div class="modal-form-cell ub-f1">
+										<textarea class="textarea" v-model="objModal.reason"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="orderCancel" :class="{active:myModal===-2}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===-2">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{objModal.name}}</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="exit()">确定退出</button>
+						<button type="button" class="btns btns-set" @click="clsModal()">取消</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub ub-ac tx-c">确定退出登录吗？</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="shade" id="orderCancel" >
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===-3">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{objModal.name}}</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="exit()">确定退出</button>
+						<button type="button" class="btns btns-set" @click="clsModal()">取消</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub ub-ac tx-c">确定退出登录吗？</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="mask" :class="{active:myModal===-3}" >
+				<div class="jb ub-con ub ub-ver">
+					<div class="jb-top tx-l ub">
+						<div class="ub-f1">
+							<div class="jb-top-row">
+								<span class="jb-top-text">当班时间：{{openTime}}<span class="jb-top-text-extra">至</span>{{nowTime}}</span>
+								<span class="jb-top-text">开班人：{{openPersonName}}</span>
+								<!--<span class="jb-top-text">收到押金：0.00</span>-->
+							</div>
+							<div class="jb-top-row">
+								<span class="jb-top-text">应收金额：{{ysje}}</span>
+								<span class="jb-top-text">实收金额：{{ssje}}</span>
+								<!--<span class="jb-top-text">使用押金：0.40</span>-->
+								<!--<span class="jb-top-text">上班余额：<div class="jb-top-input"><input type="text" class="input"></div></span>-->
+								<!--<span class="jb-top-text">备用金额：<div class="jb-top-input"><input type="text" class="input"></div></span>-->
+							</div>
+						</div>
+						<div class="jb-close" @click="clsModal()">
+							<div class="jb-close-btn">×</div>
+						</div>
+					</div>
+					<div class="jb-main ub-f1 ub ub-ver">
+						
+						<div class="jb-block ub-f1 ub">
+							<div class="jb-block-name ub ub-ac ub-pc">
+								<div>本班收款情况</div>
+							</div>
+							<div class="jb-block-con jb-table-box ub-f1 ub ub-ver">
+								<div class="jb-table-top">
+									<table class="modal-table">
+										<tr class="modal-table-tr">
+											<th>收款类型</th>
+											<th>消费笔数</th>
+											<th>收款金额</th>
+											<!--<th>会员充值</th>-->
+											<!--<th>会员卡押金</th>-->
+											<!--<th>退款金额</th>-->
+											<!--<th>金额合计</th>-->
+										</tr>
+									</table>
+								</div>
+								<div class="jb-table-con ub-f1">
+									<table class="modal-table">
+										<tr v-for="(item,index) in bbskqk">
+											<td>{{item.payname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.amountpart}}</td>
+											<!--<td>会员充值</td>-->
+											<!--<td>会员卡押金</td>-->
+											<!--<td>退款金额</td>-->
+											<!--<td>金额合计</td>-->
+										</tr>
+
+									</table>
+								</div>
+								<div class="jb-table-btm">
+									<table class="modal-table">
+										<tr>
+											<td>合计</td>
+											<td>{{consumeAmount}}</td>
+											<td>￥{{gatheringAmount}}</td>
+											<!--<td>￥0.00</td>-->
+											<!--<td>￥0.00</td>-->
+											<!--<td>￥0.00</td>-->
+											<!--<td>￥0.00</td>-->
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						<div class="jb-block ub">
+							<div class="jb-block-name ub ub-ac ub-pc">
+								<div>本班营业情况</div>
+							</div>
+							<div class="jb-block-con ub-f1 ub ub-ac">
+								<div class="jb-list-con clearfix tx-l">
+									<div class="jb-list-four fl" v-for="(item,index) in bbyyqk"><span class="jb-list-label" >{{item.name}}</span>{{item.value}}</div>
+
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="jb-block ub">
+							<div class="jb-block-name-lg ub ub-ac ub-pc">
+								<div>本班会员情况</div>
+							</div>
+							<div class="jb-block-con ub-f1 ub ub-ac">
+								<div class="jb-list-con clearfix tx-l">
+									暂无
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">会员开卡数</span>0</div>-->
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">充值金额</span>￥0.00</div>-->
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">会员卡押金</span>￥0.00</div>-->
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">充值赠送金额</span>￥0.00</div>-->
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">充值赠送积分</span>0</div>-->
+									<!--<div class="jb-list-three fl"><span class="jb-list-label">退卡金额</span>￥0.00</div>-->
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="jb-btm">
+						<button type="button" class="btns btns-active" @click="shiftAndBack">交班并退出</button>
+					</div>
+				</div>
+			</div>
+
+			<input type="hidden" readonly="readonly" id="datetime" />
+			<input type="hidden" readonly="readonly" id="datetime2" />
+		</div>
+		
+		<script type="text/javascript" src="js/common.js" ></script>
+		<script type="text/javascript" src="js/zepto-1.1.6.min.js" ></script>
+		<script type="text/javascript" src="js/zepto.mdatetimer.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/sweetalert2.min.js" ></script>
+		<script type="text/javascript" src="js/index.js" ></script>
+	</body>
+</html>

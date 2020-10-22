@@ -1,0 +1,63 @@
+package com.maro.manager.print.entity;
+
+/**
+ * 换台单
+ * @author Administrator
+ *
+ */
+public class ChangeChannel extends PrinterIp {
+	
+	//人数
+	private String number;
+	//账单号
+	private String billMark;
+	//桌名
+	private String seatName;
+	// 换台时间
+	private String changeChannelTime;
+	//原台名
+	private String rawsSeatName;
+	//目标台
+	private String targetSeatName;
+	
+	
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getBillMark() {
+		return billMark;
+	}
+	public void setBillMark(String billMark) {
+		this.billMark = billMark;
+	}
+	public String getSeatName() {
+		return seatName;
+	}
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
+	}
+	public String getChangeChannelTime() {
+		return changeChannelTime;
+	}
+	public void setChangeChannelTime(String changeChannelTime) {
+		this.changeChannelTime = changeChannelTime;
+	}
+	public String getRawsSeatName() {
+		return rawsSeatName;
+	}
+	public void setRawsSeatName(String rawsSeatName) {
+		this.rawsSeatName = rawsSeatName;
+	}
+	public String getTargetSeatName() {
+		return targetSeatName;
+	}
+	public void setTargetSeatName(String targetSeatName) {
+		this.targetSeatName = targetSeatName;
+	}
+	
+	
+	
+}

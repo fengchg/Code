@@ -1,0 +1,351 @@
+<template>
+  <div class="page" v-cloak>
+    <yd-layout class="content">
+      <yd-navbar class="bg-theme" slot="navbar" title="点餐">
+        <!-- <router-link to="/detail"> -->
+        <div slot="right" @click="switchOptionPopup" v-if="menu.length">
+          <yd-icon name="more"></yd-icon>
+        </div>
+        <!-- </router-link> -->
+      </yd-navbar>
+      <div class="scrolltab">
+        <yd-scrolltab v-if="menu.length > 0">
+          <yd-scrolltab-panel v-for="item, index in menu" :key="index" :label="item.typeString" icon="">
+            <yd-list theme="4" class="my-list-meal">
+              <yd-list-item v-for="value, key in item.menuItemResultDTOList" :key="key">
+                <div slot="title" class="my-list-title">{{value.maroDishesEntity.dishesName}}</div>
+                <div slot="title" class="my-list-title-note">{{value.maroDishesEntity.describes}}</div>
+                <yd-list-other slot="other">
+                  <div>
+                    <span class="my-price fc-theme"><em>¥</em>{{value.maroDishesEntity.salesPrice || '--'}}</span>
+                    <template v-if="value.maroDishesEntity.costPrice && value.maroDishesEntity.salesPrice<value.maroDishesEntity.costPrice">
+                      <span class="my-price-old fc-theme"><em>¥</em>{{value.maroDishesEntity.costPrice}}</span>
+                    </template>
+                  </div>
+                  <div>
+                    <template v-if="value.maroDishesEntity.specificationsList.length>1">
+                      <button type="button" class="my-list-format-btn" @click="openFormatPopup(value.maroDishesEntity)">选规格</button>
+                    </template>
+                    <!-- <cart-ctrl v-else :food="value.maroDishesEntity" :judge="true" @getFoodQuan="handleFoodQuan($event)" @zeroFoodQuan="zeroFoodQuan($event, index)"></cart-ctrl> -->
+                    <template v-else>
+                      <button type="button" class="my-list-format-btn" @click="openFormatPopup(value.maroDishesEntity)">+ 加入购物车</button>
+                    </template>
+                  </div>
+                </yd-list-other>
+              </yd-list-item>
+            </yd-list>
+          </yd-scrolltab-panel>
+        </yd-scrolltab>
+      </div>
+      <div slot="bottom" class="my-buy">
+        <yd-flexbox class="my-buy-box">
+          <yd-flexbox-item>
+            <div class="my-buy-left yd-flexbox">
+              <div class="my-buy-btn bg-theme" @click="triggerBuyList">
+                <yd-icon name="shopcart-outline" size=".6rem" color="#FFF"></yd-icon>
+                <div class="my-buy-btn-amount" :class="{'active': pickObj.sumAmount}">{{pickObj.sumAmount}}</div>
+                <drop ref="ball"></drop>
+              </div>
+              <div class="my-price fc-theme"><em>¥</em>{{pickObj.sumPrice}}</div>
+            </div>
+          </yd-flexbox-item>
+          <div class="my-buy-right">
+            <button type="button" class="my-buy-pay" :class="pick.length > 0 ? 'bg-theme' : 'bg-disabled'" @click="pickDone">
+              <span class="my-buy-pay-text" v-text="pick.length > 0 ? '选好了' : '请选择'"></span>
+            </button>
+          </div>
+        </yd-flexbox>
+      </div>
+      <buy-list :list="pick" :buyFlag="showBuyFlag" @getShowBuyFlag="getShowBuyFlag($event)"></buy-list>
+    </yd-layout>
+    <yd-popup v-model="formatFlag" width="80%" position="center">
+      <format-popup :food="currentFood" :flag="formatFlag" @clsFormatPopup="clsFormatPopup($event)"></format-popup>
+    </yd-popup>
+    <yd-popup v-model="optionFlag" class="opts" width="100%" position="center">
+      <option-popup @clsOptionPopup="switchOptionPopup($event)"></option-popup>
+    </yd-popup>
+  </div>
+</template>
+<script>
+// import pub from '@/assets/js/publish.js'
+import cartCtrl from '../compo/CartCtrl'
+import formatPopup from '../compo/FormatPopup'
+import buyList from '../compo/BuyList'
+import drop from '../compo/Drop'
+import optionPopup from '../compo/OptionPopup'
+export default {
+  data() {
+    return {
+      order: [],
+      pick: [],
+      menu: [],
+      type: [],
+      showBuyFlag: false,
+      formatFlag: false,
+      optionFlag: false,
+      currentFood: null,
+      multiClickTarget: null
+    }
+  },
+  components: {
+    cartCtrl, formatPopup, buyList, drop, optionPopup
+  },
+  computed: {
+    pickObj() {
+      let sumAmount = 0,
+        sumPrice = 0;
+      for (let i = 0; i < this.pick.length; i++) {
+        let tp = this.pick[i]
+        sumAmount += Number(tp.quantity)
+
+        if (tp.hasOwnProperty('spec')) {
+          sumPrice += Number(tp.spec.unitPrice) * Number(tp.quantity)
+        } else {
+          sumPrice += Number(tp.salesPrice) * Number(tp.quantity)
+        }
+      }
+
+      if (!sumAmount) {
+        this.showBuyFlag = false
+      }
+      return {
+        'sumAmount': sumAmount,
+        'sumPrice': sumPrice
+      }
+    }
+  },
+  watch: {
+    pick: {
+      handler (val, oldVal) {
+        // 循环统计菜品类别中的数量
+        this.$nextTick(() => {
+          let nodes = document.querySelectorAll('.yd-scrolltab-item')
+
+          // 先清零
+          for (let h = 0; h < this.type.length; h++) {
+            this.type[h].q = 0
+          }
+
+          // 再统计出各类别有多少菜品在购物车中
+          uno:
+          for (let i = 0; i < val.length; i++) {
+            dos:
+            for (let j = 0; j < this.type.length; j++) {
+              if (val[i].dishesClassification === this.type[j].type) {
+                this.type[j].q += val[i].quantity
+                break dos
+              }
+            }
+          }
+
+          // 最后是DOM节点处理
+          for (let k = 0; k < nodes.length; k++) {
+            if (nodes[k].querySelector('.my-scrolltab-badge')) {
+              // 如果该类别已经有角标
+              if (this.type[k].q > 0) {
+                nodes[k].querySelector('.my-scrolltab-badge').innerHTML = this.type[k].q
+              } else {
+                nodes[k].removeChild(nodes[k].querySelector('.my-scrolltab-badge'))
+              }
+            } else {
+              // 如果该类别无角标
+              if (this.type[k].q > 0) {
+                let child = document.createElement('div')
+                child.classList.add('my-scrolltab-badge')
+                child.appendChild(document.createTextNode(this.type[k].q))
+                nodes[k].appendChild(child)
+              }
+            }
+          }
+        })
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.getData()
+    // 登录
+    this.$route.meta.keepAlive = true
+    /*let param_login = new URLSearchParams()
+    param_login.append('user', 'y1')
+    param_login.append('pass', '888888')
+    param_login.append('isLogin', true)
+    this.$http.post('clientUserController.do?login', param_login)
+      .then((res) => {
+        localStorage.sessionId = res.data.attributes.sessionId
+        this.getData()
+      })
+      .catch((err) => {
+        this.$dialog.notify({
+          mes: '后台未启动~',
+          timeout: 5000
+        })
+      })*/
+  },
+  methods: {
+    getData() {
+      this.$dialog.loading.open('努力获取菜单中');
+      this.$store.dispatch('setSeatId', '612b0863c589469d8a372f0141e186d7')
+      // 获取菜单和已点的菜
+      let param = new URLSearchParams()
+      param.append('openId', 'chidalu')
+      param.append('seatId', '612b0863c589469d8a372f0141e186d7')
+      param.append('user', 'heshanlong')
+      param.append('pass', '88888888')
+      this.$http.post('maroClientServerorderController.do?listMenuForApp', param)
+        .then((res) => {
+          console.log(res)
+          console.log(res.data.obj.serverorderId);
+          if (res.data.success) {
+            this.$dialog.loading.close()
+            if(res.data.obj.serverorderId!="null"){
+              this.$store.dispatch('setOrderId', res.data.obj.serverorderId)
+            }
+            this.$store.dispatch('setSeatName', res.data.obj.maroShopSeatEntity.name)
+            this.handleMenu(res.data.obj.menuItemGroupResultDTOList)
+            this.handleOrder(res.data.obj.maroClientFoodorderVOList)
+          } else {
+            this.getMenuError(res)
+          }
+        })
+        .catch((err) => {
+          this.getMenuError(err)
+        })
+    },
+    getMenuError(obj) {
+      this.$dialog.loading.close()
+
+      // 获取数据出错的回调函数
+      this.$dialog.notify({
+        mes: '暂时无法获取菜单，请稍后重新扫码。',
+        timeout: 5000
+      })
+    },
+    handleMenu(arr) {
+      // 菜单数据处理
+      this.menu = [].concat(arr)
+      console.log(arr)
+
+      this.menu.forEach((n, i) => {
+        let thisObj = {
+          type: n.type,
+          typeString: n.typeString,
+          q: 0
+        }
+        this.type.push(thisObj)
+
+        // 新增个数字段
+        n.menuItemResultDTOList.forEach((m, j) => {
+          this.$set(m.maroDishesEntity, 'quantity', 0)
+        })
+      })
+    },
+    handleOrder(arr) {
+      // 订单数据处理
+      this.order = [].concat(arr)
+      console.log(arr)
+    },
+    zeroFoodQuan(v, i) {
+      // 菜品减到0, 从购物车删去该条记录
+      this.pick.splice(i, 1)
+    },
+    handleFoodQuan(target) {
+      // 点击加减组件后, 返回菜品对象 target
+      this.formatFlag = target.isMulti
+      if (target.isMulti) {
+        // 多规格true, 打开选择规格的 FormatPopup
+        this.currentFood = target.obj
+        this.multiClickTarget = target.evt
+      } else {
+        // 多规格false
+        // 判断是否在购物车
+        this.$refs.ball.drop(target.evt.target)
+
+        let fg = false
+        for (let i = 0; i < this.pick.length; i++) {
+          if (this.pick[i].id === target.obj.id) {
+            fg = true
+            break;
+          }
+        }
+
+        // 如果不在购物车, 则添加
+        if (!fg) {
+          this.pick.push(target.obj)
+        }
+      }
+    },
+    openFormatPopup(val) {
+      // 打开选择规格的popup
+      let jsonPopup = {
+        obj: val,
+        isMulti: true,
+        evt: event
+      }
+
+      this.handleFoodQuan(jsonPopup)
+    },
+    clsFormatPopup(val) {
+      // 点击选择规格的popup右上角, 关闭该popup
+      this.formatFlag = false
+
+      if (!val) return
+
+      this.$refs.ball.drop(this.multiClickTarget.target)
+      // 判断该规格的菜品是否在购物车
+      let fg = false
+      for (let i = 0; i < this.pick.length; i++) {
+        let pk = this.pick[i]
+        // 判断: 是否同一个菜品, 是否同一个规格, 是否同一个备注; 至少有1个不同, 都算独立一项列出
+        if (pk.id === this.currentFood.id && pk.hasOwnProperty('spec') && pk.spec.id === val.id && pk.spec.remarkIpt === val.remarkIpt && pk.spec.remarkArr.sort().toString() === val.remarkArr.sort().toString()) {
+          pk.quantity++
+          fg = true
+          break
+        }
+      }
+
+      // 如果不在购物车
+      if (!fg) {
+        this.pick.push(JSON.parse(JSON.stringify(this.currentFood)))
+        this.$set(this.pick[this.pick.length - 1], 'spec', val)
+        this.$set(this.pick[this.pick.length - 1], 'quantity', 1)
+      }
+      this.currentFood = null
+      this.multiClickTarget = null
+    },
+    getShowBuyFlag(val) {
+      this.showBuyFlag = false
+    },
+    triggerBuyList() {
+      // 显示已选商品的popup
+      if (this.pick.length === 0) {
+        this.showBuyFlag = false
+        return
+      }
+      this.showBuyFlag = !this.showBuyFlag
+    },
+    switchOptionPopup(val) {
+      // 控制 option 弹窗的显隐, 根据传参类型
+      this.optionFlag = (typeof val === 'object')
+    },
+    pickDone() {
+      //选好之后跳转到确认订单页
+      this.getShowBuyFlag()
+      if (this.pick.length === 0) return
+
+      this.$store.dispatch('setPick', this.pick)
+      this.$store.dispatch('setSum', this.pickObj.sumPrice)
+      this.$store.dispatch('setAmount', this.pickObj.sumAmount)
+
+      this.$router.push({
+        name: 'OrderConfirm'
+      })
+    }
+  }
+}
+
+</script>
+<style>
+
+
+</style>

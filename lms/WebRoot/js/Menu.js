@@ -1,0 +1,22 @@
+$(document).ready(function(){
+	//为每个菜单项增加点击事件
+	$('#Nav>li').click(function(){
+		//展开该菜单
+		$(this).find('ul').slideDown('slow');
+		//关闭该菜单之前的所有菜单
+		$(this).prevAll('#Nav>li').each(function(){
+			$(this).find('ul').slideUp('fast');
+		});
+		//关闭该菜单之后的所有菜单
+		$(this).nextAll('#Nav>li').each(function(){
+			$(this).find('ul').slideUp('fast');
+		});
+		
+	});
+	//如果页面中没有标记默认打开菜单，就打开首个菜单项
+	if($("#Nav>li>ul[open='true']").length>0){
+		$("#Nav>li>ul[open='true']").first().slideDown('slow');
+	}else{
+		$('#Nav>li').first().find('ul').slideDown('slow');
+	}
+});

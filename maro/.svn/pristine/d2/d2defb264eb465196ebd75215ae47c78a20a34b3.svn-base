@@ -1,0 +1,526 @@
+package com.maro.client.module.serverorder.controller.impl;
+
+import com.jpay.ext.kit.StrKit;
+import com.maro.client.common.constant.StringConstant;
+import com.maro.client.common.util.PojoUtil;
+import com.maro.client.module.pay.util.WechatUtil;
+import com.maro.client.module.serverorder.apply.ServerOrderApplyService;
+import com.maro.client.module.serverorder.controller.MaroClientServerorderController;
+import com.maro.client.module.serverorder.pojo.dto.*;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.client.module.serverorder.pojo.vo.MaroClientServerorderVO;
+import com.maro.client.module.serverorder.pojo.vo.SeatListVO;
+import com.maro.client.module.serverorder.service.MaroClientServerorderService;
+import com.maro.client.module.user.service.UserService;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.shop.service.MaroCommonShopServiceI;
+import com.maro.common.users.member.pojo.vo.MaroCommonMemberEntity;
+import com.maro.common.users.member.server.MaroCommonMemberServiceI;
+import com.maro.common.users.tsuser.pojo.vo.UserInfoVO;
+import com.maro.common.users.tsuser.server.MaroCommonUserService;
+import com.maro.platform.core.annotation.JAuth;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.common.model.json.DataGrid;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.tag.core.easyui.TagUtil;
+import com.maro.platform.web.system.pojo.base.TSUser;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.JavaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@JAuth
+@Controller
+@RequestMapping("/maroClientServerorderController")
+public class MaroClientServerorderControllerImpl implements MaroClientServerorderController{
+    @Resource
+    private ServerOrderApplyService serverOrderApplyService;
+    @Resource
+    private MaroClientServerorderService maroClientServerorderService;
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Resource
+    private MaroCommonUserService maroCommonUserService;
+
+    @Resource
+    private MaroCommonMemberServiceI maroCommonMemberService;
+    @Resource
+    private MaroCommonShopServiceI maroCommonShopService;
+
+    @Resource(name="clientUserServiceImpl")
+    private UserService userService;
+
+    private static final String GET_SERVERORDER_PAGE = "com/maro/client/serverorder/getServerorderPage";
+    private static final String LIST_SERVERORDER_PAGE = "com/maro/client/serverorder/listServerorderPage";
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+    @Override
+    @RequestMapping(params = "listServerOrderDOPage")
+    public ModelAndView listServerOrderDOPage(HttpServletRequest request, HttpServletResponse response) {
+        return new ModelAndView(LIST_SERVERORDER_PAGE);
+    }
+
+    @Override
+    @RequestMapping(params = "listServerOrderDO")
+    public void listServerOrderDO(HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid,MaroClientServerorderDTO maroClientServerorderDTO) {
+        List<MaroClientServerorderDO> maroClientServerorderDOs = maroClientServerorderService.listServerOrderDO(maroClientServerorderDTO);
+        List<MaroClientServerorderVO> maroClientServerorderVO = PojoUtil.convertBatchDO2VO(maroClientServerorderDOs, MaroClientServerorderVO.class);
+        dataGrid.setResults(maroClientServerorderVO);
+        TagUtil.datagrid(response, dataGrid);
+    }
+
+    @Override
+    @RequestMapping(params = "getServerOrder")
+    public MaroClientServerorderDTO getServerOrder(String serverOrderId) {
+        //结账获取订单信息时，更新该订单价格
+        MaroClientServerorderDO maroClientServerorderDO = new MaroClientServerorderDO();
+        maroClientServerorderDO.setId(serverOrderId);
+        serverOrderApplyService.updateServerOrderAmount(maroClientServerorderDO);
+        return serverOrderApplyService.getServerOrder(serverOrderId);
+    }
+
+    /**
+     * 重载方法，可以从session中获取班次信息并设置到服务订单中去
+     * @param request
+     * @param serverOrderId
+     * @return
+     */
+    public MaroClientServerorderDTO getServerOrder(HttpServletRequest request,String serverOrderId) {
+        //结账获取订单信息时，更新该订单价格
+        MaroClientServerorderDO maroClientServerorderDO = new MaroClientServerorderDO();
+        maroClientServerorderDO.setId(serverOrderId);
+        serverOrderApplyService.updateServerOrderAmount(maroClientServerorderDO);
+        return serverOrderApplyService.getServerOrder(serverOrderId);
+    }
+
+    @Override
+    @RequestMapping(params = "getServerOrderPage")
+    public ModelAndView getServerOrderPage(HttpServletRequest request, HttpServletResponse response,String serverOrderId) {
+        MaroClientServerorderDTO maroClientServerorderDTO = getServerOrder(serverOrderId);
+        request.setAttribute("maroClientServerorderDTO",maroClientServerorderDTO);
+        return new ModelAndView(GET_SERVERORDER_PAGE);
+    }
+
+    @Override
+    @RequestMapping(params = "listSeat")
+    @ResponseBody
+    public AjaxJson listSeat() {
+        //查询实时桌位信息时，批量更新订单价格
+        serverOrderApplyService.updateBatchServerOrderAmount();
+        //查询实时桌位信息时，批量更新订单桌位变更记录
+        serverOrderApplyService.updateBatchServerOrderSeatchange();
+        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+        String restanrantId = sessionUser.getMaroShopEntity().getId();
+        List<SeatListVO> maroShopSeatVOList = serverOrderApplyService.listSeat(restanrantId);
+
+        serverOrderApplyService.sendServerorderToMq();
+
+        AjaxJson ajaxJson = new AjaxJson();
+        ajaxJson.setObj(maroShopSeatVOList);
+        ajaxJson.setSuccess(true);
+        ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "open")
+    @ResponseBody
+    public AjaxJson open(MaroClientServerorderDTO dto) {
+        AjaxJson ajaxJson = serverOrderApplyService.open(dto);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "cancel")
+    @ResponseBody
+    public AjaxJson cancel(String serverorderId) {
+        serverOrderApplyService.cancal(serverorderId);
+        AjaxJson ajaxJson = new AjaxJson();
+        ajaxJson.setSuccess(true);
+        ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "clear")
+    @ResponseBody
+    public AjaxJson clear(String serverorderId) {
+        serverOrderApplyService.clear(serverorderId);
+        AjaxJson ajaxJson = new AjaxJson();
+        ajaxJson.setSuccess(true);
+        ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "listMenu")
+    @ResponseBody
+    public AjaxJson listMenu(String serverOrderId, String seatId) {
+        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+        MaroShopEntity maroShopEntity = sessionUser.getMaroShopEntity();
+        MenuResultDTO menuResultDTO = serverOrderApplyService.listMenu(serverOrderId,maroShopEntity,seatId);
+        AjaxJson ajaxJson = new AjaxJson();
+        ajaxJson.setSuccess(true);
+        ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        ajaxJson.setObj(menuResultDTO);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "orderFood")
+    @ResponseBody
+    public AjaxJson orderFood(String foodOrderParamsDTOString) {
+        AjaxJson ajaxJson = null;
+        FoodOrderParamsDTO foodOrderParamsDTO = null;
+        try {
+            foodOrderParamsDTO = objectMapper.readValue(foodOrderParamsDTOString, FoodOrderParamsDTO.class);
+            ajaxJson = serverOrderApplyService.orderFood(foodOrderParamsDTO);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson = new AjaxJson();
+            ajaxJson.setSuccess(false);
+            ajaxJson.setMsg(StringConstant.TIP_PARAMS_ERROR);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "changeSeat")
+    @ResponseBody
+    public AjaxJson changeSeat(SeatchangeParamsDTO seatchangeParamsDTO) {
+        AjaxJson ajaxJson = serverOrderApplyService.changeSeat(seatchangeParamsDTO);
+        return ajaxJson;
+    }
+
+
+    @Override
+    @RequestMapping(params = "mergeListSeat")
+    @ResponseBody
+    public AjaxJson mergeListSeat(String mergeListSeatJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, SeatchangeParamsDTO.class);
+            List<SeatchangeParamsDTO> seatchangeParamsDTOList = objectMapper.readValue(mergeListSeatJson, javaType);
+
+            ajaxJson = serverOrderApplyService.mergeListSeat(seatchangeParamsDTOList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson = PojoUtil.createAjaxJson(false, null);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "cancelMergeSeat")
+    @ResponseBody
+    public AjaxJson cancelMergeSeat(SeatchangeParamsDTO seatchangeParamsDTO) {
+        Boolean success = serverOrderApplyService.cancelMergeSeat(seatchangeParamsDTO);
+        AjaxJson ajaxJson = PojoUtil.createAjaxJson(success,null);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "finishFood")
+    @ResponseBody
+    public AjaxJson finishFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        AjaxJson ajaxJson = serverOrderApplyService.finishFood(foodOrderParamsDTO);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "cookedFood1")
+    @ResponseBody
+    public AjaxJson cookedFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        AjaxJson ajaxJson = serverOrderApplyService.cookedFood(foodOrderParamsDTO);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "UrgeFood")
+    @ResponseBody
+    public AjaxJson UrgeFood(String foodOrderParamsDTOJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            FoodOrderParamsDTO foodOrderParamsDTO = objectMapper.readValue(foodOrderParamsDTOJson, FoodOrderParamsDTO.class);
+            ajaxJson = serverOrderApplyService.UrgeFood(foodOrderParamsDTO);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson = new AjaxJson();
+            ajaxJson.setMsg(StringConstant.TIP_FAIL);
+            ajaxJson.setSuccess(false);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "refundFood")
+    @ResponseBody
+    public AjaxJson refundFood(String foodOrderParamsDTOJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            FoodOrderParamsDTO foodOrderParamsDTO = objectMapper.readValue(foodOrderParamsDTOJson, FoodOrderParamsDTO.class);
+            ajaxJson = serverOrderApplyService.refundFood(foodOrderParamsDTO);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson.setMsg(StringConstant.TIP_FAIL);
+            ajaxJson.setSuccess(false);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "unFinishFood")
+    @ResponseBody
+    public AjaxJson unFinishFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        AjaxJson ajaxJson = serverOrderApplyService.unFinishFood(foodOrderParamsDTO);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "giftFood")
+    @ResponseBody
+    public AjaxJson giftFood(String foodOrderParamsDTOJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            FoodOrderParamsDTO foodOrderParamsDTO = objectMapper.readValue(foodOrderParamsDTOJson, FoodOrderParamsDTO.class);
+             ajaxJson = serverOrderApplyService.giftFood(foodOrderParamsDTO);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson.setMsg(StringConstant.TIP_FAIL);
+            ajaxJson.setSuccess(false);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "changeFoodTempPrice")
+    @ResponseBody
+    public AjaxJson changeFoodTempPrice(FoodOrderParamsDTO foodOrderParamsDTO) {
+        AjaxJson ajaxJson = serverOrderApplyService.changeFoodTempPrice(foodOrderParamsDTO);
+        return ajaxJson;
+    }
+
+
+    @Override
+    @RequestMapping(params = "listRefundFood")
+    @ResponseBody
+    public AjaxJson listRefundFood(String serverorderId, String seatId) {
+        AjaxJson ajaxJson = serverOrderApplyService.listRefundFood(serverorderId,seatId);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "updateServerorder")
+    @ResponseBody
+    public AjaxJson updateServerorder(MaroClientServerorderDO maroClientServerorderDO) {
+        AjaxJson ajaxJson = serverOrderApplyService.updateServerorder(maroClientServerorderDO);
+        return ajaxJson;
+    }
+
+
+    @Override
+    @RequestMapping(params = "pay")
+    @ResponseBody
+    public AjaxJson pay(HttpServletRequest request,String payParamsDTOJson){
+        AjaxJson ajaxJson = new AjaxJson();
+        try {
+            PayParamsDTO payParamsDTO = objectMapper.readValue(payParamsDTOJson, PayParamsDTO.class);
+            ajaxJson = serverOrderApplyService.pay(payParamsDTO);
+            if(ajaxJson.isSuccess()) {
+                String serverorderId = payParamsDTO.getMaroClientServerorderDO().getId();
+                MaroClientServerorderDTO serverOrder = getServerOrder(request,serverorderId);
+                ajaxJson.setObj(serverOrder);
+                //设置该订单的shiftcode
+                Object obj = request.getSession().getAttribute("shiftCode");
+                String shiftCode=obj==null?null:obj.toString();
+                maroClientServerorderService.updateServerOrderDOById(shiftCode,serverorderId);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson.setMsg(StringConstant.TIP_FAIL);
+            ajaxJson.setSuccess(false);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "getServerOrderById")
+    @ResponseBody
+    public AjaxJson getServerOrderById(String serverOrderId) {
+        //结账获取订单信息时，更新该订单价格
+        MaroClientServerorderDO maroClientServerorderDO = new MaroClientServerorderDO();
+        maroClientServerorderDO.setId(serverOrderId);
+        serverOrderApplyService.updateServerOrderAmount(maroClientServerorderDO);
+        MaroClientServerorderDTO maroClientServerorderDTO = serverOrderApplyService.getServerOrder(serverOrderId);
+        AjaxJson ajaxJson = new AjaxJson();
+        ajaxJson.setSuccess(true);
+        ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        ajaxJson.setObj(maroClientServerorderDTO);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "getMember")
+    @ResponseBody
+    public AjaxJson getMember(String phone) {
+        MaroCommonMemberEntity maroCommonMemberEntity = maroCommonMemberService.getByPohne(phone);
+        AjaxJson ajaxJson = new AjaxJson();
+        if(maroCommonMemberEntity != null) {
+            ajaxJson.setObj(maroCommonMemberEntity);
+            ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+        }else{
+            ajaxJson.setMsg(StringConstant.TIP_GETMEMBER_NO_FIND_MENBER);
+        }
+        ajaxJson.setSuccess(true);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "changeFoodListTo")
+    @ResponseBody
+    public AjaxJson changeFoodListTo(String foodOrderParamsDTOJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            FoodOrderParamsDTO foodOrderParamsDTO = objectMapper.readValue(foodOrderParamsDTOJson, FoodOrderParamsDTO.class);
+            ajaxJson = serverOrderApplyService.changeFoodListTo(foodOrderParamsDTO);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson.setMsg(StringConstant.TIP_FAIL);
+            ajaxJson.setSuccess(false);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "orderFoodToListSeat")
+    @ResponseBody
+    public AjaxJson orderFoodToListSeat(String foodOrderParamsDTOListJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, FoodOrderParamsDTO.class);
+            List<FoodOrderParamsDTO> foodOrderParamsDTOList = objectMapper.readValue(foodOrderParamsDTOListJson, javaType);
+            ajaxJson = serverOrderApplyService.orderFoodToListSeat(foodOrderParamsDTOList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson = PojoUtil.createAjaxJson(false, null);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "listFoodToKitchen")
+    @ResponseBody
+    public AjaxJson listFoodToKitchen() {
+        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+        String shopId = sessionUser.getMaroShopEntity().getId();
+//        String shopId = "32c4e41832bf4e8d8bb85e1c698d6fca";
+        AjaxJson ajaxJson = serverOrderApplyService.listFoodToKitchen(shopId);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "cookFood")
+    @ResponseBody
+    public AjaxJson cookFood(String foodorderIdListJson) {
+        AjaxJson ajaxJson = null;
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, String.class);
+            List<String> foodorderIdList = objectMapper.readValue(foodorderIdListJson, javaType);
+            ajaxJson = serverOrderApplyService.cookFood(foodorderIdList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ajaxJson = PojoUtil.createAjaxJson(false, null);
+        }
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "cookedFood")
+    @ResponseBody
+    public AjaxJson cookedFood(String foodorderId) {
+        AjaxJson ajaxJson = serverOrderApplyService.cookedFood(foodorderId);
+        return ajaxJson;
+    }
+
+    @Override
+    @RequestMapping(params = "listMenuForApp")
+    @ResponseBody
+    public AjaxJson listMenuForApp(HttpServletRequest req,String shopId,String seatId,String user,String pass,String code){
+        TSUser sessionUser = ResourceUtil.getSessionUser();
+        AjaxJson loginResult = new AjaxJson();
+        if(sessionUser == null) {
+            loginResult = userService.login(req, user, pass);
+        }
+        sessionUser = ResourceUtil.getSessionUser();
+        if(sessionUser != null) {
+            //获取用户的code
+            log.error("获取用户的code："+code);
+            String openId = WechatUtil.getOpenId(code);
+            if (!StrKit.isBlank(openId)) {
+                log.error("获取到OPENID:" + openId);
+                MaroClientServerorderDO maroClientServerorderDO = serverOrderApplyService.getServerOrderByOpenId(openId);
+                String serverOrderId = null;
+                if (maroClientServerorderDO != null) {
+                    serverOrderId = maroClientServerorderDO.getId();
+                }
+                MaroShopEntity maroShopEntity = maroCommonShopService.get(MaroShopEntity.class, shopId);
+                MenuResultDTO menuResultDTO = serverOrderApplyService.listMenu(serverOrderId,maroShopEntity,seatId);
+                AjaxJson ajaxJson = new AjaxJson();
+                ajaxJson.setSuccess(true);
+                ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+                ajaxJson.setObj(menuResultDTO);
+                Map<String,Object> attr = new HashMap<String,Object>();
+                attr.put("openId",openId);
+                ajaxJson.setAttributes(attr);
+                return ajaxJson;
+            }else{
+                loginResult.setMsg(StringConstant.TIP_ORDERFOODFORAPP_GET_OPENID_FAIL);
+            }
+        }else{
+            loginResult.setMsg(StringConstant.TIP_LOGIN_USER_OR_PASS_IS_NULL);
+        }
+        loginResult.setSuccess(false);
+        return loginResult;
+    }
+    @Override
+    @RequestMapping(params = "orderFoodForApp")
+    @ResponseBody
+    public AjaxJson orderFoodForApp(HttpServletRequest req,String foodOrderParamsDTOString,String payParamsDTOJson,String user, String pass) {
+        TSUser sessionUser = ResourceUtil.getSessionUser();
+        AjaxJson loginResult = new AjaxJson();
+        if(sessionUser == null) {
+            loginResult = userService.login(req, user, pass);
+        }
+        sessionUser = ResourceUtil.getSessionUser();
+        if(sessionUser != null) {
+            return serverOrderApplyService.orderFoodForApp(foodOrderParamsDTOString,payParamsDTOJson);
+        }else{
+            loginResult.setMsg(StringConstant.TIP_LOGIN_USER_OR_PASS_IS_NULL);
+        }
+        loginResult.setSuccess(false);
+        return loginResult;
+    }
+
+    @Override
+    @RequestMapping(params = "printOrder")
+    @ResponseBody
+    public AjaxJson printOrder(String orderId,boolean isPre,String payId){
+    	return serverOrderApplyService.printOrder(orderId,isPre,payId);
+    }
+
+}

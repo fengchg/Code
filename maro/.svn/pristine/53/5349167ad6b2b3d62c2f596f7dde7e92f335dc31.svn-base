@@ -1,0 +1,18 @@
+package com.maro.manager.maroprint.maroprinter.service;
+import java.io.Serializable;
+
+import com.maro.manager.maroprint.maroprinter.entity.MaroPrinterEntity;
+import com.maro.platform.core.common.service.CommonService;
+
+public interface MaroPrinterServiceI extends CommonService{
+	
+ 	public void delete(MaroPrinterEntity entity) throws Exception;
+ 	
+ 	public Serializable save(MaroPrinterEntity entity) throws Exception;
+ 	
+ 	public void saveOrUpdate(MaroPrinterEntity entity) throws Exception;
+ 	
+ 	//查询打印机ip是否存在
+ 	public Integer examinePrinterIp(String shopId,String ip);
+ 	
+}

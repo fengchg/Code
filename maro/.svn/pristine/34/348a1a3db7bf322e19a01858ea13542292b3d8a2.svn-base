@@ -1,0 +1,431 @@
+package com.maro.manager.specialoffer.controller;
+
+import com.alibaba.fastjson.JSONArray;
+import com.maro.common.util.UUIDUtil;
+import com.maro.common.util.Util;
+import com.maro.manager.common.service.UtilServiceI;
+import com.maro.manager.specialoffer.entity.MaroSpecialOfferEntity;
+import com.maro.manager.specialoffer.service.MaroSpecialOfferServiceI;
+import com.maro.platform.core.beanvalidator.BeanValidators;
+import com.maro.platform.core.common.controller.BaseController;
+import com.maro.platform.core.common.exception.BusinessException;
+import com.maro.platform.core.common.hibernate.qbc.CriteriaQuery;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.common.model.json.DataGrid;
+import com.maro.platform.core.constant.Globals;
+import com.maro.platform.core.extend.hqlsearch.HqlGenerateUtil;
+import com.maro.platform.core.util.ExceptionUtil;
+import com.maro.platform.core.util.MyBeanUtils;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.jwt.util.ResponseMessage;
+import com.maro.platform.jwt.util.Result;
+import com.maro.platform.tag.core.easyui.TagUtil;
+import com.maro.platform.web.system.service.SystemService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ExportParams;
+import org.jeecgframework.poi.excel.entity.ImportParams;
+import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**   
+ * @Title: Controller  
+ * @Description: 店铺优惠活动
+ * @author onlineGenerator
+ * @date 2018-10-18 11:13:38
+ * @version V1.0   
+ *
+ */
+@Api(value="MaroSpecialOffer",description="店铺优惠活动",tags="maroSpecialOfferController")
+@Controller
+@RequestMapping("/maroSpecialOfferController")
+public class MaroSpecialOfferController extends BaseController {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(MaroSpecialOfferController.class);
+
+	@Autowired
+	private MaroSpecialOfferServiceI maroSpecialOfferService;
+	@Autowired
+	private SystemService systemService;
+	@Autowired
+	private Validator validator;
+    @Autowired
+    private UtilServiceI utilService;
+
+
+	/**
+	 * 店铺优惠活动列表 页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "list")
+	public ModelAndView list(HttpServletRequest request) {
+		return new ModelAndView("com/maro/manager/specialoffer/maroSpecialOfferList");
+	}
+
+	/**
+	 * easyui AJAX请求数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @param dataGrid
+	 */
+
+	@RequestMapping(params = "datagrid")
+	public void datagrid(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+		CriteriaQuery cq = new CriteriaQuery(MaroSpecialOfferEntity.class, dataGrid);
+		//查询条件组装器
+		HqlGenerateUtil.installHql(cq, maroSpecialOffer, request.getParameterMap());
+		try{
+		//自定义追加查询条件
+		}catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+		cq.add();
+		this.maroSpecialOfferService.getDataGridReturn(cq, true);
+		TagUtil.datagrid(response, dataGrid);
+	}
+	
+	/**
+	 * 删除店铺优惠活动
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "doDel")
+	@ResponseBody
+	public AjaxJson doDel(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		maroSpecialOffer = systemService.getEntity(MaroSpecialOfferEntity.class, maroSpecialOffer.getId());
+		message = "店铺优惠活动删除成功";
+		try{
+			maroSpecialOfferService.delete(maroSpecialOffer);
+			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "店铺优惠活动删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+	/**
+	 * 批量删除店铺优惠活动
+	 * 
+	 * @return
+	 */
+	 @RequestMapping(params = "doBatchDel")
+	@ResponseBody
+	public AjaxJson doBatchDel(String ids,HttpServletRequest request){
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "店铺优惠活动删除成功";
+		try{
+			for(String id:ids.split(",")){
+				MaroSpecialOfferEntity maroSpecialOffer = systemService.getEntity(MaroSpecialOfferEntity.class, 
+				id
+				);
+				maroSpecialOfferService.delete(maroSpecialOffer);
+				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "店铺优惠活动删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+
+	/**
+	 * 添加店铺优惠活动
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "doAdd")
+	@ResponseBody
+	public AjaxJson doAdd(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "店铺优惠活动添加成功";
+		try{
+			UUIDUtil.setId(maroSpecialOffer);
+			maroSpecialOfferService.save(maroSpecialOffer);
+			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "店铺优惠活动添加失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+	/**
+	 * 更新店铺优惠活动
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "doUpdate")
+	@ResponseBody
+	public AjaxJson doUpdate(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "店铺优惠活动更新成功";
+		MaroSpecialOfferEntity t = maroSpecialOfferService.get(MaroSpecialOfferEntity.class, maroSpecialOffer.getId());
+		try {
+			MyBeanUtils.copyBeanNotNull2Bean(maroSpecialOffer, t);
+			maroSpecialOfferService.saveOrUpdate(t);
+			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "店铺优惠活动更新失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+
+	/**
+	 * 店铺优惠活动新增页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "goAdd")
+	public ModelAndView goAdd(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(maroSpecialOffer.getId())) {
+			maroSpecialOffer = maroSpecialOfferService.getEntity(MaroSpecialOfferEntity.class, maroSpecialOffer.getId());
+			req.setAttribute("maroSpecialOfferPage", maroSpecialOffer);
+		}
+		//获取角色编码
+		String roleCodes = (String)req.getSession().getAttribute("maroRoleCodes");
+		//验证是不是管理员的角色
+		boolean admin = Util.ifRoleCode();
+		if(!admin){
+			//获取用户所属部门id
+			String departId=ResourceUtil.getSessionUser().getDepartid();
+			//给页面传递的条件参数
+			req.setAttribute("dictCondition", "where depart_id='"+departId+"'");
+		}
+		return new ModelAndView("com/maro/manager/specialoffer/maroSpecialOffer-add");
+	}
+	/**
+	 * 店铺优惠活动编辑页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "goUpdate")
+	public ModelAndView goUpdate(MaroSpecialOfferEntity maroSpecialOffer, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(maroSpecialOffer.getId())) {
+			maroSpecialOffer = maroSpecialOfferService.getEntity(MaroSpecialOfferEntity.class, maroSpecialOffer.getId());
+			req.setAttribute("maroSpecialOfferPage", maroSpecialOffer);
+            String buyDishesId = maroSpecialOffer.getBuyDishesId();
+            String freeDishesId = maroSpecialOffer.getFreeDishesId();
+            String buyDishesName = utilService.getRealValueBydictionary("maro_dishes,id,dishes_name", buyDishesId).toString();
+            String freeDishesName = utilService.getRealValueBydictionary("maro_dishes,id,dishes_name", freeDishesId).toString();
+            req.setAttribute("buyDishesName", buyDishesName);
+            req.setAttribute("freeDishesName", freeDishesName);
+        }
+        //获取角色编码
+        String roleCodes = (String)req.getSession().getAttribute("maroRoleCodes");
+        //验证是不是管理员的角色
+        boolean admin = Util.ifRoleCode();
+        if(!admin){
+            //获取用户所属部门id
+            String departId=ResourceUtil.getSessionUser().getDepartid();
+            //给页面传递的条件参数
+            req.setAttribute("dictCondition", "where depart_id='"+departId+"'");
+        }
+		return new ModelAndView("com/maro/manager/specialoffer/maroSpecialOffer-update");
+	}
+	
+	/**
+	 * 导入功能跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "upload")
+	public ModelAndView upload(HttpServletRequest req) {
+		req.setAttribute("controller_name","maroSpecialOfferController");
+		return new ModelAndView("common/upload/pub_excel_upload");
+	}
+	
+	/**
+	 * 导出excel
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(params = "exportXls")
+	public String exportXls(MaroSpecialOfferEntity maroSpecialOffer,HttpServletRequest request,HttpServletResponse response
+			, DataGrid dataGrid,ModelMap modelMap) {
+		CriteriaQuery cq = new CriteriaQuery(MaroSpecialOfferEntity.class, dataGrid);
+		HqlGenerateUtil.installHql(cq, maroSpecialOffer, request.getParameterMap());
+		List<MaroSpecialOfferEntity> maroSpecialOffers = this.maroSpecialOfferService.getListByCriteriaQuery(cq,false);
+		modelMap.put(NormalExcelConstants.FILE_NAME,"店铺优惠活动");
+		modelMap.put(NormalExcelConstants.CLASS,MaroSpecialOfferEntity.class);
+		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("店铺优惠活动列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+			"导出信息"));
+		modelMap.put(NormalExcelConstants.DATA_LIST,maroSpecialOffers);
+		return NormalExcelConstants.JEECG_EXCEL_VIEW;
+	}
+	/**
+	 * 导出excel 使模板
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(params = "exportXlsByT")
+	public String exportXlsByT(MaroSpecialOfferEntity maroSpecialOffer,HttpServletRequest request,HttpServletResponse response
+			, DataGrid dataGrid,ModelMap modelMap) {
+    	modelMap.put(NormalExcelConstants.FILE_NAME,"店铺优惠活动");
+    	modelMap.put(NormalExcelConstants.CLASS,MaroSpecialOfferEntity.class);
+    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("店铺优惠活动列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+    	"导出信息"));
+    	modelMap.put(NormalExcelConstants.DATA_LIST,new ArrayList());
+    	return NormalExcelConstants.JEECG_EXCEL_VIEW;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(params = "importExcel", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxJson importExcel(HttpServletRequest request, HttpServletResponse response) {
+		AjaxJson j = new AjaxJson();
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			MultipartFile file = entity.getValue();// 获取上传文件对象
+			ImportParams params = new ImportParams();
+			params.setTitleRows(2);
+			params.setHeadRows(1);
+			params.setNeedSave(true);
+			try {
+				List<MaroSpecialOfferEntity> listMaroSpecialOfferEntitys = ExcelImportUtil.importExcel(file.getInputStream(),MaroSpecialOfferEntity.class,params);
+				for (MaroSpecialOfferEntity maroSpecialOffer : listMaroSpecialOfferEntitys) {
+					maroSpecialOfferService.save(maroSpecialOffer);
+				}
+				j.setMsg("文件导入成功！");
+			} catch (Exception e) {
+				j.setMsg("文件导入失败！");
+				logger.error(ExceptionUtil.getExceptionMessage(e));
+			}finally{
+				try {
+					file.getInputStream().close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return j;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="店铺优惠活动列表信息",produces="application/json",httpMethod="GET")
+	public ResponseMessage<List<MaroSpecialOfferEntity>> list() {
+		List<MaroSpecialOfferEntity> listMaroSpecialOffers=maroSpecialOfferService.getList(MaroSpecialOfferEntity.class);
+		return Result.success(listMaroSpecialOffers);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="根据ID获取店铺优惠活动信息",notes="根据ID获取店铺优惠活动信息",httpMethod="GET",produces="application/json")
+	public ResponseMessage<?> get(@ApiParam(required=true,name="id",value="ID")@PathVariable("id") String id) {
+		MaroSpecialOfferEntity task = maroSpecialOfferService.get(MaroSpecialOfferEntity.class, id);
+		if (task == null) {
+			return Result.error("根据ID获取店铺优惠活动信息为空");
+		}
+		return Result.success(task);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="创建店铺优惠活动")
+	public ResponseMessage<?> create(@ApiParam(name="店铺优惠活动对象")@RequestBody MaroSpecialOfferEntity maroSpecialOffer, UriComponentsBuilder uriBuilder) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<MaroSpecialOfferEntity>> failures = validator.validate(maroSpecialOffer);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		try{
+			maroSpecialOfferService.save(maroSpecialOffer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("店铺优惠活动信息保存失败");
+		}
+		return Result.success(maroSpecialOffer);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="更新店铺优惠活动",notes="更新店铺优惠活动")
+	public ResponseMessage<?> update(@ApiParam(name="店铺优惠活动对象")@RequestBody MaroSpecialOfferEntity maroSpecialOffer) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<MaroSpecialOfferEntity>> failures = validator.validate(maroSpecialOffer);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		try{
+			maroSpecialOfferService.saveOrUpdate(maroSpecialOffer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("更新店铺优惠活动信息失败");
+		}
+
+		//按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
+		return Result.success("更新店铺优惠活动信息成功");
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value="删除店铺优惠活动")
+	public ResponseMessage<?> delete(@ApiParam(name="id",value="ID",required=true)@PathVariable("id") String id) {
+		logger.info("delete[{}]" + id);
+		// 验证
+		if (StringUtils.isEmpty(id)) {
+			return Result.error("ID不能为空");
+		}
+		try {
+			maroSpecialOfferService.deleteEntityById(MaroSpecialOfferEntity.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("店铺优惠活动删除失败");
+		}
+
+		return Result.success();
+	}
+}

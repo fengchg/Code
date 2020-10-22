@@ -1,0 +1,392 @@
+/* CSS Document */
+body{
+margin:5px auto;
+padding:0;
+font:12px "宋体";
+background:url(./img/mainbg.jpg) repeat-x 0 0;
+background-attachment: fixed;
+}
+td{
+font:12px "宋体";
+color:#000000;
+}
+a:link,a:visited,a:active{
+font:12px "宋体";
+color:#496a8b;
+text-decoration:none;
+}
+a:hover{
+font:12px "宋体";
+color:#496a8b;
+text-decoration:none;}
+.rtitle {
+font-weight: bold;
+font-size:12px;
+}
+.maintitle{
+margin-top:5px;
+margin-left:5px;
+margin-right:0px;
+width:100%;
+height:20px;
+padding:5px 0px 5px 15px;
+font: bold 12px "宋体";
+background:url(./img/maintitlebg.jpg) repeat-x 0 0;
+color:#FFFFFF;
+border:1px solid #b8c7ce;
+}
+
+.maintitle a:link{
+color:#000000;
+
+text-decoration:none;
+}
+.mainbg{
+margin-right:0px;
+margin-left:5px;
+width:100%;
+min-height:415px;
+height:auto !important;
+height:415px;
+padding:5px 0px 5px 15px;
+font: 12px "宋体";
+background:#FFFFFF;
+border:1px solid #b8c7ce;
+}
+fieldset{
+margin:10px;
+padding:2px;
+font:12px #496a8b;
+line-height:16px;
+}
+LEGEND{
+font:bold 12px #496a8b;
+}
+
+/*标题导航按钮样式*/
+.headtitle{
+margin:5px;
+height:18px;
+width:98%;
+
+}
+
+#pagetitle{
+height:18px; 
+	line-height:18px;
+	overflow: hidden; 
+    color:#496a8d; 
+	padding-left:15px;
+	margin:0;
+	font: 12px "宋体";	
+    float:left;
+}
+
+#pagetitle ul{
+  margin:0;
+}
+#pagetitle ul li{
+	color:#496a8d;
+	float:left;	
+    list-style:none;
+	display:block;
+	height:20px;
+	line-height:25px;
+	margin-left:5px;
+	}
+.pagemenu{
+    float:right;
+	  margin:0;
+    font-size:12px;
+    color:#000000;
+    
+    height:21px;
+}
+.pagemenu ul{
+  margin:0;
+}
+.pagemenu ul li{
+	width:55px;
+	text-align:center;
+	float:left;	
+    list-style:none;
+	display:block;
+	height:21px;
+	line-height:21px;
+	margin-left:5px;
+	color:#49698f;
+	font:12px Verdana, Arial, Helvetica, sans-serif, "宋体";
+	}
+	.pagemenu ul li a:link,.pagemenu ul li a:visited,.pagemenu ul li a:active{
+	height:21px;line-height:21px;
+	color:#49698f;
+	width:55px;
+	text-decoration:none;
+color:#496a8d;
+}
+.pagemenu a {
+      float:left;
+      background:url("../img/btnbg4.jpg") no-repeat left top;
+      margin:0;
+      padding:0 0 0 4px;
+      text-decoration:none;
+      }
+   
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+   
+	/*标题导航按钮样式*/	
+	/*标题导航按钮样式*/
+#headtitle{
+margin:5px;
+height:18px;
+width:98%;
+
+}
+
+#pagetitle{
+height:18px; 
+	line-height:18px;
+	overflow: hidden; 
+    color:#496a8d; 
+	padding-left:15px;
+	margin:0;
+	font: 12px "宋体";	
+    float:left;
+}
+
+#pagetitle ul{
+  margin:0;
+}
+#pagetitle ul li{
+	color:#496a8d;
+	float:left;	
+    list-style:none;
+	display:block;
+	height:20px;
+	line-height:25px;
+	margin-left:5px;
+	}
+#pagemenu{
+    float:right;
+	  margin:0;
+    font-size:12px;
+    color:#000000;
+    
+    height:21px;
+}
+#pagemenu ul{
+  margin:0;
+}
+#pagemenu ul li{
+	width:55px;
+	text-align:center;
+	float:left;	
+    list-style:none;
+	display:block;
+	height:21px;
+	line-height:21px;
+	margin-left:5px;
+	color:#49698f;
+	font:12px Verdana, Arial, Helvetica, sans-serif, "宋体";
+	}
+	#pagemenu ul li a:link,#pagemenu ul li a:visited,#pagemenu ul li a:active{
+	height:21px;line-height:21px;
+	color:#49698f;
+	width:55px;
+	text-decoration:none;
+color:#496a8d;
+}
+#pagemenu a {
+      float:left;
+      background:url("../img/btnbg4.jpg") no-repeat left top;
+      margin:0;
+      padding:0 0 0 4px;
+      text-decoration:none;
+      }
+   
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+   
+	/*标题导航按钮样式*/
+	/*下部分标题导航按钮样式*/
+#navtitle{
+margin:5px;
+height:18px;
+width:98%;
+text-align:center;
+}
+
+
+#button{
+  width:200px;
+	  margin:0 auto;
+    font-size:12px;
+    color:#000000;
+	text-align:center;
+    height:21px;
+}
+#button ul{
+  margin:0;
+  text-align:center;
+}
+#button ul li{
+	width:55px;
+	text-align:center;
+	float:left;
+    list-style:none;
+	display:block;
+	height:21px;
+	line-height:21px;
+	margin-left:5px;
+	color:#49698f;
+	font:12px Verdana, Arial, Helvetica, sans-serif, "宋体";
+	}
+	#button ul li a:link,#button ul li a:visited,#button ul li a:active{
+	height:21px;line-height:21px;
+	color:#49698f;
+	width:55px;
+	text-decoration:none;
+color:#496a8d;
+}
+#button a {
+      float:left;
+      background:url("../img/btnbg4.jpg") no-repeat left top;
+      margin:0;
+      padding:0 0 0 4px;
+      text-decoration:none;
+      }
+   
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+   
+	/*下部分标题导航按钮样式*/	
+h1{
+text-align:center;
+font-size:12px;
+height:20px;
+margin:0;
+padding:0;
+}
+p{
+margin:2px;
+padding:0;
+line-height:18px;
+}
+.red{
+color:#FF0000;
+}
+/*提示信息样式*/
+#ts{
+}
+/*list表格样式*/
+#tablelist{
+width:100%;
+padding:0px;
+margin:0px auto;
+border-right:1px solid #B3D0EE;
+border-bottom:1px solid #B3D0EE;
+empty-cells:show;
+border-collapse:collapse;
+}
+th.list{
+  height:22px;
+  line-height:22px;
+  overflow:hidden;
+  font: normal 12px "宋体";
+  color:#496a8b;
+  border-left:1px solid #B3D0EE;
+  background-color:#DAE0E4;
+   border-top:1px solid #B3D0EE;
+  letter-spacing:2px;
+  text-align:left;
+  padding:1px 1px 1px 5px;
+  
+  
+  }
+tr.list:hover{
+background-color:#3d80df;
+}
+th.speclist {
+height:22px;
+	 border-right: 1px solid #C1DAD7;
+	border-bottom: 0;
+	 background: #A8B6BF;
+	font: bold 12px "宋体";
+	padding:1px 6px 1px 5px;
+}
+th a {
+	  color:#496a8b;
+      height:20px;
+	  line-height:20px;
+	  overflow:hidden;
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+      }
+tr.speclist{/*设置onmouseover事件*/
+  onmouseover: expression(onmouseover=function (){this.style.borderColor ='blue';this.style.color='red';this.style.backgroundColor ='yellow'});
+
+  /*设置onmouseout事件*/
+  onmouseout: expression(onmouseout=function (){this.style.borderColor='';this.style.color='';this.style.backgroundColor =''});
+  background-color:#ffffff;
+ 
+  }
+td.list{
+  height:22px;
+  line-height:22px;
+  overflow:hidden;
+  font:normal 12px "宋体";
+  color:#496a8b;
+  border-left:1px solid #B3D0EE;
+  border-top:1px solid #B3D0EE;
+  letter-spacing:2px;
+  text-align:left;
+  padding:1px 1px 1px 5px;
+  border-collapse:collapse;
+   background:#Ffffff;
+  }
+td.speclist{
+text-align:center;
+ 
+}
+
+td.noborderlist{
+  height:22px;
+  line-height:22px;
+  overflow:hidden;
+  font:normal 12px "宋体";
+  color:#496a8b;
+   border-left:1px solid #ffffff !important;
+  border-top:1px solid #ffffff !important;
+  text-align:left;
+  padding-left:0px;
+  padding-right:0px;
+  padding-bottom:0px;
+  padding-top:0px;
+  border-collapse:collapse;
+
+  } 
+
+
+td.list a:link,td.list a:visited,td.list a:active{
+	  color:#496a8b;
+      height:20px;
+	  line-height:20px;
+	  
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+	  
+      }
+	td.list a:hover{
+	  color:#006699;
+      height:20px;
+	  line-height:20px;
+	  
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+	  
+      }
+	  img{
+	 
+	  margin:2px auto;
+	  }

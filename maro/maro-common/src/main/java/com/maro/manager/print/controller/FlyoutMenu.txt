@@ -1,0 +1,23 @@
+FlyoutMenu s = new FlyoutMenu();
+		s.setSeatName("1号桌");
+		s.setBillMark("01235489");
+		s.setRemark("少放盐");
+		
+		//商品集合
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes a = new SettleAccountsDishes();
+		a.setDishesName("麻辣11");
+		a.setShuLiang("2");
+		a.setUnit("份");
+		a.setRemark("少辣");
+		dishesList.add(a);
+		
+		SettleAccountsDishes a1 = new SettleAccountsDishes();
+		a1.setDishesName("麻辣222");
+		a1.setShuLiang("4");
+		a1.setUnit("个");
+		dishesList.add(a1);
+		
+		s.setDishesList(dishesList);
+		
+		PrintMain.printFlyoutMenu(s);

@@ -1,0 +1,909 @@
+package com.maro.manager.mq.controller;
+
+import com.maro.client.common.constant.StringConstant;
+import com.maro.client.module.serverorder.apply.ServerorderService;
+import com.maro.client.module.serverorder.pojo.dto.ServerorderDTO;
+import com.maro.client.module.user.service.UserService;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.shop.pojo.entity.MaroShopSeatEntity;
+import com.maro.common.util.MqConstant;
+import com.maro.common.util.Util;
+import com.maro.manager.discount.entity.MaroDishesDiscountEntity;
+import com.maro.manager.discount.service.MaroDishesDiscountServiceI;
+import com.maro.manager.discountdetail.entity.MaroDishesDiscountDetailEntity;
+import com.maro.manager.groupdiscount.entity.MaroGroupDiscountEntity;
+import com.maro.manager.groupdiscount.service.MaroGroupDiscountServiceI;
+import com.maro.manager.materialthreshold.entity.MaroMaterialThresholdEntity;
+import com.maro.manager.materialthreshold.service.MaroMaterialThresholdServiceI;
+import com.maro.manager.mq.service.MqServiceI;
+import com.maro.manager.shop.reserve.entity.MaroClientReserveEntity;
+import com.maro.manager.shop.reserve.service.MaroClientReserveServiceI;
+import com.maro.manager.shop.shop.service.MaroShopServiceI;
+import com.maro.manager.specialoffer.entity.MaroSpecialOfferEntity;
+import com.maro.manager.specialoffer.service.MaroSpecialOfferServiceI;
+import com.maro.manager.store.purchase.entity.MaroPurchaseEntity;
+import com.maro.manager.store.purchase.service.MaroPurchaseServiceI;
+import com.maro.manager.store.purchasedetail.entity.MaroPurchaseDetailEntity;
+import com.maro.manager.store.purchasedetail.service.MaroPurchaseDetailServiceI;
+import com.maro.manager.store.shopstore.entity.MaroShopStoreEntity;
+import com.maro.manager.store.shopstore.service.MaroShopStoreServiceI;
+import com.maro.manager.store.storeflow.entity.MaroStoreFlowEntity;
+import com.maro.manager.store.storeflow.service.MaroStoreFlowServiceI;
+import com.maro.manager.store.storegoods.entity.MaroStoreGoodsEntity;
+import com.maro.manager.store.storegoods.service.MaroStoreGoodsServiceI;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.constant.Globals;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.web.system.pojo.base.TSDepart;
+import com.maro.platform.web.system.pojo.base.TSUser;
+import com.maro.platform.web.system.service.SystemService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+
+/**
+ * @Title: Controller
+ * @Description: 通用
+ * @author 龚道海
+ * @date 2018-03-26 16:00:55
+ * @version V1.0
+ *
+ */
+@Controller
+@RequestMapping("/mqController")
+public class MqController{
+	@Autowired
+	public SystemService systemService;
+	@Autowired
+	private MqServiceI mqService;
+	@Resource
+	private ServerorderService serverorderService;
+	@Autowired
+	private MaroShopServiceI maroShopService;
+	@Autowired
+	private MaroClientReserveServiceI maroClientReserveService;
+	@Autowired
+	private MaroPurchaseServiceI maroPurchaseService;
+	@Autowired
+	private MaroMaterialThresholdServiceI maroMaterialThresholdService;
+	@Autowired
+	private MaroStoreGoodsServiceI maroStoreGoodsService;
+	@Autowired
+	private MaroSpecialOfferServiceI maroSpecialOfferService;
+	@Autowired
+	private MaroDishesDiscountServiceI maroDishesDiscountService;
+	@Autowired
+	private MaroGroupDiscountServiceI maroGroupDiscountService;
+	@Autowired
+	private MaroShopStoreServiceI maroShopStoreService;
+	@Autowired
+	private MaroStoreFlowServiceI maroStoreFlowService;
+	@Autowired
+	private MaroPurchaseDetailServiceI maroPurchaseDetailService;
+	private ObjectMapper objectMapper = new ObjectMapper();
+
+	@Resource(name="clientUserServiceImpl")
+	private UserService userService;
+
+	@Resource(name="userService")
+	public com.maro.platform.web.system.service.UserService userService2;
+
+	/**
+	 * 删除用户
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "deleteUser")
+	@ResponseBody
+	public AjaxJson deleteUser(HttpServletRequest request,String message) {
+		AjaxJson json=new AjaxJson();
+		try {
+			TSUser user = systemService.getEntity(TSUser.class, (String)Util.jsonToObject(message,0));
+			if(user!=null) userService2.trueDel(user);
+		}catch (Exception e){
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMsg("保存失败！");
+		}
+		return json;
+	}
+
+	/**
+	 * 删除组织机构
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "deleteDepart")
+	@ResponseBody
+	public AjaxJson deleteDepart(HttpServletRequest request,String message) {
+		AjaxJson json=new AjaxJson();
+		try {
+			TSDepart depart = systemService.getEntity(TSDepart.class, (String)Util.jsonToObject(message,0));
+			systemService.delete(depart);
+		}catch (Exception e){
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMsg("保存失败！");
+		}
+		return json;
+	}
+	/**
+	 * 保存实体对象至数据库
+	 * @param request
+	 * @return
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月3日
+	 * @version
+	 */
+	@RequestMapping(params = "saveEntity")
+	@ResponseBody
+	public AjaxJson saveEntity(HttpServletRequest request,String message) {
+		AjaxJson json=new AjaxJson();
+		try {
+			mqService.saveEntity(Util.jsonToObject(message,0));
+		}catch (Exception e){
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMsg("保存失败！");
+		}
+		return json;
+	}
+	/**
+	 * 插入表数据
+	 * @param request
+	 * @param message
+	 * @return
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "insertData")
+	@ResponseBody
+	public AjaxJson insertData(HttpServletRequest request,String message) {
+		AjaxJson json=new AjaxJson();
+		try {
+			message=message.replaceAll(Matcher.quoteReplacement("!@7#$"),Matcher.quoteReplacement("&"));
+			//将json字符串转换为json对象
+			JSONObject jSONObject = JSONObject.fromObject(message);
+			//获取实体jSONArray对象
+			JSONArray jSONArray = (JSONArray) jSONObject.get(MqConstant.BODY);
+			//获取表名
+			String tableName = jSONArray.get(0).toString();
+			//获取数据
+			List<List> list = (List<List>) jSONArray.get(1);
+			mqService.insertData(tableName, list);
+		}catch (Exception e){
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMsg("插入失败！");
+		}
+		return json;
+	}
+
+	/**
+	 * 删除数据
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "deleteData")
+	@ResponseBody
+	public AjaxJson deleteData(HttpServletRequest request,String message) {
+		AjaxJson json=new AjaxJson();
+		try {
+			message=message.replaceAll(Matcher.quoteReplacement("!@7#$"),Matcher.quoteReplacement("&"));
+			//将json字符串转换为json对象
+			JSONObject jSONObject = JSONObject.fromObject(message);
+			//获取实体jSONArray对象
+			JSONArray jSONArray = (JSONArray) jSONObject.get(MqConstant.BODY);
+			//获取表名
+			String tableName = jSONArray.get(0).toString();
+			//获取数据
+			List<String> list = (List<String>) jSONArray.get(1);
+			mqService.deleteData(tableName, list);
+		}catch (Exception e){
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMsg("插入失败！");
+		}
+		return json;
+	}
+	/****************服务订单****************/
+	
+	/**
+	 * 保存服务订单
+	 * @param request
+	 * @param message
+	 * @return
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "saveServerorder")
+	@ResponseBody
+	public AjaxJson saveServerorder(HttpServletRequest request, String message,String user,String pass){
+		AjaxJson ajaxJson = new AjaxJson();
+		ajaxJson.setSuccess(false);
+		ajaxJson.setObj("dsadsads");
+		ajaxJson.setMsg(StringConstant.TIP_FAIL);
+		TSUser sessionUser = ResourceUtil.getSessionUser();
+		if(sessionUser == null) {
+			userService.login(request, user, pass);
+			sessionUser = ResourceUtil.getSessionUser();
+		}
+		if(sessionUser != null) {
+			try {
+				ServerorderDTO serverorderDTO = objectMapper.readValue(message, ServerorderDTO.class);
+				serverorderService.saveServerorder(serverorderDTO);
+				ajaxJson.setSuccess(true);
+				ajaxJson.setMsg(StringConstant.TIP_SUCCESS);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return ajaxJson;
+	}
+	
+	/****************店铺****************/
+		
+	/**
+	 * 店铺更新
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "shopUpdateMain")
+	@ResponseBody
+	public AjaxJson shopUpdateMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroShopService.updateMain((MaroShopEntity)Util.jsonToObject(message,0),(List<MaroShopSeatEntity>)Util.jsonToObject(message,1));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 店铺删除
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "shopDelMain")
+	@ResponseBody
+	public AjaxJson shopDelMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroShopService.delMain((MaroShopEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	
+	
+	/****************预定****************/
+	/**
+	 * 预定删除
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "reserveDelete")
+	@ResponseBody
+	public AjaxJson reserveDelete(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroClientReserveService.delete((MaroClientReserveEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 预定新增
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "reserveSave")
+	@ResponseBody
+	public AjaxJson reserveSave(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroClientReserveService.save((MaroClientReserveEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 预定修改
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "reserveSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson reserveSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroClientReserveService.saveOrUpdate((MaroClientReserveEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	
+	/****************采购****************/
+	
+	/**
+	 * 采购新增
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "purchaseAddMain")
+	@ResponseBody
+	public AjaxJson purchaseAddMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroPurchaseService.addMain((MaroPurchaseEntity)Util.jsonToObject(message,0), (List<MaroPurchaseDetailEntity>)Util.jsonToObject(message,1));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 采购更新
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "purchaseUpdateMain")
+	@ResponseBody
+	public AjaxJson purchaseUpdateMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroPurchaseService.updateMain((MaroPurchaseEntity)Util.jsonToObject(message,0), (List<MaroPurchaseDetailEntity>)Util.jsonToObject(message,1));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 采购删除
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "purchaseDelMain")
+	@ResponseBody
+	public AjaxJson purchaseDelMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroPurchaseService.delMain((MaroPurchaseEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/**
+	 * 采购申请
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseSubmitApprove")
+	@ResponseBody
+	public AjaxJson purchaseSubmitApprove(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			boolean result=maroPurchaseService.submitApprove((String) Util.jsonToObject(message,0),(Integer) Util.jsonToObject(message,1),(Integer) Util.jsonToObject(message,2));
+			if(!result){
+				j.setMsg(Util.getMessageFromTypeByKey("approveError"));
+				j.setSuccess(false);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 采购通过
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseApprovePass")
+	@ResponseBody
+	public AjaxJson purchaseApprovePass(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			boolean result=maroPurchaseService.approvePass((String) Util.jsonToObject(message,0),(Date) Util.jsonToObject(message,1),(Integer) Util.jsonToObject(message,2),(Integer) Util.jsonToObject(message,3));
+			if(!result){
+				j.setMsg(Util.getMessageFromTypeByKey("approveError"));
+				j.setSuccess(false);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 采购不通过
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseApproveNotPass")
+	@ResponseBody
+	public AjaxJson purchaseApproveNotPass(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			boolean result=maroPurchaseService.approveNotPass((String) Util.jsonToObject(message,0),(Integer) Util.jsonToObject(message,1));
+			if(!result){
+				j.setMsg(Util.getMessageFromTypeByKey("approveError"));
+				j.setSuccess(false);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 完成采购
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseFinishPurchase")
+	@ResponseBody
+	public AjaxJson purchaseFinishPurchase(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			boolean result=maroPurchaseService.finishPurchase((String) Util.jsonToObject(message,0),(Integer) Util.jsonToObject(message,1),(Integer) Util.jsonToObject(message,2),(Integer) Util.jsonToObject(message,3));
+			if(!result){
+				j.setMsg(Util.getMessageFromTypeByKey("approveError"));
+				j.setSuccess(false);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/****************店铺库存****************/
+
+	/**
+	 * 删除店铺库存
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "shopStoreDel")
+	@ResponseBody
+	public AjaxJson shopStoreDel(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroShopStoreService.delete((MaroShopStoreEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 添加店铺库存
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "shopStoreSave")
+	@ResponseBody
+	public AjaxJson shopStoreSave(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroShopStoreService.save((MaroShopStoreEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 更新店铺库存
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "shopStoreSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson shopStoreSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroShopStoreService.saveOrUpdate((MaroShopStoreEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/****************流水信息****************/
+
+	/**
+	 * 添加流水信息
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseDetailAddFlow")
+	@ResponseBody
+	public AjaxJson purchaseDetailAddFlow(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroStoreFlowService.saveOrUpdate((MaroStoreFlowEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 入库操作
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "storeFlowDoAdd")
+	@ResponseBody
+	public AjaxJson storeFlowDoAdd(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			String comeFrom=(String)Util.jsonToObject(message,0);
+			MaroStoreFlowEntity maroStoreFlow=(MaroStoreFlowEntity)Util.jsonToObject(message,1);
+			maroStoreFlowService.doAdd(comeFrom,maroStoreFlow);
+			systemService.addLog("流水表添加成功", Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 入库操作
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseDetailPutInStore")
+	@ResponseBody
+	public AjaxJson purchaseDetailPutInStore(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroStoreGoodsService.saveOrUpdate((MaroStoreGoodsEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 更新操作
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "purchaseDetailSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson purchaseDetailSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroPurchaseDetailService.saveOrUpdate((MaroPurchaseDetailEntity) Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/****************服务订单****************/
+	
+	/****************服务订单****************/
+	
+	/****************服务订单****************/
+	/****************原料阈值配置****************/
+	/**
+	 * 原料配置删除
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "materialThresholdDelete")
+	@ResponseBody
+	public AjaxJson materialThresholdDelete(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroMaterialThresholdService.delete((MaroMaterialThresholdEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 原料配置保存
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "materialThresholdSave")
+	@ResponseBody
+	public AjaxJson materialThresholdSave(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroMaterialThresholdService.save((MaroMaterialThresholdEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 原料配置更新
+	 * @param request
+	 * @param message
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月28日
+	 * @version
+	 */
+	@RequestMapping(params = "materialThresholdSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson materialThresholdSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroMaterialThresholdService.save((MaroMaterialThresholdEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/**
+	 * 库存信息修改
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "storeGoodsSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson storeGoodsSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroStoreGoodsService.saveOrUpdate((MaroStoreGoodsEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/****************店铺活动****************/
+
+	/**
+	 * 店铺活动信息修改
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "offerSave")
+	@ResponseBody
+	public AjaxJson offerSave(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroSpecialOfferService.save((MaroSpecialOfferEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 店铺活动信息修改
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "offerSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson offerSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroSpecialOfferService.saveOrUpdate((MaroSpecialOfferEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 店铺活动信息删除
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "offerDelete")
+	@ResponseBody
+	public AjaxJson offerDelete(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroSpecialOfferService.delete((MaroSpecialOfferEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/****************店铺菜品打折****************/
+	/**
+	 * 店铺菜品打折增加接口
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "discountAddMain")
+	@ResponseBody
+	public AjaxJson discountAddMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroDishesDiscountService.addMain((MaroDishesDiscountEntity)Util.jsonToObject(message,0), (List<MaroDishesDiscountDetailEntity>)Util.jsonToObject(message,1));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 店铺菜品打折更新接口
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "discountUpdateMain")
+	@ResponseBody
+	public AjaxJson discountUpdateMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroDishesDiscountService.updateMain((MaroDishesDiscountEntity)Util.jsonToObject(message,0), (List<MaroDishesDiscountDetailEntity>)Util.jsonToObject(message,1));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 店铺菜品打删除加接口
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "discountDelMain")
+	@ResponseBody
+	public AjaxJson discountDelMain(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroDishesDiscountService.delMain((MaroDishesDiscountEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/****************店铺优惠券****************/
+	/**
+	 * 保存
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "groupDiscountSave")
+	@ResponseBody
+	public AjaxJson groupDiscountSave(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroGroupDiscountService.save((MaroGroupDiscountEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+	/**
+	 * 更新
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "groupDiscountSaveOrUpdate")
+	@ResponseBody
+	public AjaxJson groupDiscountSaveOrUpdate(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroGroupDiscountService.saveOrUpdate((MaroGroupDiscountEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+	/**
+	 * 删除
+	 * @param request
+	 * @param message
+	 * @return
+	 */
+	@RequestMapping(params = "groupDiscountDelete")
+	@ResponseBody
+	public AjaxJson groupDiscountDelete(HttpServletRequest request,String message) {
+		AjaxJson j = new AjaxJson();
+		try {
+			maroGroupDiscountService.delete((MaroGroupDiscountEntity)Util.jsonToObject(message,0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			j.setSuccess(false);
+		}
+		return j;
+	}
+
+
+}

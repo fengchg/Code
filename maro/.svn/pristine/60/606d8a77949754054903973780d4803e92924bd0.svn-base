@@ -1,0 +1,666 @@
+package com.maro.manager.dishes.setmeal.controller;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ExportParams;
+import org.jeecgframework.poi.excel.entity.ImportParams;
+import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.alibaba.fastjson.JSONArray;
+import com.maro.common.dishes.dishes.pojo.entity.MaroDishesEntity;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.util.UUIDUtil;
+import com.maro.common.util.Util;
+import com.maro.manager.dishes.dishesspecifications.entity.MaroDishesSpecificationsEntity;
+import com.maro.manager.dishes.setmeal.entity.MaroSetmealEntity;
+import com.maro.manager.dishes.setmeal.page.MaroSetmealPage;
+import com.maro.manager.dishes.setmeal.service.MaroSetmealServiceI;
+import com.maro.manager.dishes.setmealdishes.entity.MaroAddSetmealSelectVO;
+import com.maro.manager.dishes.setmealdishes.entity.MaroSetmealDishesEntity;
+import com.maro.manager.dishes.setmealdishes.entity.MaroSetmealDishesSelectEntity;
+import com.maro.platform.core.beanvalidator.BeanValidators;
+import com.maro.platform.core.common.controller.BaseController;
+import com.maro.platform.core.common.exception.BusinessException;
+import com.maro.platform.core.common.hibernate.qbc.CriteriaQuery;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.common.model.json.DataGrid;
+import com.maro.platform.core.constant.Globals;
+import com.maro.platform.core.util.ExceptionUtil;
+import com.maro.platform.core.util.MyBeanUtils;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.jwt.util.ResponseMessage;
+import com.maro.platform.jwt.util.Result;
+import com.maro.platform.tag.core.easyui.TagUtil;
+import com.maro.platform.web.system.service.SystemService;
+
+/**   
+ * @Title: Controller
+ * @Description: 套餐
+ * @author onlineGenerator
+ * @date 2018-08-28 15:57:34
+ * @version V1.0   
+ *
+ */
+@Api(value="MaroSetmeal",description="套餐",tags="maroSetmealController")
+@Controller
+@RequestMapping("/maroSetmealController")
+public class MaroSetmealController extends BaseController {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(MaroSetmealController.class);
+
+	@Autowired
+	private MaroSetmealServiceI maroSetmealService;
+	@Autowired
+	private SystemService systemService;
+	@Autowired
+	private Validator validator;
+	
+	/**
+	 * 跳到选择套餐菜的页面
+	 */
+	@RequestMapping(params = "setmealDishes")
+	public ModelAndView setmealDishes(HttpServletRequest request,String setmealId) {
+		//根据套餐id 获取套餐类 
+		List<MaroSetmealDishesEntity> setmealDishesList = maroSetmealService.findByProperty(MaroSetmealDishesEntity.class,"setmealId",setmealId);
+		
+		for (MaroSetmealDishesEntity entity : setmealDishesList) {
+			//根据 套餐类id 获取套餐菜
+			List<MaroSetmealDishesSelectEntity> setmealDishesSelectList = maroSetmealService.findByProperty(MaroSetmealDishesSelectEntity.class,"setmealishesId",entity.getId());
+			entity.setSetmealDishesSelectList(setmealDishesSelectList);
+			
+			for (MaroSetmealDishesSelectEntity selectEntity : setmealDishesSelectList) {
+				
+				//根据规格id获取数据
+				MaroDishesSpecificationsEntity ds = maroSetmealService.getEntity(MaroDishesSpecificationsEntity.class,selectEntity.getSpecificationsId());
+				selectEntity.setSpecificationsCode(ds.getSpecificationsCode());
+				selectEntity.setSpecificationsName(Util.getValueFromTypeByTypeCodeAndKey("maro_specifications",ds.getSpecificationsCode()));
+				
+				//根据菜肴id获取数据
+				MaroDishesEntity dishes = maroSetmealService.getEntity(MaroDishesEntity.class, ds.getMaroDishesId());
+				selectEntity.setDishesName(dishes.getDishesName());
+				
+				//单位
+				selectEntity.setDishesUnit(Util.getValueFromTypeByTypeCodeAndKey("maro_unit_name",dishes.getUnit()));
+				
+			}
+		}
+		
+		
+		request.setAttribute("setmealDishesList",setmealDishesList);
+		return new ModelAndView("com/maro/manager/dishes/setmeal/setmealDishes");
+	}
+	
+	@RequestMapping(params = "doDelSetmealDishesSelect")
+	@ResponseBody
+	public AjaxJson doDelSetmealDishesSelect(String selectId, HttpServletRequest request) {
+		AjaxJson j = new AjaxJson();
+		maroSetmealService.doDelSetmealDishesSelect(selectId);
+		return j;
+	}
+	/**
+	 * 套餐列表 页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "list")
+	public ModelAndView list(HttpServletRequest request) {
+		return new ModelAndView("com/maro/manager/dishes/setmeal/maroSetmealList");
+	}
+
+	/**
+	 * easyui AJAX请求数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @param dataGrid
+	 * @param user
+	 */
+
+	@RequestMapping(params = "datagrid")
+	public void datagrid(MaroSetmealEntity maroSetmeal,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+		CriteriaQuery cq = new CriteriaQuery(MaroSetmealEntity.class, dataGrid);
+		
+		cq.eq("sysCompanyCode", ResourceUtil.getSessionUser().getCurrentDepart().getId());
+		
+		//查询条件组装器
+		com.maro.platform.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, maroSetmeal);
+		try{
+		//自定义追加查询条件
+		}catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+		cq.add();
+		this.maroSetmealService.getDataGridReturn(cq, true);
+		TagUtil.datagrid(response, dataGrid);
+	}
+	
+	/**
+	 * easyui AJAX请求数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @param dataGrid
+	 * @param user
+	 */
+
+	@RequestMapping(params = "datagrid2")
+	public void datagrid2(MaroDishesEntity maroDishes,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+		CriteriaQuery cq = new CriteriaQuery(MaroDishesEntity.class, dataGrid);
+		
+		String sysCompanyCode = ResourceUtil.getSessionUser().getCurrentDepart().getId();
+		MaroShopEntity ms = maroSetmealService.findUniqueByProperty(MaroShopEntity.class,"departId",sysCompanyCode);
+		cq.eq("sysCompanyCode", ms.getId());
+		
+		cq.eq("type", "package");
+		
+		//查询条件组装器
+		com.maro.platform.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, maroDishes);
+		try{
+		//自定义追加查询条件
+		}catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+		cq.add();
+		this.maroSetmealService.getDataGridReturn(cq, true);
+		TagUtil.datagrid(response, dataGrid);
+	}
+	
+
+	/**
+	 * 删除套餐
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "doDel")
+	@ResponseBody
+	public AjaxJson doDel(MaroSetmealEntity maroSetmeal, HttpServletRequest request) {
+		AjaxJson j = new AjaxJson();
+		maroSetmeal = systemService.getEntity(MaroSetmealEntity.class, maroSetmeal.getId());
+		String message = "套餐删除成功";
+		try{
+			maroSetmealService.delMain(maroSetmeal);
+			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "套餐删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	@RequestMapping(params = "doDel2")
+	@ResponseBody
+	public AjaxJson doDel2(MaroDishesEntity maroDishes, HttpServletRequest request) {
+		AjaxJson j = new AjaxJson();
+		maroDishes = systemService.getEntity(MaroDishesEntity.class, maroDishes.getId());
+		String message = "套餐删除成功";
+		try{
+			maroSetmealService.delMain2(maroDishes);
+			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "套餐删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+	/**
+	 * 批量删除套餐
+	 * 
+	 * @return
+	 */
+	 @RequestMapping(params = "doBatchDel")
+	@ResponseBody
+	public AjaxJson doBatchDel(String ids,HttpServletRequest request){
+		AjaxJson j = new AjaxJson();
+		String message = "套餐删除成功";
+		try{
+			for(String id:ids.split(",")){
+				MaroSetmealEntity maroSetmeal = systemService.getEntity(MaroSetmealEntity.class,
+				id
+				);
+				maroSetmealService.delMain(maroSetmeal);
+				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "套餐删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+	/**
+	 * 添加套餐
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(params = "doAdd")
+	@ResponseBody
+	public AjaxJson doAdd(MaroSetmealEntity maroSetmeal,MaroSetmealPage maroSetmealPage, HttpServletRequest request) {
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		AjaxJson j = new AjaxJson();
+		String message = "添加成功";
+		try{
+			UUIDUtil.setId(maroSetmeal,maroSetmealDishesList);
+			maroSetmealService.addMain(maroSetmeal, maroSetmealDishesList);
+			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "套餐添加失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+	/**
+	 * 添加套餐
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(params = "doAdd2")
+	@ResponseBody
+	public AjaxJson doAdd2(MaroDishesEntity maroDishes,MaroSetmealPage maroSetmealPage, HttpServletRequest request) {
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		AjaxJson j = new AjaxJson();
+		String message = "添加成功";
+		try{
+			UUIDUtil.setId(maroDishes,maroSetmealDishesList);
+			
+			//保存主信息
+			String orgCode = ResourceUtil.getSessionUser().getCurrentDepart().getOrgCode();
+			String sysCompanyCode = ResourceUtil.getSessionUser().getCurrentDepart().getId();
+			//获取店铺的Id
+			MaroShopEntity ms = systemService.findUniqueByProperty(MaroShopEntity.class,"departId",sysCompanyCode);
+			maroDishes.setSysOrgCode(orgCode);
+			maroDishes.setSysCompanyCode(ms.getId());
+			maroDishes.setPinyinCode(maroDishes.getCoding());
+			
+			maroSetmealService.addMain2(maroDishes, maroSetmealDishesList);
+			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "套餐添加失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+	/**
+	 * 添加套餐类中的菜
+	 */
+	@RequestMapping(params = "doAddDishesSelect")
+	@ResponseBody
+	public AjaxJson doAddDishesSelect(MaroAddSetmealSelectVO setmealSelectVO, HttpServletRequest request) {
+		AjaxJson j = new AjaxJson();
+		UUIDUtil.setId(setmealSelectVO.getSetmealDishesSelect());
+		maroSetmealService.doAddDishesSelect(setmealSelectVO);
+		
+		return j;
+	}
+	
+	/**
+	 * 更新套餐
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(params = "doUpdate")
+	@ResponseBody
+	public AjaxJson doUpdate(MaroSetmealEntity maroSetmeal,MaroSetmealPage maroSetmealPage, HttpServletRequest request) {
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		AjaxJson j = new AjaxJson();
+		String message = "更新成功";
+		try{
+			maroSetmealService.updateMain(maroSetmeal, maroSetmealDishesList);
+			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "更新套餐失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+	@RequestMapping(params = "doUpdate2")
+	@ResponseBody
+	public AjaxJson doUpdate2(MaroDishesEntity maroDishes,MaroSetmealPage maroSetmealPage, HttpServletRequest request) {
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		AjaxJson j = new AjaxJson();
+		String message = "更新成功";
+		try{
+			maroSetmealService.updateMain2(maroDishes, maroSetmealDishesList);
+			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "更新套餐失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+	/**
+	 * 套餐新增页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "goAdd")
+	public ModelAndView goAdd(MaroSetmealEntity maroSetmeal, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(maroSetmeal.getId())) {
+			maroSetmeal = maroSetmealService.getEntity(MaroSetmealEntity.class, maroSetmeal.getId());
+			req.setAttribute("maroSetmealPage", maroSetmeal);
+		}
+		return new ModelAndView("com/maro/manager/dishes/setmeal/maroSetmeal-add");
+	}
+	
+	/**
+	 * 套餐编辑页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "goUpdate")
+	public ModelAndView goUpdate(MaroSetmealEntity maroSetmeal, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(maroSetmeal.getId())) {
+			maroSetmeal = maroSetmealService.getEntity(MaroSetmealEntity.class, maroSetmeal.getId());
+			req.setAttribute("maroSetmealPage", maroSetmeal);
+		}
+		return new ModelAndView("com/maro/manager/dishes/setmeal/maroSetmeal-update");
+	}
+	
+	@RequestMapping(params = "goUpdate2")
+	public ModelAndView goUpdate2(MaroDishesEntity maroDishes, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(maroDishes.getId())) {
+			maroDishes = maroSetmealService.getEntity(MaroDishesEntity.class, maroDishes.getId());
+			req.setAttribute("maroSetmealPage", maroDishes);
+		}
+		return new ModelAndView("com/maro/manager/dishes/setmeal/maroSetmeal-update");
+	}
+	
+	
+	/**
+	 * 加载明细列表[套餐菜肴]
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "maroSetmealDishesList")
+	public ModelAndView maroSetmealDishesList(MaroSetmealEntity maroSetmeal, HttpServletRequest req) {
+	
+		//===================================================================================
+		//获取参数
+		Object id0 = maroSetmeal.getId();
+		//===================================================================================
+		//查询-套餐菜肴
+	    String hql0 = "from MaroSetmealDishesEntity where 1 = 1 AND sETMEAL_ID = ? ";
+	    try{
+	    	List<MaroSetmealDishesEntity> maroSetmealDishesEntityList = systemService.findHql(hql0,id0);
+			req.setAttribute("maroSetmealDishesList", maroSetmealDishesEntityList);
+		}catch(Exception e){
+			logger.info(e.getMessage());
+		}
+		return new ModelAndView("com/maro/manager/dishes/setmealdishes/maroSetmealDishesList");
+	}
+
+    /**
+    * 导出excel
+    *
+    * @param request
+    * @param response
+    */
+    @RequestMapping(params = "exportXls")
+    public String exportXls(MaroSetmealEntity maroSetmeal,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid,ModelMap map) {
+    	CriteriaQuery cq = new CriteriaQuery(MaroSetmealEntity.class, dataGrid);
+    	//查询条件组装器
+    	com.maro.platform.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, maroSetmeal);
+    	try{
+    	//自定义追加查询条件
+    	}catch (Exception e) {
+    		throw new BusinessException(e.getMessage());
+    	}
+    	cq.add();
+    	List<MaroSetmealEntity> list=this.maroSetmealService.getListByCriteriaQuery(cq, false);
+    	List<MaroSetmealPage> pageList=new ArrayList<MaroSetmealPage>();
+        if(list!=null&&list.size()>0){
+        	for(MaroSetmealEntity entity:list){
+        		try{
+        		MaroSetmealPage page=new MaroSetmealPage();
+        		   MyBeanUtils.copyBeanNotNull2Bean(entity,page);
+            	    Object id0 = entity.getId();
+				    String hql0 = "from MaroSetmealDishesEntity where 1 = 1 AND sETMEAL_ID = ? ";
+        	        List<MaroSetmealDishesEntity> maroSetmealDishesEntityList = systemService.findHql(hql0,id0);
+            		page.setMaroSetmealDishesList(maroSetmealDishesEntityList);
+            		pageList.add(page);
+            	}catch(Exception e){
+            		logger.info(e.getMessage());
+            	}
+            }
+        }
+        map.put(NormalExcelConstants.FILE_NAME,"套餐");
+        map.put(NormalExcelConstants.CLASS,MaroSetmealPage.class);
+        map.put(NormalExcelConstants.PARAMS,new ExportParams("套餐列表", "导出人:Jeecg",
+            "导出信息"));
+        map.put(NormalExcelConstants.DATA_LIST,pageList);
+        return NormalExcelConstants.JEECG_EXCEL_VIEW;
+	}
+
+    /**
+	 * 通过excel导入数据
+	 * @param request
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(params = "importExcel", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxJson importExcel(HttpServletRequest request, HttpServletResponse response) {
+		AjaxJson j = new AjaxJson();
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			MultipartFile file = entity.getValue();// 获取上传文件对象
+			ImportParams params = new ImportParams();
+			params.setTitleRows(2);
+			params.setHeadRows(2);
+			params.setNeedSave(true);
+			try {
+				List<MaroSetmealPage> list =  ExcelImportUtil.importExcel(file.getInputStream(), MaroSetmealPage.class, params);
+				MaroSetmealEntity entity1=null;
+				for (MaroSetmealPage page : list) {
+					entity1=new MaroSetmealEntity();
+					MyBeanUtils.copyBeanNotNull2Bean(page,entity1);
+		            maroSetmealService.addMain(entity1, page.getMaroSetmealDishesList());
+				}
+				j.setMsg("文件导入成功！");
+			} catch (Exception e) {
+				j.setMsg("文件导入失败！");
+				logger.error(ExceptionUtil.getExceptionMessage(e));
+			}finally{
+				try {
+					file.getInputStream().close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			}
+			return j;
+	}
+	/**
+	* 导出excel 使模板
+	*/
+	@RequestMapping(params = "exportXlsByT")
+	public String exportXlsByT(ModelMap map) {
+		map.put(NormalExcelConstants.FILE_NAME,"套餐");
+		map.put(NormalExcelConstants.CLASS,MaroSetmealPage.class);
+		map.put(NormalExcelConstants.PARAMS,new ExportParams("套餐列表", "导出人:"+ ResourceUtil.getSessionUser().getRealName(),
+		"导出信息"));
+		map.put(NormalExcelConstants.DATA_LIST,new ArrayList());
+		return NormalExcelConstants.JEECG_EXCEL_VIEW;
+	}
+	/**
+	* 导入功能跳转
+	*
+	* @return
+	*/
+	@RequestMapping(params = "upload")
+	public ModelAndView upload(HttpServletRequest req) {
+		req.setAttribute("controller_name", "maroSetmealController");
+		return new ModelAndView("common/upload/pub_excel_upload");
+	}
+
+ 	
+ 	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="套餐列表信息",produces="application/json",httpMethod="GET")
+	public ResponseMessage<List<MaroSetmealPage>> list() {
+		List<MaroSetmealEntity> list= maroSetmealService.getList(MaroSetmealEntity.class);
+    	List<MaroSetmealPage> pageList=new ArrayList<MaroSetmealPage>();
+        if(list!=null&&list.size()>0){
+        	for(MaroSetmealEntity entity:list){
+        		try{
+        			MaroSetmealPage page=new MaroSetmealPage();
+        		   MyBeanUtils.copyBeanNotNull2Bean(entity,page);
+					Object id0 = entity.getId();
+				     String hql0 = "from MaroSetmealDishesEntity where 1 = 1 AND sETMEAL_ID = ? ";
+	    			List<MaroSetmealDishesEntity> maroSetmealDishesOldList = this.maroSetmealService.findHql(hql0,id0);
+            		page.setMaroSetmealDishesList(maroSetmealDishesOldList);
+            		pageList.add(page);
+            	}catch(Exception e){
+            		logger.info(e.getMessage());
+            	}
+            }
+        }
+		return Result.success(pageList);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="根据ID获取套餐信息",notes="根据ID获取套餐信息",httpMethod="GET",produces="application/json")
+	public ResponseMessage<?> get(@ApiParam(required=true,name="id",value="ID")@PathVariable("id") String id) {
+		MaroSetmealEntity task = maroSetmealService.get(MaroSetmealEntity.class, id);
+		if (task == null) {
+			return Result.error("根据ID获取套餐信息为空");
+		}
+		MaroSetmealPage page = new MaroSetmealPage();
+		try {
+			MyBeanUtils.copyBeanNotNull2Bean(task, page);
+				Object id0 = task.getId();
+		    String hql0 = "from MaroSetmealDishesEntity where 1 = 1 AND sETMEAL_ID = ? ";
+			List<MaroSetmealDishesEntity> maroSetmealDishesOldList = this.maroSetmealService.findHql(hql0,id0);
+    		page.setMaroSetmealDishesList(maroSetmealDishesOldList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Result.success(page);
+	}
+ 	
+ 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="创建套餐")
+	public ResponseMessage<?> create(@ApiParam(name="套餐对象")@RequestBody MaroSetmealPage maroSetmealPage, UriComponentsBuilder uriBuilder) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<MaroSetmealPage>> failures = validator.validate(maroSetmealPage);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		
+		MaroSetmealEntity maroSetmeal = new MaroSetmealEntity();
+		try{
+			MyBeanUtils.copyBeanNotNull2Bean(maroSetmealPage,maroSetmeal);
+		}catch(Exception e){
+            logger.info(e.getMessage());
+            return Result.error("保存套餐失败");
+        }
+		maroSetmealService.addMain(maroSetmeal, maroSetmealDishesList);
+
+		return Result.success(maroSetmeal);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="更新套餐",notes="更新套餐")
+	public ResponseMessage<?> update(@RequestBody MaroSetmealPage maroSetmealPage) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<MaroSetmealPage>> failures = validator.validate(maroSetmealPage);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		List<MaroSetmealDishesEntity> maroSetmealDishesList =  maroSetmealPage.getMaroSetmealDishesList();
+		
+		MaroSetmealEntity maroSetmeal = new MaroSetmealEntity();
+		try{
+			MyBeanUtils.copyBeanNotNull2Bean(maroSetmealPage,maroSetmeal);
+		}catch(Exception e){
+            logger.info(e.getMessage());
+            return Result.error("套餐更新失败");
+        }
+		maroSetmealService.updateMain(maroSetmeal, maroSetmealDishesList);
+
+		//按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
+		return Result.success();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value="删除套餐")
+	public ResponseMessage<?> delete(@ApiParam(name="id",value="ID",required=true)@PathVariable("id") String id) {
+		logger.info("delete[{}]" + id);
+		// 验证
+		if (StringUtils.isEmpty(id)) {
+			return Result.error("ID不能为空");
+		}
+		try {
+			MaroSetmealEntity maroSetmeal = maroSetmealService.get(MaroSetmealEntity.class, id);
+			maroSetmealService.delMain(maroSetmeal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("套餐删除失败");
+		}
+
+		return Result.success();
+	}
+}

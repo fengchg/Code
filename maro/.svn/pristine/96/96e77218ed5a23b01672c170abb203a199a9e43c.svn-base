@@ -1,0 +1,136 @@
+package com.maro.manager.common.service;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.manager.common.entity.ComboTree;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.common.service.CommonService;
+import com.maro.platform.web.system.pojo.base.TSDepart;
+import com.maro.platform.web.system.pojo.base.TSUser;
+
+
+public interface UtilServiceI extends CommonService{
+	/**
+	 * 通过参数获取easyui的tree数据
+	 * @param id
+	 * @param id_field_name
+	 * @param pid_field_name
+	 * @param tree_field
+	 * @param table_name
+	 * @return
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月2日
+	 * @version
+	 */
+	List<ComboTree> getComboTree(String id,String id_field_name, String pid_field_name,
+			String tree_field, String table_name);
+	/**
+	 * 获取下拉框的数据集合
+	 * @param id 
+	 * @param text
+	 * @param table_name 表名
+	 * @param conditions 条件
+	 * @return
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月3日
+	 * @version
+	 */
+	List<Map> getCombobox(String id, String text, String table_name,
+			String conditions);
+	/**
+	 * 通过用户id获取该用户是否为管理员
+	 * @param userId  用户id
+	 * @return 是为true，否为false
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月3日
+	 * @version
+	 */
+	boolean isAdmin(String userId);
+	/**
+	 * 根据部门id获取部门名称
+	 * @param departId  部门id
+	 * @return 部门名称或null
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月3日
+	 * @version
+	 */
+	String getDepartNameByDepartId(String departId);
+	/**
+	 * 根据用户id获取用户所在店铺id
+	 * @param userId  用户id
+	 * @return 店铺id或null
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月3日
+	 * @version
+	 */
+	String getShopIdByUserId(String userId);
+	/**
+	 * 根据用户id获取用户所拥有的库仓库id集合
+	 * @param shopId  店铺id
+	 * @return 库仓库id集合或null
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月3日
+	 * @version
+	 */
+	List<Map> getStoreIdsByShopId(String shopId);
+	/**
+	 * 验证此用户是否存在
+	 * @param user
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月22日
+	 * @version
+	 */
+	TSUser approveUser(String userName,String password);
+	/**
+	 * 为客户端初始化数据库
+	 * @param queueName
+	 * @param tableName
+	 * @author gongdaohai
+	 * @since v1.0,2018年5月23日
+	 * @version
+	 */
+	void initDB(String queueName, String tableName);
+	
+	/**
+	 * 获取机构的code,在推送到mq的时候用到
+	 * 店铺id
+	 */
+	String getOrgCode(String shopId);
+
+	/**
+	 * 通过用户id获取用户所属部门
+	 * @param id
+	 * @return
+	 */
+    TSDepart getDepartByUserId(String id);
+
+    /**
+     * 同步字典
+     * @param queueName 队列
+     */
+    void syncGroup(String queueName);
+
+	/**
+	 * 通过部门id获取店铺名称
+	 * @param departId 部门id
+	 * @return
+	 */
+	String getShopNameByDepartId(String departId);
+
+	/**
+	 * sql分割查询
+	 * @param sql
+	 * @return
+	 */
+	Object getRealValueBydictionary(String sql,String value);
+
+	/**
+	 * 通过用户id获取用户所属店铺信息
+	 * @param userId 用户id
+	 * @return
+	 */
+	MaroShopEntity getShopInfoByUserId(String userId);
+}

@@ -1,0 +1,309 @@
+<template>
+  <div class="page" v-cloak>
+    <yd-layout class="content">
+      <yd-navbar class="bg-theme" slot="navbar" :title="title">
+        <div slot="left" @click="backTo">
+          <yd-navbar-back-icon></yd-navbar-back-icon>
+        </div>
+        <div slot="right" @click="switchOptionPopup">
+          催菜
+          <!--<yd-icon name="more"></yd-icon>-->
+        </div>
+      </yd-navbar>
+      <div>
+        <div class="my-box ord-box">
+          <div class="ord-item ord-cell">
+            <yd-flexbox>
+              <div class="ord-cell-label">下单时间</div>
+              <yd-flexbox-item>
+                <div class="ord-cell-value">{{beginTime}}</div>
+              </yd-flexbox-item>
+            </yd-flexbox>
+          </div>
+          <div class="ord-item ord-cell">
+            <yd-flexbox>
+              <div class="ord-cell-label">下单流水号</div>
+              <yd-flexbox-item>
+                <div class="ord-cell-value">{{disNo}}</div>
+              </yd-flexbox-item>
+            </yd-flexbox>
+          </div>
+        </div>
+        <div class="my-box ord-box" v-if="orderList.length>0">
+          <!-- <div class="ord-item ord-list-head fc-theme">
+            <yd-flexbox>
+              <yd-flexbox-item>
+                <div class="ord-list-name">菜品名称</div>
+              </yd-flexbox-item>
+              <div class="ord-list-amount">数量</div>
+              <div class="ord-list-price">价格</div>
+              <div class="ord-list-status">状态</div>
+            </yd-flexbox>
+          </div> -->
+          <div class="ord-item ord-list" v-for="item, index in orderList" >
+            <template v-if="index!=0">
+              <hr v-if="item.times!=orderList[index-1].times"/>
+            </template>
+            <yd-flexbox >
+              <yd-flexbox-item @click.native="goPackage(item)">
+                <div class="ord-list-name" >
+                  <span>{{item.foodName}}</span>
+                  <span v-if="item.packageType == 1">
+                     <!--<yd-icon name="star" size="16px" color="#16AA6B" ></yd-icon>-->
+                       <img :src="icon_star" class="ord-list-star" />
+                  </span>
+
+                </div>
+
+                <div class="ord-list-format fc-theme">{{item.specificationsName}}</div>
+                <div class="ord-list-format fc-theme">{{item.remark}}</div>
+              </yd-flexbox-item>
+              <div class="ord-list-amount">×{{item.quantity}}</div>
+              <div class="ord-list-price">
+                <span class="my-price fc-theme"><em>¥</em>{{item.price}}</span>
+              </div>
+              <div class="ord-list-status">{{item.statusText}}</div>
+
+            </yd-flexbox>
+
+          </div>
+
+        </div>
+        <div class="nothing" :style="img" v-if="orderList.length==0"></div>
+      </div>
+      <div slot="bottom" class="my-buy">
+        <yd-flexbox class="my-buy-box">
+          <yd-flexbox-item>
+            <div class="my-buy-left yd-flexbox">
+              <div class="my-price fc-theme"><em>¥</em>{{amount}}</div>
+            </div>
+          </yd-flexbox-item>
+          <div class="my-buy-right">
+            <button type="button" class="my-buy-pay bg-theme" @click="addOrder">
+              <span class="my-buy-pay-text">加菜</span>
+            </button>
+          </div>
+        </yd-flexbox>
+      </div>
+    </yd-layout>
+
+    <yd-popup v-model="showPackage" position="bottom" height="50%">
+      <div class="buy-list-head" >
+        <yd-flexbox>
+          <yd-flexbox-item>
+            <div class="buy-list-title">菜名</div>
+          </yd-flexbox-item>
+          <yd-flexbox-item>
+            <div class="buy-list-title buy-list-pdl">数量</div>
+          </yd-flexbox-item>
+        </yd-flexbox>
+      </div>
+      <div class="ord-box ord-item" v-for="item, index in packageMeal" >
+        <yd-flexbox >
+          <yd-flexbox-item>
+            <div class="ord-list-name">{{item.foodName}}</div>
+            <div class="ord-list-format fc-theme">{{item.specificationsName}}</div>
+          </yd-flexbox-item>
+
+          <div class="ord-list-amount">×{{item.quantity}}</div>
+
+        </yd-flexbox>
+
+      </div>
+    </yd-popup>
+
+  </div>
+</template>
+<script>
+  import { mapGetters } from 'vuex'
+  import Vue from 'vue'
+export default {
+  data() {
+    return {
+      icon_star:require('../../assets/icon/detail_star.jpg'),
+      orderList: [],
+      disNo: '',
+      optionFlag: false,
+      beginTime: '',
+      img: {background: "url(" + require('../../../static/img/nothing.png') + ")no-repeat center/150px"},
+      moreImg:require('../../../static/img/more.png'),
+      title:'',
+      amount:0.00,
+      showPackage: false,//显示套餐
+      packageMeal:[]  //套餐
+    }
+  },
+  computed: {
+    ...mapGetters([ 'getOrderId','getPick','getSeatName'])
+  },
+  created() {
+    this.title=this.getSeatName+" 订单详情"
+    //获取订单详情页数据
+    this.loadMenuContent();
+  },
+  methods: {
+    goPackage(items){
+      if(items.packageType == 1){
+        this.packageMeal = items.list
+        this.showPackage = true;
+      }
+
+    },
+    switchOptionPopup(val) {
+      this.$router.push({
+        name:'OrderUrge'
+      })
+    },
+    loadMenuContent(){
+      // 获取已点的菜数据
+      let that=this;
+      let data = new URLSearchParams();
+      data.append('serverOrderId', this.getOrderId);
+      let param={
+        loadingText:'努力获取订单信息中...',
+        isLoading:true,
+        data:data,
+        myVue:this
+      }
+      this.common.$ajax('/maroClientServerorderController.do?getServerOrderById',param,function(data){
+
+        //处理数据格式以便渲染
+        that.handleOrderData(data.obj);
+      })
+    },
+    addOrder(){
+      this.$router.push({
+          path: '/orderBase'
+
+      })
+    },
+    getOrderError(obj) {
+      this.$dialog.loading.close()
+      this.$router.goBack()
+
+      // 获取数据出错的回调函数
+      this.$dialog.notify({
+        mes: '暂时无法获取订单详情，请稍后重试。',
+        timeout: 5000
+      })
+    },
+    handleOrderData(obj) {
+      this.disNo = obj.maroClientServerorderVO.code
+      this.beginTime = this.stampToTime(obj.maroClientServerorderVO.beginTime)
+      this.orderList = [].concat(obj.maroClientFoodOrderVOs)
+      this.amount=obj.maroClientServerorderVO.amount;
+      for (let i = 0; i < this.orderList.length; i++) {
+        this.$set(this.orderList[i], 'statusText', this.arrStatus[this.orderList[i].status])
+      }
+    },
+    stampToTime(timestamp) {
+      let t = this
+      let date = new Date(timestamp.length == 10 ? timestamp * 1000 : timestamp)
+      let y = date.getFullYear()
+      let m = t.supplyZero(date.getMonth() + 1)
+      let d = t.supplyZero(date.getDate())
+      let h = t.supplyZero(date.getHours())
+      let n = t.supplyZero(date.getMinutes())
+      let s = t.supplyZero(date.getSeconds())
+      return y + '-' + m + '-' + d + ' ' + h + ':' + n + ':' + s
+    },
+    supplyZero(num) {
+      return Number(num) < 10 ? '0' + num : num;
+    },
+    backTo(){
+
+      this.isBack = true
+      this.$router.push({
+        name:'Table'
+      })
+     // window.history.go(-page);
+    }
+  }
+}
+
+</script>
+<style scoped>
+
+  .ord-list-star{width: .4rem;position: absolute}
+  .buy-list-head {
+    background-color: rgb(247, 247, 247);
+    position: relative;
+  }
+.buy-list-pdl{padding-left: 1.1rem }
+  .buy-list-head:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+    transform: scaleY(.5);
+    transform-origin: 0 0;
+  }
+  .buy-list-title {
+    font-size: .28rem;
+    font-weight: 800;
+    line-height: .3rem;
+    color: #666;
+    text-align: center;
+  }
+.ord-box {
+  padding: .1rem 0;
+}
+
+.ord-item {
+  font-size: .28rem;
+  line-height: 1.5;
+  padding: .07rem .4rem;
+}
+
+.ord-cell {
+  padding: .07rem .4rem;
+}
+
+.ord-cell-label {
+  text-align: left;
+  padding-right: 1em;
+}
+
+.ord-cell-value {
+  text-align: right;
+}
+.nothing {
+  margin: 0 auto;
+  width:300px;
+  height: 200px;
+  background-size:100%;
+
+}
+.ord-list-head {
+  padding: .15rem .4rem .2rem;
+  margin-bottom: .1rem;
+  position: relative;
+}
+
+.ord-list-head:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid #e1e1e1;
+  transform: scaleY(.5);
+  transform-origin: 0 0;
+}
+
+.ord-list-amount {
+  width: 15%;
+}
+
+.ord-list-price {
+  width: 4.5em;
+}
+
+.ord-list-status {
+  width: 2em;
+}
+
+</style>

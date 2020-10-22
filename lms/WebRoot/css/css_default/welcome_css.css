@@ -1,0 +1,329 @@
+/*=========整体设置=========*/
+body{
+margin:5px auto;
+padding:0;
+font:12px "宋体";
+background-attachment: fixed;}
+
+/*红色星号样式*/
+.red{
+color:#FF0000;
+}
+
+/*=========二级栏目表头=========*/
+
+.maintitle{
+	margin-left:0px;
+	height:15px;
+	font: bold 12px "宋体";
+	color:#000000;
+	background:url(./img/maintitlebg11.gif) repeat-x 0 0;
+	width: 100%;
+	padding-top: 5px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #42c7f7;
+	border-bottom-color: #42c7f7;
+	border-left-color: #42c7f7;
+}
+/*===============main中间部分整体框=============*/
+.mainbg{
+	width:100%;
+	font: 12px "宋体";
+	background:#FFFFFF;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #42c7f7;
+	border-bottom-color: #42c7f7;
+	border-left-color: #42c7f7;
+	padding-top: 5px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+}
+
+.maintitle-{
+	height:15px;
+	padding-left: 10px;	
+	float:left;
+	width:600px;
+}
+.maintitle-1{
+	height:15px;
+	padding-left: 10px;
+	float:right;
+	width:200px;
+	text-align: right;
+	padding-right: 5px;
+} 
+.maintitle a:link{
+color:#000000;
+text-decoration:none;
+}
+
+
+td{
+	overflow:hidden;
+	color:#000000;
+	border-left:1px solid #B3D0EE;
+	border-top:1px solid #B3D0EE;
+	padding:5px;
+	border-collapse:collapse;
+	font-family: "宋体";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-align: left;
+  }
+
+
+/*===============================个人首页的CSS---开始=================================*/
+.gr-dabeijing{
+	border-left:0px;
+	width: 100%;
+	padding-top: 5px;
+  }
+.none- {
+	border:none;
+	margin: 0px;
+	padding: 0px;
+	height: 20px;
+  }
+.none-1 {
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-2 {
+	border:none;
+	margin: 0px;
+	padding: 0px;
+	height: 10px;
+  }
+.none-3 {
+    height: 13px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-4 {
+    height: 25px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-5-gao-38 {
+    height: 38px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-6-gao-10 {
+    height: 10px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-7-gao-18 {
+    height: 18px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+ .none-8-gao-150 {
+    height: 150px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+ .none-9 {
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+ .none-10-gao-5 {
+    height: 5px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+  }
+.none-11-gao-140 {
+	height: 140px;
+	border:none;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: bottom;
+	clear: none;
+  }
+.none-8-gao-bj {
+	border:none;
+	margin: 0px;
+	padding: 0px;
+	background-image: url(img/gr-8.gif);
+	background-repeat: no-repeat;
+	background-position: bottom;
+  }
+.gr-td-sibian{
+	border: 1px solid #AEC9E6;
+	margin: 0px;
+	padding: 0px;
+  }
+.gr-td-sanbian{
+	margin: 0px;
+	padding: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #AEC9E6;
+	border-right-color: #AEC9E6;
+	border-left-color: #AEC9E6;
+	border-bottom-width: 0px;
+  }
+.gr-td-liangbian{
+	margin: 0px;
+	padding: 0px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #AEC9E6;
+	border-left-color: #AEC9E6;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	height: 25px;
+  }
+.gr-table-youbian{
+	margin: 0px;
+	padding: 0px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #AEC9E6;
+  }
+.gr-td-zuoxiabian{
+	margin: 0px;
+	padding: 0px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #AEC9E6;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #AEC9E6;
+  }
+
+a.hei:link {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+a.hei:visited {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+a.hei:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+a.hei-jingbian-hong:link {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+a.hei-jingbian-hong:visited {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+a.hei-jingbian-hong:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #ff0000;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+/*====红经过变红-开始======*/
+a.hong-jingbian-hong:link {
+font-family: "宋体";
+font-size: 12px;
+color: #ff0000;
+text-decoration: none;
+}
+a.hong-jingbian-hong:visited {
+font-family: "宋体";
+font-size: 12px;
+color: #ff0000;
+text-decoration: none;
+}
+a.hong-jingbian-hong:hover {
+font-family: "宋体";
+font-size: 12px;
+color: #ff0000;
+text-decoration: none;
+}
+/*====红经过变红-结束======*/  
+
+.list_link:link {
+	font-size: 12px;
+	line-height: 150%;
+	color: #0000CC;
+	text-decoration: none;
+}
+
+.list_link:visited {
+	font-size: 12px;
+	line-height: 150%;
+	color: #0000CC;
+	text-decoration: none;
+}
+
+.list_link:hover {
+	font-size: 12px;
+	line-height: 150%;
+	color: #0000CC;
+	text-decoration: none;
+}
+
+.list_link:active {
+	font-size: 12px;
+	line-height: 150%;
+	color: #0000CC;
+	text-decoration: none;
+}
+/*===============================个人首页的CSS---结束=================================*/

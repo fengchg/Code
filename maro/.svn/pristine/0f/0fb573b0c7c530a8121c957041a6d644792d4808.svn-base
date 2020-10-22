@@ -1,0 +1,188 @@
+package com.maro.manager.print.controller;
+
+import java.io.IOException;
+
+import com.maro.common.util.PrintUtil;
+import com.maro.manager.print.entity.CallUpShole;
+import com.maro.manager.print.entity.ChangeChannel;
+import com.maro.manager.print.entity.CombineTable;
+import com.maro.manager.print.entity.OrderSubmenu;
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.manager.print.entity.ShiftingOfDuty;
+import com.maro.manager.print.entity.SingleReturnDishes;
+import com.maro.manager.print.entity.SingleUrge;
+import com.maro.manager.print.entity.TakeOutSingle;
+
+public class PrintMain {
+	
+	private static String ip = "10.135.16.234";
+	private static int port = 9100;
+	
+	public static void main(String[] args) throws IOException {
+		SettleAccounts s = new SettleAccounts();
+		s.setTitleName("结账单");
+		s.setSeatName("1号包间");
+		s.setRenShu(8);
+		s.setBillNumber("000001245");
+		s.setBeginTime("2018-01-05 12:51:24");
+		s.setSettleTime("2018-01-05 12:51:24");
+		s.setWaiter("小二哥");
+		s.setCashier("何露林");
+		s.setMember("会员");
+		
+		
+		boolean b = PrintMain.printSettleAccounts(s);
+	}
+	
+	/**
+	 * 结账单
+	 * 预结单
+	 */
+	public static boolean printSettleAccounts(SettleAccounts s){
+		
+		String xmlStr="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+				"<doucument>" +
+				"<section><texts>" +
+				"<text>兔行天下（光华店）"+s.getTitleName()+"</text>"+
+				"<font>" +
+				"<fontSize>Normal</fontSize>"+
+				"<bold>true</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"<blankRow><lineNumber>1</lineNumber></blankRow>"+
+				"<keyvalue>"+
+				"<key>桌　名:</key>"+
+				"<value>["+s.getSeatName()+"]</value>"+
+				"</keyvalue>"+
+				"<keyvalue>"+
+				"<key>人　数:</key>"+
+				"<value>[2]</value>"+
+				"</keyvalue>"+
+				"<keyvalue><key>账单号:</key>"+
+				"<value>[000000012]</value></keyvalue>" +
+				"<keyvalue><key>开台时间:</key>"+
+				"<value>[2018-9-19 11:28:42]</value></keyvalue>" +
+				"<keyvalue><key>结账时间:</key>"+
+				"<value>[2018-9-19 11:28:42]</value></keyvalue>" +
+				"<keyvalue><key>服务员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<keyvalue><key>收银员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<keyvalue><key>会　员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<table>"+
+				"<cws><cw>20</cw><cw>8</cw><cw>6</cw><cw>8</cw></cws>"+
+				"<ars><ar>false</ar><ar>true</ar><ar>true</ar><ar>true</ar></ars>"+
+				"<headers><header>品名</header><header>单价</header><header>数量</header><header>总额</header></headers>"+
+				"<rows><row><td>鸿鹤鲜锅兔小份</td><td>78</td><td>1</td><td>78</td></row>"+
+				"<row><td>麻辣兔腿</td><td>10</td><td>2</td><td>20</td></row>"+
+				"<row><td>豆奶</td><td>16</td><td>2</td><td>32</td></row>"+
+				"<row><td>白米饭</td><td>2</td><td>2</td><td>4</td></row>"+
+				"</rows></table>"+
+				"<keyvalue><key>现金支付:</key><value>[100]</value></keyvalue>" +
+				"<keyvalue><key>微信支付:</key><value>[24]</value></keyvalue>" +
+				"<keyvalue><key>实付金额:</key><value>[124]</value><font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>true</bold>"+
+				"<underline>false</underline>"+
+				"</font></keyvalue>" +
+				"<section><texts>" +
+				"<text>光华北三路164号</text>"+
+				"<font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>false</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"<section><texts>" +
+				"<text>17726461730</text>"+
+				"<font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>false</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+
+
+	/**
+	 * 交接班
+	 */
+	public static boolean printShiftingOfDuty(ShiftingOfDuty s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 外卖单
+	 */
+	public static boolean printTakeOutSingle(TakeOutSingle s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 点菜分单
+	 */
+	public static boolean printOrderSubmenu(OrderSubmenu s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品崔菜单
+	 */
+	public static boolean printSingleUrge(SingleUrge s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品退菜单
+	 */
+	public static boolean printSingleReturnDishes(SingleReturnDishes s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 换台单
+	 */
+	public static boolean printChangeChannel(ChangeChannel s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCombineTable(CombineTable s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCallUpShole(CallUpShole s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	
+}

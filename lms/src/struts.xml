@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="feng" extends="struts-default" namespace="/">
+		<global-results>
+			<result name="globalError">/error.jsp</result>
+			<result name="globalSuccess">/success.jsp</result>
+			<result name="globalFailure">/failure.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="globalError" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="userAction" class="org.fengcg.lms.action.UserAction">
+			<result name="error">error.jsp</result>
+			<result name="tipPage">tipPage.jsp</result>
+			<result name="login">login.jsp</result>
+			<result name="adminMain">/admin/main.jsp</result>
+			<result name="userMain">/user/main.jsp</result>
+			<result name="viewUser">/admin/userView.jsp</result>
+			<result name="userList">/admin/userList.jsp</result>
+			<result name="userViewInfo">/user/viewInfo.jsp</result>
+			<result name="myBookBorrow">user/myBookBorrow.jsp</result>
+		</action>
+		
+		<action name="bookTypeAction" class="org.fengcg.lms.action.BookTypeAction">
+			<result name="error">error.jsp</result>
+			<result name="tipPage">tipPage.jsp</result>
+			<result name="list">/admin/bookTypeList.jsp</result>
+			<result name="view">/admin/bookTypeView.jsp</result>
+			<result name="updateForInput">/admin/bookTypeUpdateInput.jsp</result>
+		</action>
+		<action name="bookAction" class="org.fengcg.lms.action.BookAction">
+			<result name="error">error.jsp</result>
+			<result name="tipPage">tipPage.jsp</result>
+			<result name="list">/admin/bookList.jsp</result>
+			<result name="view">/admin/bookView.jsp</result>
+			<result name="updateForInput">/admin/bookUpdateInput.jsp</result>
+			<result name="addForInput">admin/bookAdd.jsp</result>
+		</action>
+		
+		<action name="borrowAction" class="org.fengcg.lms.action.BorrowAction">
+			<result name="error">error.jsp</result>
+			<result name="tipPage">tipPage.jsp</result>
+			<result name="borrowList">/admin/bookBorrow.jsp</result>
+			<result name="retAndReBrwList">/admin/bookRetAndBrw.jsp</result>
+			<result name="limitBookBRWList">/admin/limitBookBrw.jsp</result>
+			<result name="borrowListForNrmUser">/user/borrowListForNrmUser.jsp</result>
+		</action>
+		
+		<action name="phoneAction" class="org.fengcg.lms.action.PhoneAction">
+			<result name="json">/phone/json.jsp</result>
+			<result name="list">/phone/userList.html</result>
+		</action>
+	</package>
+</struts>

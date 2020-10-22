@@ -1,0 +1,86 @@
+/* CSS Document */
+body {
+    margin:0px;
+	border:0px;
+	font-size:12px;
+	background:url(img/userCategory/mainbg.jpg);
+	background-attachment: fixed;
+}
+#all {
+    width:99%;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+}
+#head {
+    width:99%;
+	height:20px;
+	margin-top:5px;
+	padding-top:5px;
+    font: bold 12px "宋体";
+    background:url(img/userCategory/maintitlebg.jpg) repeat-x 0 0;/*样式颜色更换的图片*/
+    color:#415b72;/*头部文字颜色*/
+    border:1px solid #47c4fc;/*头部边框颜色*/
+}
+#mainbox {
+    width:99%;
+	height:auto;
+	border:1px #a1c6e3 double;/*外边框颜色*/
+	padding-bottom:5px;
+	background:#FFFFFF;
+}
+#headbox {
+    width:98%;
+	height:20px;
+	text-indent:10px;
+	background-color:#c2e4fd;
+	padding-top:5px;
+    font: bold 12px "宋体";
+    color:#000;/*列表头文字颜色*/
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:0px;
+}
+.headbox {
+    width:98%;
+	height:20px;
+	background-color:#c2e4fd;
+	padding-top:5px;
+    font: bold 12px "宋体";
+    color:#000;/*列表头文字颜色*/
+	margin-left:auto;
+	margin-right:auto;
+}
+.listbox {
+    width:98%;
+	height:47px;
+	background-color:#f6f9f3;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:left;
+	margin-top:-12px !important;
+	margin-top:0px;
+}
+.listbox1{
+    margin-top:10px;
+    margin-left:-50px;
+}
+ul li {
+    float:left;
+	list-style:none;
+	background:url(img/userCategory/left.jpg) no-repeat right;
+}
+ul a{
+    width:100px;
+    display:block;
+    margin-right:10px;
+    margin-left:10px;
+    line-height:25px;
+    text-decoration:none;
+    color:#000;
+    text-align:center;
+}
+ul a:hover{
+    color:#F00;
+    background:url(img/userCategory/bj.jpg) no-repeat 50%;
+}

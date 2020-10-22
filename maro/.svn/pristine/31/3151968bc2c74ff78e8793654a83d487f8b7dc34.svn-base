@@ -1,0 +1,23 @@
+package com.maro.manager.print.entity;
+
+public class PrinterIp {
+	
+	private String printerIp;
+	private Integer printerPort;
+	
+	public String getPrinterIp() {
+		return printerIp;
+	}
+	public void setPrinterIp(String printerIp) {
+		this.printerIp = printerIp;
+	}
+	public Integer getPrinterPort() {
+		return printerPort;
+	}
+	public void setPrinterPort(Integer printerPort) {
+		this.printerPort = printerPort;
+	}
+
+
+	
+}

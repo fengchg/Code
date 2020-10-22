@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/maro.iml" filepath="$PROJECT_DIR$/maro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maro-client/maro-client.iml" filepath="$PROJECT_DIR$/maro-client/maro-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maro-common/maro-common.iml" filepath="$PROJECT_DIR$/maro-common/maro-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maro-platform/maro-platform.iml" filepath="$PROJECT_DIR$/maro-platform/maro-platform.iml" />
+    </modules>
+  </component>
+</project>

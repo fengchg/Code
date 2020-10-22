@@ -1,0 +1,7 @@
+#qianduan
+leadingEnd_PrinterIp = 10.135.16.234
+leadingEnd_PrinterPort = 9100
+
+#houchu
+chef_PrinterIp = 10.135.16.234
+chef_PrinterPort = 9100

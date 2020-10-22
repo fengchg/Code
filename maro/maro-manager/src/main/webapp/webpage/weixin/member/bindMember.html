@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>兔行天下老会员绑定</title>
+    <link href="#(ctx)/plug-in/hui/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="#(ctx)/plug-in/jquery/jquery-1.8.3.js"></script>
+    <script>
+        function submitForm(){
+            var phone=$("#phone").val();
+            $.ajax({
+                type : "POST",
+                url : "#(ctx)/maroWeixinActiveController.do?active",
+                data: {"phone":phone,"openid":"#(openid)","encrypt_code":"#(encrypt_code)","card_id":"#(card_id)"},
+                dataType : "json",
+                success : function(data) {
+                    alert(data.msg);
+                    if(data.success){
+                        WeixinJSBridge.call('closeWindow');
+                    }
+                },
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <form class="form form-horizontal responsive">
+    <div class="panel-body">
+        <div class="row cl"><p class="form-label">请输入会员手机号绑定</p></div>
+        <div class="row cl">
+            <input type="text" class="input-text" id="phone" placeholder="手机号" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+        </div>
+        <div class="row cl">
+                <input type="button" class="btn btn-success radius" value="绑定" onclick="submitForm();" />
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,616 @@
+package com.maro.client.module.serverorder.service.impl;
+
+import com.maro.client.common.constant.enumconstant.CommonTypeEnum;
+import com.maro.client.common.constant.enumconstant.FoodOrderStatusEnum;
+import com.maro.client.common.constant.enumconstant.FoodPackageTypeEnum;
+import com.maro.client.common.constant.enumconstant.FoodTypeEnum;
+import com.maro.client.common.dao.ClientCommonDao;
+import com.maro.client.common.util.MapUtil;
+import com.maro.client.common.util.PojoUtil;
+import com.maro.client.module.serverorder.pojo.dto.*;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientFoodorderDO;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.client.module.serverorder.pojo.vo.MaroClientFoodorderVO;
+import com.maro.client.module.serverorder.service.MaroClientFoodorderService;
+import com.maro.common.dishes.dishes.pojo.entity.MaroDishesEntity;
+import com.maro.common.dishes.dishes.service.MaroCommonDishesServiceI;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.shop.pojo.entity.MaroShopSeatEntity;
+import com.maro.platform.core.util.StringUtil;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
+
+/**
+ * 点菜记录服务实现
+ * @author 冯成果
+ * @date 2018-3-26
+ * @since 01.00.0001
+*/
+@Service
+public class MaroClientFoodorderServiceImpl implements MaroClientFoodorderService {
+
+    final String SQL_GET_ALLFOODORDERTOTALPRICE = "select sum(total_price) from maro_client__foodorder where server_order_id=? and status != ? and type!=? ";
+    final String SQL_GET_ALLFOODORDERTOTALPRICE_BY_SEATID  = "select sum(total_price) from maro_client__foodorder where server_order_id=? and status !=? and type!=? and seat_id = ?";
+
+    final String SQL_UPDATE_CHANGESEAT = "update maro_client__foodorder set seat_id = ?,seat_code=?,seat_name=? where server_order_id = ?";
+    final String SQL_UPDATE_MERGE_SEAT = "update maro_client__foodorder set server_order_id = ? where server_order_id=?";
+    final String SQL_UPDATE_CANCE_MERGE_LSEAT = "update maro_client__foodorder set server_order_id = ? where server_order_id=? and seat_id = ?";
+
+    final String SQL_UPDATE_STAUS = "update maro_client__foodorder set pre_status=status,status=?,quantity=quantity-? where id = ?";
+
+    final String SQL_UPDATE_URGEFOOD = "update maro_client__foodorder set pre_status=status,status=?,urge_count=urge_count+1 where id = ?";
+
+    final String SQL_UPDATE_UNFINISHFOOD = "update maro_client__foodorder set status=pre_status where id = ?";
+
+    final String HQL_LIST_LISTFOODORDERDO = " from MaroClientFoodorderDO where serverOrderId=? and status != ? and seatId = ? and package_type != ? order by payId,createTime asc";
+    final String HQL_LIST_LISTREFUNDFOOD = " from MaroClientFoodorderDO where serverOrderId = ? and status = ?";
+    final String SQL_UPDATE_CHANGEFOODTEMPPRICE = "update maro_client__foodorder set price=?,total_price=price*quantity,remark=? where id = ?";
+
+
+    final String SQL_UPDATE_FOODQUANTITY ="update maro_client__foodorder set quantity=quantity-?,total_price=price*quantity where id = ?";
+    final String SQL_UPDATE_CHANGEFOODLISTTO = "update maro_client__foodorder set server_order_id = ?,seat_id=?,seat_code=?,seat_name=? where id = ?";
+
+    final String SQL_UPDATE_STAUS_1 = "update maro_client__foodorder set pre_status=status,status=? where id = ?";
+
+    final String SQL_UPDATE_CHANGEFOODLISTTO_1 = "update maro_client__foodorder set quantity = ?,total_price=? where id = ?";
+
+
+    final String HQL_LIST_LISTFOODORDERDOBYPARENTID = " from MaroClientFoodorderDO where parentId=? and status != ? order by payId,createTime asc";
+    @Resource
+    MaroCommonDishesServiceI maroCommonDishesServiceI;
+
+    @Resource
+    private ClientCommonDao dao;
+    @Override
+    public Boolean saveFoodorderDO(MaroClientFoodorderDO maroClientFoodorderDO) {
+        dao.save(maroClientFoodorderDO);
+        return true;
+    }
+
+    @Override
+    public List<MaroClientFoodorderDO> listFoodorderDO(MaroClientServerorderDTO maroClientServerorderDTO) {
+        return null;
+    }
+
+    @Override
+    public MaroClientFoodorderDO getFoodorderDObyId(String id) {
+        return dao.get(MaroClientFoodorderDO.class,id);
+    }
+
+    @Override
+    public List<MaroClientFoodorderDO> listFoodorderDOByServerOrderId(String serverOrderId) {
+        List<MaroClientFoodorderDO> list = dao.list(" from MaroClientFoodorderDO where serverOrderId=? and status != ? and package_type != ? order by createTime asc", serverOrderId, FoodOrderStatusEnum.REFUND.getCode(),FoodPackageTypeEnum.SUB_NORMAL.getCode());
+        if(list != null && list.size() > 0){
+            for(int i=0;i<list.size();i++){
+                MaroClientFoodorderDO foodorderDO = list.get(i);
+                if(foodorderDO.getPackageType()!= null && foodorderDO.getPackageType().intValue() == FoodPackageTypeEnum.PACKAGE.getCode()){
+                    String id = foodorderDO.getId();
+                    List<MaroClientFoodorderDO> subList = dao.list(HQL_LIST_LISTFOODORDERDOBYPARENTID, id, FoodOrderStatusEnum.REFUND.getCode());
+                    foodorderDO.setList(subList);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public BigDecimal getAllFoodorderTotalPrice(String serverOrderId){
+        BigDecimal totalPrice = (BigDecimal) dao.getObjectBySql(SQL_GET_ALLFOODORDERTOTALPRICE, serverOrderId, FoodOrderStatusEnum.REFUND.getCode(),FoodTypeEnum.GIFT.getCode());
+        if(totalPrice == null){
+            totalPrice = BigDecimal.ZERO;
+        }
+        return totalPrice;
+    }
+
+
+    @Override
+    public BigDecimal getAllFoodorderTotalPrice(String serverorderId, String seatId) {
+
+        BigDecimal totalPrice = (BigDecimal) dao.getObjectBySql(SQL_GET_ALLFOODORDERTOTALPRICE_BY_SEATID, serverorderId, FoodOrderStatusEnum.REFUND.getCode(),FoodTypeEnum.GIFT.getCode(),seatId);
+        if(totalPrice == null){
+            totalPrice = BigDecimal.ZERO;
+        }
+        return totalPrice;
+    }
+
+    @Override
+    public void orderFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        orderFood(foodOrderParamsDTO,FoodOrderStatusEnum.ORDER.getCode(),FoodTypeEnum.NORMAL.getCode());
+    }
+
+
+    @Override
+    public void changeSeat(SeatchangeParamsDTO seatchangeParamsDTO) {
+
+        String serverorderId = seatchangeParamsDTO.getMaroClientServerorderDO().getId();
+        String seatId = seatchangeParamsDTO.getDestMaroShopSeatEntity().getId();
+        String seatName = seatchangeParamsDTO.getDestMaroShopSeatEntity().getName();
+
+
+        dao.executeUpdateSql(SQL_UPDATE_CHANGESEAT,seatId,seatId,seatName,serverorderId);
+
+
+
+    }
+
+    @Override
+    public void mergeListSeat(List<SeatchangeParamsDTO> seatchangeParamsDTOList) {
+        SeatchangeParamsDTO leadSeatchangeParamsDTO = seatchangeParamsDTOList.get(0);
+        String leadServerorderId = leadSeatchangeParamsDTO.getMaroClientServerorderDO().getId();
+
+
+        for(int i=1;i<seatchangeParamsDTOList.size();i++){
+            SeatchangeParamsDTO seatchangeParamsDTO = seatchangeParamsDTOList.get(i);
+            MaroClientServerorderDO maroClientServerorderDO = seatchangeParamsDTO.getMaroClientServerorderDO();
+            if (maroClientServerorderDO != null && !StringUtil.isEmpty(maroClientServerorderDO.getId())) {
+                String mergeServerorderId = maroClientServerorderDO.getId();
+                dao.executeUpdateSql(SQL_UPDATE_MERGE_SEAT, leadServerorderId, mergeServerorderId);
+            }
+        }
+    }
+
+    @Override
+    public void cancelMergeSeat(SeatchangeParamsDTO seatchangeParamsDTO) {
+        String cancelMergeServerorderId = seatchangeParamsDTO.getCancelMergeMaroClientServerorderDO().getId();
+        String serverorderId = seatchangeParamsDTO.getMaroClientServerorderDO().getId();
+        String seatId = seatchangeParamsDTO.getMergeMaroShopSeatEntity().getId();
+        dao.executeUpdateSql(SQL_UPDATE_CANCE_MERGE_LSEAT,cancelMergeServerorderId, serverorderId,seatId);
+    }
+
+
+    @Override
+    public List<MaroClientFoodorderDO> listFoodorderDO(String serverOrderId, String seatId) {
+        List<MaroClientFoodorderDO> list = dao.list(HQL_LIST_LISTFOODORDERDO, serverOrderId, FoodOrderStatusEnum.REFUND.getCode(), seatId,FoodPackageTypeEnum.SUB_NORMAL.getCode());
+        if(list != null && list.size() > 0){
+            for(int i=0;i<list.size();i++){
+                MaroClientFoodorderDO foodorderDO = list.get(i);
+                if(foodorderDO.getPackageType()!= null && foodorderDO.getPackageType().intValue() == FoodPackageTypeEnum.PACKAGE.getCode()){
+                    String id = foodorderDO.getId();
+                    List<MaroClientFoodorderDO> subList = dao.list(HQL_LIST_LISTFOODORDERDOBYPARENTID, id, FoodOrderStatusEnum.REFUND.getCode());
+                    foodorderDO.setList(subList);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void updateStatus(String foodId, Integer status, BigDecimal quantity) {
+        dao.executeUpdateSql(SQL_UPDATE_STAUS,status,quantity,foodId);
+    }
+
+    @Override
+    public void UrgeFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = foodOrderParamsDTO.getMaroClientFoodorderDOList();
+        for(int i=0;i<maroClientFoodorderDOList.size();i++) {
+            MaroClientFoodorderDO maroClientFoodorderDO = maroClientFoodorderDOList.get(i);
+//            maroClientFoodorderDO = getFoodorderDObyId(maroClientFoodorderDO.getId());
+            Integer status = FoodOrderStatusEnum.Urge.getCode();
+            String foodId = maroClientFoodorderDO.getId();
+            dao.executeUpdateSql(SQL_UPDATE_URGEFOOD, status, foodId);
+        }
+    }
+
+    @Override
+    public void unFinishFood(String foodId) {
+        dao.executeUpdateSql(SQL_UPDATE_UNFINISHFOOD,foodId);
+    }
+
+
+    @Override
+    public void changeFoodTempPrice(FoodOrderParamsDTO foodOrderParamsDTO) {
+        MaroClientFoodorderDO maroClientFoodorderDO = foodOrderParamsDTO.getMaroClientFoodorderDO();
+        BigDecimal price = maroClientFoodorderDO.getPrice();
+        String remark = maroClientFoodorderDO.getRemark();
+        String id = maroClientFoodorderDO.getId();
+        dao.executeUpdateSql(SQL_UPDATE_CHANGEFOODTEMPPRICE,price,remark,id);
+    }
+
+    @Override
+    public List<MaroClientFoodorderDO> listRefundFood(String serverorderId, String seatId) {
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = dao.list(HQL_LIST_LISTREFUNDFOOD, serverorderId, FoodOrderStatusEnum.REFUND.getCode());
+        return maroClientFoodorderDOList;
+    }
+
+
+    private void orderFood(FoodOrderParamsDTO foodOrderParamsDTO,Integer status,Integer type){
+        /**
+         * 获取基础信息
+         */
+        MaroClientServerorderDO maroClientServerorderDO = foodOrderParamsDTO.getMaroClientServerorderDO();
+        String serverorderId = maroClientServerorderDO.getId();
+
+         MaroShopSeatEntity maroShopSeatEntity = foodOrderParamsDTO.getMaroShopSeatEntity();
+        String seatName = maroShopSeatEntity.getName();
+        String seatId = maroShopSeatEntity.getId();
+
+        MaroShopEntity maroShopEntity = foodOrderParamsDTO.getMaroShopEntity();
+        String restaurantId = maroShopEntity.getId();
+        String restaurantName = maroShopEntity.getName();
+        String shopId = maroShopEntity.getId();
+
+        /**
+         * 保存菜品信息
+         */
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = foodOrderParamsDTO.getMaroClientFoodorderDOList();
+        for(int i=0;i<maroClientFoodorderDOList.size();i++){
+            MaroClientFoodorderDO maroClientFoodorderDO = maroClientFoodorderDOList.get(i);
+            //如果菜品是套餐
+            if(maroClientFoodorderDO.getPackageType() != null && maroClientFoodorderDO.getPackageType().intValue() == FoodPackageTypeEnum.PACKAGE.getCode()){
+                if(maroClientFoodorderDO.getType()!=null){
+                    saveFoodOrderDO4Package(maroClientFoodorderDO,serverorderId,seatName,seatId,restaurantId,restaurantName,shopId,foodOrderParamsDTO,status,maroClientFoodorderDO.getType());
+                }else{
+                    saveFoodOrderDO4Package(maroClientFoodorderDO,serverorderId,seatName,seatId,restaurantId,restaurantName,shopId,foodOrderParamsDTO,status,type);
+                }
+            }
+            //如果菜品是普通菜品
+            else{
+                if(maroClientFoodorderDO.getType()!=null){
+                    saveFoodorderDONew(maroClientFoodorderDO, serverorderId, seatName, seatId, restaurantId, restaurantName, shopId, foodOrderParamsDTO, status, maroClientFoodorderDO.getType(), FoodPackageTypeEnum.NORMAL.getCode());
+                }else {
+                    saveFoodorderDONew(maroClientFoodorderDO, serverorderId, seatName, seatId, restaurantId, restaurantName, shopId, foodOrderParamsDTO, status, type, FoodPackageTypeEnum.NORMAL.getCode());
+                }
+            }
+        }
+    }
+    private void saveFoodOrderDO4Package(MaroClientFoodorderDO maroClientFoodorderDO, String serverorderId, String seatName, String seatId, String restaurantId, String restaurantName, String shopId, FoodOrderParamsDTO foodOrderParamsDTO, Integer status, Integer type){
+        saveFoodorderDONew(maroClientFoodorderDO,serverorderId,seatName,seatId,restaurantId,restaurantName,shopId, foodOrderParamsDTO, status, type,FoodPackageTypeEnum.PACKAGE.getCode());
+        List<MaroClientFoodorderDO> list = maroClientFoodorderDO.getList();
+        if(list != null && list.size() > 0){
+            for(int j=0;j<list.size();j++){
+                MaroClientFoodorderDO foodorderDO = list.get(j);
+                foodorderDO.setParentId(maroClientFoodorderDO.getId());
+                saveFoodorderDONew(foodorderDO,serverorderId,seatName,seatId,restaurantId,restaurantName,shopId,foodOrderParamsDTO,status,type,FoodPackageTypeEnum.SUB_NORMAL.getCode());
+            }
+        }
+    }
+    private void saveFoodorderDONew(MaroClientFoodorderDO maroClientFoodorderDO, String serverorderId, String seatName, String seatId, String restaurantId, String restaurantName, String shopId, FoodOrderParamsDTO foodOrderParamsDTO, Integer status, Integer type,Integer foodPackageType){
+        String foodId = maroClientFoodorderDO.getFoodId();
+        MaroDishesEntity maroDishesEntity = maroCommonDishesServiceI.getByidDishes(foodId,shopId);
+        BigDecimal price = maroClientFoodorderDO.getPrice();
+        BigDecimal quantity = maroClientFoodorderDO.getQuantity();
+        BigDecimal totalPrice = price.multiply(quantity);
+        maroClientFoodorderDO.setId(UUID.randomUUID().toString());
+        maroClientFoodorderDO.setSeatId(seatId);
+        maroClientFoodorderDO.setSeatName(seatName);
+        maroClientFoodorderDO.setSeatCode(seatId);
+        maroClientFoodorderDO.setServerOrderId(serverorderId);
+        maroClientFoodorderDO.setStatus(status);
+        maroClientFoodorderDO.setOrderTime(System.currentTimeMillis());
+        maroClientFoodorderDO.setRestaurantId(restaurantId);
+        maroClientFoodorderDO.setRestaurantName(restaurantName);
+        maroClientFoodorderDO.setFoodName(maroDishesEntity.getDishesName());
+        maroClientFoodorderDO.setFoodCode(maroDishesEntity.getCoding());
+        maroClientFoodorderDO.setFoodType(maroDishesEntity.getDishesClassificationName());
+        maroClientFoodorderDO.setFoodTypeCode(maroDishesEntity.getDishesClassification());
+        maroClientFoodorderDO.setUnitCode(maroDishesEntity.getUnit());
+        maroClientFoodorderDO.setUnitName(maroDishesEntity.getUnitName());
+        maroClientFoodorderDO.setType(type);
+        maroClientFoodorderDO.setTotalPrice(totalPrice);
+         maroClientFoodorderDO.setPackageType(foodPackageType);
+        if(maroClientFoodorderDO.getDeleteFlag() == null) {
+            maroClientFoodorderDO.setDeleteFlag(CommonTypeEnum.DELETE_FLAG_NO.getCode());
+        }
+        maroClientFoodorderDO.setUrgeCount(0);
+        maroClientFoodorderDO.setCreateTime(System.currentTimeMillis());
+        maroClientFoodorderDO.setTimes(foodOrderParamsDTO.getTimes());
+        saveFoodorderDO(maroClientFoodorderDO);
+    }
+
+    @Override
+    public void refundOrGiftFood(FoodOrderParamsDTO foodOrderParamsDTO,Integer status,Integer type){
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = foodOrderParamsDTO.getMaroClientFoodorderDOList();
+        for(int i=0;i<maroClientFoodorderDOList.size();i++){
+            MaroClientFoodorderDO maroClientFoodorderDO = maroClientFoodorderDOList.get(i);
+            String id = maroClientFoodorderDO.getId();
+            MaroClientFoodorderDO foodorderDO = getFoodorderDObyId(id);
+            BigDecimal oldQuantity = foodorderDO.getQuantity();
+            BigDecimal quantity = maroClientFoodorderDO.getQuantity();
+            String specificationsId = foodorderDO.getSpecificationsId();
+            String specificationsName = foodorderDO.getSpecificationsName();
+            maroClientFoodorderDO.setSpecificationsId(specificationsId);
+            maroClientFoodorderDO.setSpecificationsName(specificationsName);
+            //如果批量赠/退数量等于点菜数量，
+            if(oldQuantity.doubleValue() == quantity.doubleValue()){
+                dao.executeUpdateSql("delete from maro_client__foodorder where id = ?",id);
+            }else{
+                dao.executeUpdateSql(SQL_UPDATE_FOODQUANTITY,quantity,id);
+            }
+        }
+        orderFood(foodOrderParamsDTO,status,type);
+    }
+
+    @Override
+    public void changeFoodListTo(FoodOrderParamsDTO foodOrderParamsDTO) {
+        String serverorderId = foodOrderParamsDTO.getMaroClientServerorderDO().getId();
+        String seatId = foodOrderParamsDTO.getMaroShopSeatEntity().getId();
+        String seatName = foodOrderParamsDTO.getMaroShopSeatEntity().getName();
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = foodOrderParamsDTO.getMaroClientFoodorderDOList();
+        List<MaroClientFoodorderDO> newMaroClientFoodorderDOList = new ArrayList<MaroClientFoodorderDO>();
+
+        for(int i=0;i<maroClientFoodorderDOList.size();i++) {
+            MaroClientFoodorderDO maroClientFoodorderDO = maroClientFoodorderDOList.get(i);
+            String foodorderId = maroClientFoodorderDO.getId();
+
+            MaroClientFoodorderDO foodorderDO = getFoodorderDObyId(foodorderId);
+            BigDecimal srcQuantity = foodorderDO.getQuantity();
+            BigDecimal quantity = maroClientFoodorderDO.getQuantity();
+            //全部转台
+            if(quantity.doubleValue() >= srcQuantity.doubleValue()){
+                dao.executeUpdateSql(SQL_UPDATE_CHANGEFOODLISTTO,serverorderId,seatId,seatId,seatName,foodorderId);
+            }else{
+                BigDecimal subtractQuantity = srcQuantity.subtract(quantity);
+                BigDecimal totalPrice = subtractQuantity.multiply(foodorderDO.getPrice());
+                dao.executeUpdateSql(SQL_UPDATE_CHANGEFOODLISTTO_1,subtractQuantity,totalPrice,foodorderId);
+                newMaroClientFoodorderDOList.add(maroClientFoodorderDO);
+            }
+
+        }
+
+        foodOrderParamsDTO.setMaroClientFoodorderDOList(newMaroClientFoodorderDOList);
+        orderFood(foodOrderParamsDTO);
+        foodOrderParamsDTO.setMaroClientFoodorderDOList(maroClientFoodorderDOList);
+    }
+
+    @Override
+    public FoodOrderResultDTO listFoodToKitchen(String shopId, String ids) {
+        final String HQL_LIST_LISTFOODTOKITCHEN = " from MaroClientFoodorderDO where deleteFlag = ? and status = ? and serverOrderId in ("+ids+") and package_type!= "+FoodPackageTypeEnum.PACKAGE.getCode()+"  order by createTime asc";
+        List<FoodOrderItemResultDTO> foodOrderItemResultDTOList = listFoodToKitchenImplBridge(HQL_LIST_LISTFOODTOKITCHEN,FoodOrderStatusEnum.ORDER.getCode());
+
+
+//        final String HQL_LIST_LISTFOODTOKITCHEN_DONE = " from MaroClientFoodorderDO where deleteFlag = ? and status = ? and serverOrderId in (?) order by createTime asc";
+        List<FoodOrderItemResultDTO> doneFoodOrderItemResultDTOList = listFoodToKitchenImpl(HQL_LIST_LISTFOODTOKITCHEN, FoodOrderStatusEnum.COOK.getCode());
+        FoodOrderResultDTO foodOrderResultDTO = new FoodOrderResultDTO();
+
+        foodOrderResultDTO.setDoneFoodOrderItemResultDTOList(doneFoodOrderItemResultDTOList);
+        foodOrderResultDTO.setFoodOrderItemResultDTOList(foodOrderItemResultDTOList);
+        return foodOrderResultDTO;
+    }
+
+    @Override
+    public void updateStatus(Integer code, String foodorderId) {
+        dao.executeUpdateSql(SQL_UPDATE_STAUS_1,code,foodorderId);
+
+    }
+
+    @Override
+    public  MaroClientFoodorderDO getFoodorderDO(MaroClientFoodorderDO maroClientFoodorderDO) {
+        MaroClientFoodorderDO foodorderDO = null;
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = listFoodorderDO(maroClientFoodorderDO);
+        if(maroClientFoodorderDOList.size() > 0){
+            foodorderDO = maroClientFoodorderDOList.get(0);
+        }
+        return foodorderDO;
+    }
+
+    private List<FoodOrderItemResultDTO> listFoodToKitchenImpl(String hql, Integer code){
+        List<MaroClientFoodorderDO> list = dao.list(hql, CommonTypeEnum.DELETE_FLAG_NO.getCode(),code);
+//        Map<String,Integer> type2IndexMap = new HashMap<String,Integer>();
+        Map<String,Integer> groupId2IndexMap = new HashMap<String,Integer>();
+        List<FoodOrderItemGroupResultDTO> foodOrderItemGroupResultDTOList = new ArrayList<FoodOrderItemGroupResultDTO>();
+
+        for(int i=0;i<list.size();i++){
+            MaroClientFoodorderDO maroClientFoodorderDO = list.get(i);
+            String foodId = maroClientFoodorderDO.getFoodId();
+            MaroDishesEntity maroDishesEntity = maroCommonDishesServiceI.get(MaroDishesEntity.class, foodId);
+            if(maroDishesEntity.getAccomplish()!=null && maroDishesEntity.getAccomplish() == 1){
+                continue;
+            }
+            MaroClientFoodorderVO maroClientFoodorderVO = PojoUtil.convertDO2VO(maroClientFoodorderDO, MaroClientFoodorderVO.class);
+//            String groupId = maroClientFoodorderVO.getFoodId() + maroClientFoodorderVO.getSpecificationsId();
+            String groupId = maroClientFoodorderVO.getFoodId();
+            Integer index = groupId2IndexMap.get(groupId);
+            if(index == null){
+                FoodOrderItemGroupResultDTO foodOrderItemGroupResultDTO = new FoodOrderItemGroupResultDTO();
+                foodOrderItemGroupResultDTOList.add(foodOrderItemGroupResultDTO);
+                index = foodOrderItemGroupResultDTOList.size()-1;
+                groupId2IndexMap.put(groupId,index);
+                MaroClientFoodorderVO foodorderVO = new MaroClientFoodorderVO();
+                foodorderVO.setFoodName(maroClientFoodorderVO.getFoodName());
+//                foodorderVO.setSpecificationsName(maroClientFoodorderVO.getSpecificationsName());
+                foodorderVO.setQuantity(BigDecimal.ZERO);
+                foodorderVO.setCreateTimeString(maroClientFoodorderVO.getCreateTimeString());
+                foodorderVO.setSpecificationsName(maroClientFoodorderVO.getSpecificationsName());
+                foodorderVO.setFoodTypeCode(maroClientFoodorderVO.getFoodTypeCode());
+                foodorderVO.setFoodType(maroClientFoodorderVO.getFoodType());
+                foodOrderItemGroupResultDTO.setMaroClientFoodorderVO(foodorderVO);
+//                foodOrderItemGroupResultDTO.setFoodName(maroClientFoodorderVO.getFoodName());
+                foodOrderItemGroupResultDTO.setMaroClientFoodorderVOList(new ArrayList<MaroClientFoodorderVO>());
+            }
+            //设置等待时长
+            maroClientFoodorderVO.setWaitTime(calcWaitTime(maroClientFoodorderVO.getCreateTime()));
+            foodOrderItemGroupResultDTOList.get(index).getMaroClientFoodorderVOList().add(maroClientFoodorderVO);
+            BigDecimal quantity = maroClientFoodorderVO.getQuantity();
+            BigDecimal quantity1 = foodOrderItemGroupResultDTOList.get(index).getMaroClientFoodorderVO().getQuantity();
+            BigDecimal totalQuantity = quantity.add(quantity1);
+            foodOrderItemGroupResultDTOList.get(index).getMaroClientFoodorderVO().setQuantity(totalQuantity);
+        }
+        //按照菜品类型分类
+        List<FoodOrderItemResultDTO> foodOrderItemResultDTOList = splitFoodType(foodOrderItemGroupResultDTOList);
+        return foodOrderItemResultDTOList;
+    }
+
+    private List<FoodOrderItemResultDTO> listFoodToKitchenImplBridge(String hql, Integer code){
+        List<FoodOrderItemResultDTO> foodOrderItemResultDTOList = listFoodToKitchenImpl(hql, code);
+        //添加默认菜品分类，比如全部和紧急
+        List<FoodOrderItemResultDTO> all = addDefaultFoodType(foodOrderItemResultDTOList);
+        initTotal(foodOrderItemResultDTOList);
+        initTotal(all);
+        //按照数量排序分类
+        sortFoodType(foodOrderItemResultDTOList);
+        all.addAll(foodOrderItemResultDTOList);
+        return all;
+    }
+
+    private void initTotal(List<FoodOrderItemResultDTO> foodOrderItemResultDTOList) {
+        for(int i=0;i<foodOrderItemResultDTOList.size();i++){
+            int total = 0;
+            FoodOrderItemResultDTO foodOrderItemResultDTO = foodOrderItemResultDTOList.get(i);
+            List<FoodOrderItemGroupResultDTO> foodOrderItemGroupResultDTOList = foodOrderItemResultDTO.getFoodOrderItemGroupResultDTOList();
+            for(int j=0;j<foodOrderItemGroupResultDTOList.size();j++){
+                FoodOrderItemGroupResultDTO foodOrderItemGroupResultDTO = foodOrderItemGroupResultDTOList.get(j);
+                List<MaroClientFoodorderVO> maroClientFoodorderVOList = foodOrderItemGroupResultDTO.getMaroClientFoodorderVOList();
+                total+=maroClientFoodorderVOList.size();
+                foodOrderItemGroupResultDTO.setTotal(maroClientFoodorderVOList.size());
+            }
+            foodOrderItemResultDTO.setTotal(total);
+        }
+
+    }
+
+
+
+    private List<FoodOrderItemResultDTO> addDefaultFoodType(List<FoodOrderItemResultDTO> foodOrderItemResultDTOList) {
+        FoodOrderItemResultDTO warnFoodOrderItemResultDTO = new FoodOrderItemResultDTO();
+        FoodOrderItemResultDTO allFoodOrderItemResultDTO = new FoodOrderItemResultDTO();
+        List<FoodOrderItemGroupResultDTO> allFoodOrderItemGroupResultDTOList = new ArrayList<FoodOrderItemGroupResultDTO>();
+        MapUtil<MaroClientFoodorderVO> mapUtil = new MapUtil<MaroClientFoodorderVO>();
+        for(int i=0;i<foodOrderItemResultDTOList.size();i++){
+            FoodOrderItemResultDTO foodOrderItemResultDTO = foodOrderItemResultDTOList.get(i);
+            List<FoodOrderItemGroupResultDTO> foodOrderItemGroupResultDTOList = foodOrderItemResultDTO.getFoodOrderItemGroupResultDTOList();
+            allFoodOrderItemGroupResultDTOList.addAll(foodOrderItemGroupResultDTOList);
+
+            FoodOrderItemGroupResultDTO warnFoodOrderItemGroupResultDTO = new FoodOrderItemGroupResultDTO();
+            warnFoodOrderItemGroupResultDTO.setMaroClientFoodorderVOList(new ArrayList<MaroClientFoodorderVO>());
+            for(int j=0;j<foodOrderItemGroupResultDTOList.size();j++){
+                FoodOrderItemGroupResultDTO foodOrderItemGroupResultDTO = foodOrderItemGroupResultDTOList.get(j);
+                List<MaroClientFoodorderVO> maroClientFoodorderVOList = foodOrderItemGroupResultDTO.getMaroClientFoodorderVOList();
+                for(int k=0;k<maroClientFoodorderVOList.size();k++){
+                    MaroClientFoodorderVO maroClientFoodorderVO = maroClientFoodorderVOList.get(k);
+                    if(maroClientFoodorderVO.getWaitTime() >= 15){
+////                        warnFoodOrderItemGroupResultDTO.getMaroClientFoodorderVOList().add(maroClientFoodorderVO);
+//                        warnFoodOrderItemGroupResultDTO.setMaroClientFoodorderVO(foodOrderItemGroupResultDTO.getMaroClientFoodorderVO());
+                        mapUtil.addElement(maroClientFoodorderVO.getFoodName(),maroClientFoodorderVO);
+                    }
+                }
+            }
+//            warnFoodOrderItemGroupResultDTOList.add(warnFoodOrderItemGroupResultDTO);
+
+        }
+
+        List<FoodOrderItemGroupResultDTO> warnFoodOrderItemGroupResultDTOList = mapUtil.listElement(FoodOrderItemGroupResultDTO.class);
+        allFoodOrderItemResultDTO.setFoodOrderItemGroupResultDTOList(allFoodOrderItemGroupResultDTOList);
+        warnFoodOrderItemResultDTO.setFoodOrderItemGroupResultDTOList(warnFoodOrderItemGroupResultDTOList);
+
+        FoodOrderItemResultDTO warn = createFoodType("warn", "紧急", warnFoodOrderItemResultDTO);
+        FoodOrderItemResultDTO all = createFoodType("all", "全部", allFoodOrderItemResultDTO);
+
+        List<FoodOrderItemResultDTO> list = new ArrayList<FoodOrderItemResultDTO>();
+        list.add(all);
+        list.add(warn);
+        return list;
+    }
+
+    private FoodOrderItemResultDTO createFoodType(String type, String typeString,FoodOrderItemResultDTO foodOrderItemGroupResultDTO) {
+        foodOrderItemGroupResultDTO.setTypeString(typeString);
+        foodOrderItemGroupResultDTO.setType(type);
+        return foodOrderItemGroupResultDTO;
+    }
+
+
+    private void sortFoodType(List<FoodOrderItemResultDTO> foodOrderItemResultDTOList) {
+        Collections.sort(foodOrderItemResultDTOList,new Comparator<FoodOrderItemResultDTO>(){
+            @Override
+            public int compare(FoodOrderItemResultDTO o1, FoodOrderItemResultDTO o2) {
+                return o2.getTotal() - o1.getTotal();
+            }
+        });
+    }
+
+    private long calcWaitTime(Long startTme){
+        Long now = System.currentTimeMillis();
+        long waitTime = (now - startTme) / (1000 * 60);
+        return waitTime;
+    }
+
+    private List<FoodOrderItemResultDTO> splitFoodType(List<FoodOrderItemGroupResultDTO> foodOrderItemGroupResultDTOList) {
+        Map<String,Integer> type2IndexMap = new HashMap<String,Integer>();
+        List<FoodOrderItemResultDTO> foodOrderItemResultDTOList = new ArrayList<FoodOrderItemResultDTO>();
+        for(int i=0;i<foodOrderItemGroupResultDTOList.size();i++){
+            FoodOrderItemGroupResultDTO foodOrderItemGroupResultDTO = foodOrderItemGroupResultDTOList.get(i);
+            String foodTypeCode = foodOrderItemGroupResultDTO.getMaroClientFoodorderVO().getFoodTypeCode();
+            String foodType = foodOrderItemGroupResultDTO.getMaroClientFoodorderVO().getFoodType();
+            Integer index = type2IndexMap.get(foodTypeCode);
+            if(index == null){
+                FoodOrderItemResultDTO foodOrderItemResultDTO = new FoodOrderItemResultDTO();
+                foodOrderItemResultDTOList.add(foodOrderItemResultDTO);
+                index = foodOrderItemResultDTOList.size()-1;
+                type2IndexMap.put(foodTypeCode,index);
+                foodOrderItemResultDTO.setType(foodTypeCode);
+                foodOrderItemResultDTO.setTypeString(foodType);
+                foodOrderItemResultDTO.setFoodOrderItemGroupResultDTOList(new ArrayList<FoodOrderItemGroupResultDTO>());
+            }
+            foodOrderItemResultDTOList.get(index).getFoodOrderItemGroupResultDTOList().add(foodOrderItemGroupResultDTO);
+        }
+        return foodOrderItemResultDTOList;
+    }
+
+    public List<MaroClientFoodorderDO> listFoodorderDO(MaroClientFoodorderDO maroClientFoodorderDO){
+        final String hql = " from MaroClientFoodorderDO where serverOrderId=? and foodId = ? and specificationsId=? and status not in (?,?)";
+        List<MaroClientFoodorderDO> list = dao.list(hql, maroClientFoodorderDO.getServerOrderId(), maroClientFoodorderDO.getFoodId(), maroClientFoodorderDO.getSpecificationsId(),FoodOrderStatusEnum.REFUND.getCode(),FoodOrderStatusEnum.FINISH.getCode());
+        return list;
+    }
+
+    public List<MaroClientFoodorderDO> listFoodorderDO(String serverOrderId, String seatId, String dishesClassificationId){
+        final String HQL_LIST_LISTFOODORDERDO_2 = " from MaroClientFoodorderDO where serverOrderId=? and status not in (?,?) and seatId = ? and foodTypeCode=?";
+        return dao.list(HQL_LIST_LISTFOODORDERDO_2,serverOrderId, FoodOrderStatusEnum.REFUND.getCode(),FoodOrderStatusEnum.FINISH.getCode(),seatId,dishesClassificationId);
+    }
+
+    public List<MaroClientFoodorderDO> listFoodorderDOByShopId(String shopId){
+        return dao.list(" from MaroClientFoodorderDO where restaurant_id = ?",shopId);
+    }
+    @Override
+    public void pay(PayParamsDTO payParamsDTO){
+        final String SQL_UPDATE_PAY="update maro_client__foodorder set pay_id = ? where pay_id is null and server_order_id=?";
+        dao.executeUpdateSql(SQL_UPDATE_PAY,payParamsDTO.getMaroClientPayedDO().getId(),payParamsDTO.getMaroClientServerorderDO().getId());
+        //如果折扣策略选择的是单个策略打折
+        Integer ruleFlag = payParamsDTO.getRuleFlag();
+        if(ruleFlag.intValue() == 1) {
+            List<MaroClientFoodorderDO> maroClientFoodorderDOList_tmp = payParamsDTO.getMaroClientFoodorderDOList();
+            for (int i = 0; i < maroClientFoodorderDOList_tmp.size(); i++) {
+                MaroClientFoodorderDO foodorderDO = maroClientFoodorderDOList_tmp.get(i);
+                BigDecimal discount = foodorderDO.getDiscount();
+                if (discount != null) {
+                    discount = discount.divide(new BigDecimal(10));
+                    dao.executeUpdateSql("update maro_client__foodorder set discount = ?,total_price=? where id = ?",discount, foodorderDO.getTotalPrice().multiply(discount), foodorderDO.getId());
+                }
+            }
+        }
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = listMaroClientFoodorderDOForPay(payParamsDTO);
+        payParamsDTO.setMaroClientFoodorderDOList(maroClientFoodorderDOList);
+    }
+    @Override
+    public boolean isSeatPayed(String serverorderId, String seatId){
+        Boolean isPayed = false;
+        final String SQL_GET_ISSEATPAYED = "select count(id) from maro_client__foodorder where server_order_id=? and seat_id=? and pay_id is not null";
+        BigInteger count = (BigInteger) dao.getObjectBySql(SQL_GET_ISSEATPAYED, serverorderId,seatId);
+        //已经支付过
+        if(count.intValue() > 0){
+            isPayed = true;
+        }
+        return isPayed;
+    }
+    @Override
+    public List<MaroClientFoodorderDO> listMaroClientFoodorderDOForPay(PayParamsDTO payParamsDTO){
+        final String HQL_LIST_LISTMAROCLIENTFOODORDERDOFORPAY = " from MaroClientFoodorderDO where pay_id is null and serverOrderId=? and packageType != ? order by createTime asc";
+        return dao.list(HQL_LIST_LISTMAROCLIENTFOODORDERDOFORPAY,payParamsDTO.getMaroClientServerorderDO().getId(),FoodPackageTypeEnum.SUB_NORMAL.getCode());
+    }
+
+    @Override
+    public void updateFoodOrderDeleteFlag(String payId, Integer code){
+        final String SQL_UPDATE_UPDATEFOODORDERDELETEFLAG="update maro_client__foodorder set delete_flag = ? where pay_id = ?";
+        dao.executeUpdateSql(SQL_UPDATE_UPDATEFOODORDERDELETEFLAG,code,payId);
+    }
+    @Override
+    public int getTimes(FoodOrderParamsDTO foodOrderParamsDTO){
+        final String SQL_GET_GETTIMES="select IFNULL(max(times),0) from maro_client__foodorder where delete_flag = ? and server_order_id = ?";
+        BigInteger tmp_times = (BigInteger) dao.getObjectBySql(SQL_GET_GETTIMES, CommonTypeEnum.DELETE_FLAG_NO.getCode(), foodOrderParamsDTO.getMaroClientServerorderDO().getId());
+        int times = tmp_times.intValue();
+        times++;
+        return times;
+    }
+}

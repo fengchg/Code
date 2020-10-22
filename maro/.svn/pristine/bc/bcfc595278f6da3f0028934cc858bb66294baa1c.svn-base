@@ -1,0 +1,29 @@
+OrderSubmenu s = new OrderSubmenu();
+		s.setNumber("3");
+		s.setWaiter("何露林");
+		s.setOrderTime("2018-01-05 11:34:25");
+		s.setBillMark("10215487");
+		
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("西红柿炒番茄");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		dishesList.add(sad);
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("蚂蚁辣椒");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		dishesList.add(sad1);
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("回味小农炒");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		dishesList.add(sad2);
+		
+		s.setDishesList(dishesList);
+		
+		s.setRemark("不要辣");
+		s.setWholeRemark("多放盐");
+		s.setDeliveryTime("立即送达");
+		

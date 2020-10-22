@@ -1,0 +1,267 @@
+package com.maro.manager.print.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.maro.common.util.PrintUtil;
+import com.maro.manager.print.entity.CallUpShole;
+import com.maro.manager.print.entity.ChangeChannel;
+import com.maro.manager.print.entity.CombineTable;
+import com.maro.manager.print.entity.OrderSubmenu;
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.manager.print.entity.SettleAccountsDishes;
+import com.maro.manager.print.entity.ShiftingOfDuty;
+import com.maro.manager.print.entity.SingleReturnDishes;
+import com.maro.manager.print.entity.SingleUrge;
+import com.maro.manager.print.entity.TakeOutSingle;
+
+public class PrintMain {
+	
+	private static String ip = "10.135.16.234";
+	private static int port = 9100;
+	
+	public static void main(String[] args) throws IOException {
+		SettleAccounts s = new SettleAccounts();
+		s.setTitleName("结账单");
+		s.setSeatName("1号包间");
+		s.setRenShu(8);
+		s.setBillNumber("000001245");
+		s.setBeginTime("2018-01-05 12:51:24");
+		s.setSettleTime("2018-01-05 12:51:24");
+		s.setWaiter("小二哥");
+		s.setCashier("何露林");
+		s.setMember("会员");
+
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		//菜组
+		SettleAccountsDishes sadMian = new SettleAccountsDishes();
+		sadMian.setClassName("热菜组");
+		
+		//菜列表
+		List<SettleAccountsDishes> spsList = new ArrayList<SettleAccountsDishes>();
+		
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("油焖大虾");
+		sad.setDishesPrice("58.00");
+		sad.setVipPrice("58.00");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		Double totalMoney = Double.valueOf(sad.getDishesPrice()) *  Double.valueOf(sad.getShuLiang());
+		sad.setTotalMoney(totalMoney.toString());
+		spsList.add(sad);
+		
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("麻辣兔头");
+		sad1.setDishesPrice("58.00");
+		sad1.setVipPrice("58.00");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		Double totalMoney2 = Double.valueOf(sad1.getDishesPrice()) *  Double.valueOf(sad1.getShuLiang());
+		sad1.setTotalMoney(totalMoney2.toString());
+		spsList.add(sad1);
+		
+		sadMian.setSpsList(spsList);
+		dishesList.add(sadMian);
+		
+		//菜组
+		SettleAccountsDishes sadMian1 = new SettleAccountsDishes();
+		sadMian1.setClassName("凉菜组");
+		
+		//菜列表
+		List<SettleAccountsDishes> spsList1 = new ArrayList<SettleAccountsDishes>();
+		
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("霸王冷兔");
+		sad2.setDishesPrice("68.00");
+		sad2.setVipPrice("68.00");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		Double totalMoney3 = Double.valueOf(sad2.getDishesPrice()) *  Double.valueOf(sad2.getShuLiang());
+		sad2.setTotalMoney(totalMoney3.toString());
+		spsList1.add(sad2);
+		
+		SettleAccountsDishes sad3 = new SettleAccountsDishes();
+		sad3.setDishesName("冷吃兔");
+		sad3.setDishesPrice("58.00");
+		sad3.setVipPrice("58.00");
+		sad3.setShuLiang("1");
+		sad3.setUnit("份");
+		Double totalMoney4 = Double.valueOf(sad3.getDishesPrice()) *  Double.valueOf(sad3.getShuLiang());
+		sad3.setTotalMoney(totalMoney4.toString());
+		spsList1.add(sad3);
+		
+		sadMian1.setSpsList(spsList1);
+		dishesList.add(sadMian1);
+
+		s.setDishesList(dishesList);
+		
+		
+		System.out.println("");
+		
+		
+		boolean b = PrintMain.printSettleAccounts(s);
+	}
+	
+	/**
+	 * 结账单
+	 * 预结单
+	 */
+	public static boolean printSettleAccounts(SettleAccounts s){
+		
+		String xmlStr="";
+				xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+				xmlStr += "<doucument>";
+				xmlStr += "<section><texts>";
+				xmlStr += "<text>兔行天下（光华店）"+s.getTitleName()+"</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Normal</fontSize>";
+				xmlStr += "<bold>true</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+				xmlStr += "<keyvalue>";
+				xmlStr += "<key>桌　名:</key>";
+				xmlStr += "<value>["+s.getSeatName()+"]</value>";
+				xmlStr += "</keyvalue>";
+				xmlStr += "<keyvalue>";
+				xmlStr += "<key>人　数:</key>";
+				xmlStr += "<value>["+s.getRenShu()+"]</value>";
+				xmlStr += "</keyvalue>";
+				xmlStr += "<keyvalue><key>账单号:</key>";
+				xmlStr += "<value>["+s.getBillNumber()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>开台时间:</key>";
+				xmlStr += "<value>["+s.getBeginTime()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>结账时间:</key>";
+				xmlStr += "<value>["+s.getSettleTime()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>服务员:</key>";
+				xmlStr += "<value>["+s.getWaiter()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>收银员:</key>";
+				xmlStr += "<value>["+s.getCashier()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>会　员:</key>";
+				xmlStr += "<value>["+s.getMember()+"]</value></keyvalue>" ;
+				xmlStr += "<table>";
+				xmlStr += "<cws><cw>20</cw><cw>8</cw><cw>6</cw><cw>8</cw></cws>";
+				xmlStr += "<ars><ar>false</ar><ar>true</ar><ar>true</ar><ar>true</ar></ars>";
+				xmlStr += "<headers><header>品名</header><header>单价</header><header>数量</header><header>总额</header></headers>";
+				xmlStr += "<rows>";
+				
+				for(int j=0;j<s.getDishesList().size();j++){
+					xmlStr += "<row><td>["+s.getDishesList().get(j).getClassName()+"]</td> <td></td> <td></td> <td></td></row>";
+					for(int i=0;i<s.getDishesList().get(j).getSpsList().size();i++){
+						SettleAccountsDishes sd = s.getDishesList().get(j).getSpsList().get(i);
+						xmlStr += "<row><td>　"+sd.getDishesName()+"</td>";
+						xmlStr += "<td>"+sd.getDishesPrice()+"</td>";
+						xmlStr += "<td>"+sd.getShuLiang()+"</td>";
+						xmlStr += "<td>"+sd.getTotalMoney()+"</td></row>";
+					}
+				}
+				
+				xmlStr += "</rows></table>";
+				xmlStr += "<keyvalue><key>现金支付:</key><value>[100]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>微信支付:</key><value>[24]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>实付金额:</key><value>[124]</value><font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>true</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></keyvalue>" ;
+				xmlStr += "<section><texts>" ;
+				xmlStr += "<text>光华北三路164号</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>false</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "<section><texts>" ;
+				xmlStr += "<text>17726461730</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>false</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+
+
+	/**
+	 * 交接班
+	 */
+	public static boolean printShiftingOfDuty(ShiftingOfDuty s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 外卖单
+	 */
+	public static boolean printTakeOutSingle(TakeOutSingle s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 点菜分单
+	 */
+	public static boolean printOrderSubmenu(OrderSubmenu s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品崔菜单
+	 */
+	public static boolean printSingleUrge(SingleUrge s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品退菜单
+	 */
+	public static boolean printSingleReturnDishes(SingleReturnDishes s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 换台单
+	 */
+	public static boolean printChangeChannel(ChangeChannel s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCombineTable(CombineTable s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCallUpShole(CallUpShole s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	
+}

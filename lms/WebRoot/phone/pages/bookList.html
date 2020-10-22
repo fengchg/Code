@@ -1,0 +1,123 @@
+<div data-controller="BookListController">
+    <div class="pages">
+        <div data-page="bookListPage" class="page navbar-fixed toolbar-fixed">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center">图书信息</div>
+                    <div class="right">
+                        <a class="link" href="pages/bookNew.html"><i class="add-btn"></i></a>
+                </div>
+                </div>
+            </div>
+            <div class="page-content list-block media-list m-t-0 infinite-scroll" data-distance="50">
+                <div class="choose-book">
+                    <div class="choose-book-link">
+                        <div class="type-search" id="id_searchbtn"><span>书名</span>
+                            <i class="type-icon"></i>
+                            <div class="myDiv">
+                                <ul>
+                                    <li>书名</li>
+                                    <li>作者</li>
+                                    <li>编号</li>
+                                    <li>出版社</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="center link icon-only search-book">
+                            <div class="white-bg-1"></div>
+                            <input type="search" class="search" placeholder="请输入图书信息">
+                            <div class="white-bg-2"></div>
+                            <!--<div class="input-group-addon"><i class="icon icon-voice-no"></i></div>-->
+                            <div class="search-btn"><a class="item-btn orange" href="#">搜索</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="listContainer">
+                    <div class="content-block-title">物理类</div>
+                    <div class="list-block media-list">
+                        <ul>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/bookNew.html?pid={{id}}">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #000;">《大学物理高级》</span><br />
+                                                    <span class="author">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/orderStatus-pay.html?pid={{id}}">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #000;">《大学物理高级》</span><br />
+                                                    <span class="author">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="content-block-title">物理类</div>
+                    <div class="list-block media-list">
+                        <ul>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/orderStatus-pay.html?pid={{id}}">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #000;">《大学物理高级》</span><br />
+                                                    <span style="color: #999; font-size: 13px; padding-left:10px;">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/orderStatus-pay.html?pid={{id}}">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #333;">《大学物理高级》</span><br />
+                                                    <span style="color: #333; font-size: 13px; padding-left:10px;">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../phone/js/pages/BookListController.js"></script>
+</div>
+
+

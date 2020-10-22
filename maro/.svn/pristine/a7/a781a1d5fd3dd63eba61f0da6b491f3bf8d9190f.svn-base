@@ -1,0 +1,677 @@
+package com.maro.client.module.serverorder.pojo.entity;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+/**
+ * 服务订单流水记录DO
+ * @author 冯成果
+ * @date 2018-4-2
+ * @since 01.00.0001
+*/
+@Entity
+@Table(name = "maro_client__serverorder", schema = "", catalog = "")
+public class MaroClientServerorderDO {
+    /**
+     * 主键
+     */
+    private String id;
+    /**
+     * 订单号
+     */
+    private String code;
+    /**
+     * 店铺主键
+     */
+    private String restaurantId;
+    /**
+     * 店铺名称
+     */
+    private String restaurantName;
+    /**
+     * 桌位主键
+     */
+    private String seatId;
+    /**
+     * 桌位号
+     */
+    private String seatCode;
+    /**
+     * 桌位名
+     */
+    private String seatName;
+    /**
+     * 订单金额
+     */
+    private BigDecimal amount;
+    /**
+     * 上桌时间
+     */
+    private Long beginTime;
+    /**
+     * 就餐人数
+     */
+    private Integer personNumber;
+    /**
+     * 服务员主键
+     */
+    private String waiterId;
+    /**
+     * 服务员名称
+     */
+    private String waiterName;
+    /**
+     * 服务费
+     */
+    private BigDecimal serviceCharge;
+    /**
+     * 已付订金
+     */
+    private Integer payedDeposit;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
+     * 支付方式
+     */
+    private Integer payType;
+    /**
+     * 支付终端
+     */
+    private Integer payTerminal;
+    /**
+     * 收银员主键
+     */
+    private String cashierId;
+    /**
+     * 收银员
+     */
+    private String cashierName;
+    /**
+     * 支付时间
+     */
+    private Long payTime;
+    /**
+     * 下桌时间
+     */
+    private Long endTime;
+    /**
+     * 备注
+     */
+    private String remark;
+    /**
+     * 预定记录主键
+     */
+    private String reserveId;
+    /**
+     * 折扣
+     */
+    private BigDecimal discount;
+    /**
+     * 支付金额
+     */
+    private BigDecimal payAmount;
+    /**
+     * 应收金额
+     */
+    private BigDecimal receivableAmount;
+    /**
+     * 实收金额
+     */
+    private BigDecimal collectedAmount;
+    /**
+     * 是否开票
+     */
+    private Integer makeBillType;
+    /**
+     * 顾客姓名
+     */
+    private String customerName;
+    /**
+     * 手机号码
+     */
+    private String phone;
+    /**
+     * 会员主键
+     */
+    private String memberId;
+    /**
+     * 会员名称
+     */
+    private String memberName;
+    /**
+     * 会员手机
+     */
+    private String memberPhone;
+    /**
+     * 后厨人员主键
+     */
+    private String cookId;
+    /**
+     * 后厨人员名称
+     */
+    private String cookName;
+
+    /**
+     * 订单类型
+     */
+    private Integer type;
+
+    /**
+     * 订单类型描述
+     */
+    private String typeString;
+    /**
+     * 零钱（用于抹零）
+     */
+    private BigDecimal smallChange;
+    /**
+     * 开票金额
+     */
+    private BigDecimal billMoney;
+
+    /**
+     * 删除标识
+     */
+    private Integer deleteFlag;
+
+    private String mergeServerorderId;
+
+    /**
+     * 打厨状态
+
+     */
+    private Integer kitchenNotify;
+
+    /**
+     * 发送到MQ状态
+     */
+    private Integer send;
+
+    /**
+     * 自助点单微信号
+     */
+    private String openId;
+    private String seatIdList;
+    private String seatNameList;
+    /**
+     * 班次code
+     */
+    private String shiftCode;
+    /**
+     * 该班次是否进行交班检查
+     */
+    private Integer isCheck;
+    @Basic
+    @Column(name = "kitchen_notify", nullable = true, precision = 0)
+    public Integer getKitchenNotify() {
+        return kitchenNotify;
+    }
+
+    public void setKitchenNotify(Integer kitchenNotify) {
+        this.kitchenNotify = kitchenNotify;
+    }
+    @Basic
+    @Column(name = "merge_serverorder_id", nullable = true, length = 20)
+    public String getMergeServerorderId() {
+        return mergeServerorderId;
+    }
+
+    public void setMergeServerorderId(String mergeServerorderId) {
+        this.mergeServerorderId = mergeServerorderId;
+    }
+
+    @Id
+    @Column(name = "id", nullable = false, length = 36)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "code", nullable = true, length = 20)
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Basic
+    @Column(name = "restaurant_id", nullable = true, length = 36)
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    @Basic
+    @Column(name = "restaurant_name", nullable = true, length = 20)
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    @Basic
+    @Column(name = "seat_id", nullable = true, length = 36)
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
+    }
+
+    @Basic
+    @Column(name = "seat_code", nullable = true, length = 5)
+    public String getSeatCode() {
+        return seatCode;
+    }
+
+    public void setSeatCode(String seatCode) {
+        this.seatCode = seatCode;
+    }
+
+    @Basic
+    @Column(name = "seat_name", nullable = true, length = 20)
+    public String getSeatName() {
+        return seatName;
+    }
+
+    public void setSeatName(String seatName) {
+        this.seatName = seatName;
+    }
+
+    @Basic
+    @Column(name = "amount", nullable = true, precision = 2)
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    @Basic
+    @Column(name = "begin_time", nullable = true)
+    public Long getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Long beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    @Basic
+    @Column(name = "person_number", nullable = true)
+    public Integer getPersonNumber() {
+        return personNumber;
+    }
+
+    public void setPersonNumber(Integer personNumber) {
+        this.personNumber = personNumber;
+    }
+
+    @Basic
+    @Column(name = "waiter_id", nullable = true, length = 36)
+    public String getWaiterId() {
+        return waiterId;
+    }
+
+    public void setWaiterId(String waiterId) {
+        this.waiterId = waiterId;
+    }
+
+    @Basic
+    @Column(name = "waiter_name", nullable = true, length = 20)
+    public String getWaiterName() {
+        return waiterName;
+    }
+
+    public void setWaiterName(String waiterName) {
+        this.waiterName = waiterName;
+    }
+
+    @Basic
+    @Column(name = "service_charge", nullable = true, precision = 2)
+    public BigDecimal getServiceCharge() {
+        return serviceCharge;
+    }
+
+    public void setServiceCharge(BigDecimal serviceCharge) {
+        this.serviceCharge = serviceCharge;
+    }
+
+    @Basic
+    @Column(name = "payed_deposit", nullable = true, precision = 0)
+    public Integer getPayedDeposit() {
+        return payedDeposit;
+    }
+
+    public void setPayedDeposit(Integer payedDeposit) {
+        this.payedDeposit = payedDeposit;
+    }
+
+    @Basic
+    @Column(name = "status", nullable = true)
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Basic
+    @Column(name = "pay_type", nullable = true)
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
+    }
+
+    @Basic
+    @Column(name = "pay_terminal", nullable = true)
+    public Integer getPayTerminal() {
+        return payTerminal;
+    }
+
+    public void setPayTerminal(Integer payTerminal) {
+        this.payTerminal = payTerminal;
+    }
+
+    @Basic
+    @Column(name = "cashier_id", nullable = true, length = 36)
+    public String getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(String cashierId) {
+        this.cashierId = cashierId;
+    }
+
+    @Basic
+    @Column(name = "cashier_name", nullable = true, length = 20)
+    public String getCashierName() {
+        return cashierName;
+    }
+
+    public void setCashierName(String cashierName) {
+        this.cashierName = cashierName;
+    }
+
+    @Basic
+    @Column(name = "pay_time", nullable = true)
+    public Long getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Long payTime) {
+        this.payTime = payTime;
+    }
+
+    @Basic
+    @Column(name = "end_time", nullable = true)
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    @Basic
+    @Column(name = "remark", nullable = true, length = 1000)
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Basic
+    @Column(name = "reserve_id", nullable = true, length = 36)
+    public String getReserveId() {
+        return reserveId;
+    }
+
+    public void setReserveId(String reserveId) {
+        this.reserveId = reserveId;
+    }
+
+    @Basic
+    @Column(name = "discount", nullable = true, precision = 1)
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    @Basic
+    @Column(name = "pay_amount", nullable = true, precision = 2)
+    public BigDecimal getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(BigDecimal payAmount) {
+        this.payAmount = payAmount;
+    }
+
+    @Basic
+    @Column(name = "receivable_amount", nullable = true, precision = 2)
+    public BigDecimal getReceivableAmount() {
+        return receivableAmount;
+    }
+
+    public void setReceivableAmount(BigDecimal receivableAmount) {
+        this.receivableAmount = receivableAmount;
+    }
+
+    @Basic
+    @Column(name = "collected_amount", nullable = true, precision = 2)
+    public BigDecimal getCollectedAmount() {
+        return collectedAmount;
+    }
+
+    public void setCollectedAmount(BigDecimal collectedAmount) {
+        this.collectedAmount = collectedAmount;
+    }
+
+    @Basic
+    @Column(name = "make_bill_type", nullable = true)
+    public Integer getMakeBillType() {
+        return makeBillType;
+    }
+
+    public void setMakeBillType(Integer makeBillType) {
+        this.makeBillType = makeBillType;
+    }
+
+    @Basic
+    @Column(name = "customer_name", nullable = true, length = 20)
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    @Basic
+    @Column(name = "phone", nullable = true, length = 11)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "member_id", nullable = true, length = 36)
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    @Basic
+    @Column(name = "member_name", nullable = true, length = 20)
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    @Basic
+    @Column(name = "member_phone", nullable = true, length = 11)
+    public String getMemberPhone() {
+        return memberPhone;
+    }
+
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
+    }
+
+    @Basic
+    @Column(name = "cook_id", nullable = true, length = 36)
+    public String getCookId() {
+        return cookId;
+    }
+
+    public void setCookId(String cookId) {
+        this.cookId = cookId;
+    }
+
+    @Basic
+    @Column(name = "cook_name", nullable = true, length = 20)
+    public String getCookName() {
+        return cookName;
+    }
+
+    public void setCookName(String cookName) {
+        this.cookName = cookName;
+    }
+
+    @Basic
+    @Column(name = "type", nullable = true, length = 20)
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    @Basic
+    @Column(name = "type_string", nullable = true, length = 20)
+    public String getTypeString() {
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
+    }
+
+
+    @Basic
+    @Column(name = "small_change", nullable = true, precision = 2)
+    public BigDecimal getSmallChange() {
+        return smallChange;
+    }
+
+    public void setSmallChange(BigDecimal smallChange) {
+        this.smallChange = smallChange;
+    }
+
+
+    @Basic
+    @Column(name = "bill_money", nullable = true, precision = 2)
+    public BigDecimal getBillMoney() {
+        return billMoney;
+    }
+
+    public void setBillMoney(BigDecimal billMoney) {
+        this.billMoney = billMoney;
+    }
+
+
+    @Basic
+    @Column(name = "send", nullable = true, length = 20)
+    public Integer getSend() {
+        return send;
+    }
+
+    public void setSend(Integer send) {
+        this.send = send;
+    }
+
+    @Basic
+    @Column(name = "open_id", nullable = true, length = 255)
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    @Basic
+    @Column(name = "seat_id_list", nullable = true, length = 5000)
+    public String getSeatIdList() {
+        return seatIdList;
+    }
+
+    public void setSeatIdList(String seatIdList) {
+        this.seatIdList = seatIdList;
+    }
+
+    @Basic
+    @Column(name = "seat_name_list", nullable = true, length = 5000)
+    public String getSeatNameList() {
+        return seatNameList;
+    }
+
+    public void setSeatNameList(String seatNameList) {
+        this.seatNameList = seatNameList;
+    }
+
+    @Basic
+    @Column(name = "shift_code", nullable = true, length = 1)
+    public String getShiftCode() {
+        return shiftCode;
+    }
+
+    public void setShiftCode(String shiftCode) {
+        this.shiftCode = shiftCode;
+    }
+
+    @Basic
+    @Column(name = "is_check", nullable = true, length = 1)
+    public Integer getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(Integer isCheck) {
+        this.isCheck = isCheck;
+    }
+}

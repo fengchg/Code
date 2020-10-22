@@ -1,0 +1,12 @@
+#############是否同步服务器（服务器端需设置为true）#############
+rabbitmq.send=true
+
+#############本地MQ信息#############
+#MQ地址
+rabbitmq.host=193.112.42.207
+#MQ端口
+rabbitmq.port=5672
+#MQ用户名
+rabbitmq.username=admin
+#MQ密码
+rabbitmq.password=123456

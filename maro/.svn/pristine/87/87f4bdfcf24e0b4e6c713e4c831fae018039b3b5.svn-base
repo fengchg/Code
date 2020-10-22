@@ -1,0 +1,48 @@
+ShiftingOfDuty s = new ShiftingOfDuty();
+		s.setShiftingOfDutyMark("132658");
+		s.setClassNext("早班");
+		s.setStartTime("2018-09-11 03:48:51 ");
+		s.setEndTime("2018-09-11 03:48:51 ");
+		s.setConsumeSeatNumber("1");
+		s.setConsumePersonNumber("5");
+		s.setCapitaConsume("4");
+		s.setSingleConsume("567");
+		s.setOpenSeat("2");
+		s.setRevenueMoney("653.55");
+		s.setDiningHall("234");
+		s.setTakeOut("0");
+		s.setBeOnDutyBalance("6548");
+		s.setStandbyBalance("500.00");
+		s.setReceiveCashPledge("0");
+		s.setSettleCashPledge("0");
+		s.setServiceCharge("20");
+		
+		List<ShiftingOfDutyGatheringProject> gpList = new ArrayList<ShiftingOfDutyGatheringProject>();
+		ShiftingOfDutyGatheringProject gp = new ShiftingOfDutyGatheringProject();
+		gp.setProjectName("支付宝");
+		gp.setStrokeCount("2");
+		gp.setMoney("38.00");
+		gpList.add(gp);
+		
+		ShiftingOfDutyGatheringProject gp1 = new ShiftingOfDutyGatheringProject();
+		gp1.setProjectName("微信");
+		gp1.setStrokeCount("3");
+		gp1.setMoney("438.00");
+		gpList.add(gp1);
+		
+		ShiftingOfDutyGatheringProject gp2 = new ShiftingOfDutyGatheringProject();
+		gp2.setProjectName("现金");
+		gp2.setStrokeCount("33");
+		gp2.setMoney("5438.00");
+		gpList.add(gp2);
+		
+		s.setGpList(gpList);
+		
+		s.setPresentedBalance("0");
+		s.setNoSingleBalance("0");
+		s.setDiscountBalance("0");
+		s.setMoLing("0");
+		s.setLiJuan("0");
+		s.setRedRnvelope("0");
+		
+		boolean b = PrintMain.printShiftingOfDuty(s);

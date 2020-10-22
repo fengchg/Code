@@ -1,0 +1,899 @@
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 18:40:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 18:40:31] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 18:40:31] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 18:40:34] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 18:40:37] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 18:40:37] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 18:40:37] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 18:40:37] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 18:40:37] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 18:40:37] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@4697c1c0
+[2018-03-30 18:40:38] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 18:40:48] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 18:40:48] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 18:40:48] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 18:40:48] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 18:40:48] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 18:40:49] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 18:40:57] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 18:40:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 18:41:34] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 18:41:53] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 18:41:53==============================
+[2018-03-30 18:41:53] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 18:41:53==============================
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 18:41:54==============================
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:735ms==============================
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 18:41:54==============================
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:983ms==============================
+[2018-03-30 18:41:54] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 18:44:32] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 18:44:33] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 18:44:33] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 18:44:39] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 18:44:47] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 18:44:47] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 18:44:47] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 18:44:47] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 18:44:47] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 18:44:47] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@4d8572f8
+[2018-03-30 18:44:49] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 18:44:58] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 18:44:58] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 18:44:58] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 18:44:59] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 18:45:05] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 18:45:05] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 18:45:05] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 18:45:06] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 18:45:23] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 18:45:51] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 18:45:51==============================
+[2018-03-30 18:45:51] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 18:45:51==============================
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 18:45:52==============================
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:718ms==============================
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 18:45:52==============================
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:728ms==============================
+[2018-03-30 18:45:52] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 19:17:40] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 19:17:41] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 19:17:41] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 19:17:44] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 19:17:48] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 19:17:48] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 19:17:48] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 19:17:48] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 19:17:48] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 19:17:48] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@6343e3de
+[2018-03-30 19:17:49] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 19:18:00] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 19:18:00] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 19:18:00] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:18:00] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:18:00] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:18:01] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:18:02] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:18:10] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:18:11] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:18:51] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 19:19:49] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:19:49==============================
+[2018-03-30 19:19:49] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:19:49==============================
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:19:50==============================
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:787ms==============================
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:19:50==============================
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:767ms==============================
+[2018-03-30 19:19:50] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 19:28:03] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 19:28:04] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 19:28:05] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 19:28:11] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 19:28:21] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 19:28:21] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 19:28:21] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 19:28:21] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 19:28:21] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 19:28:21] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@71d0bc67
+[2018-03-30 19:28:23] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 19:28:34] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 19:28:34] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 19:28:34] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:28:34] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:28:34] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:28:35] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:28:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:28:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:28:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:28:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:28:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:28:43] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:28:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:29:14] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 19:29:57] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:29:57==============================
+[2018-03-30 19:29:57] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:29:57==============================
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:29:58==============================
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:859ms==============================
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:29:58==============================
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:1054ms==============================
+[2018-03-30 19:29:58] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 19:41:19] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 19:41:20] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 19:41:21] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 19:41:24] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 19:41:29] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 19:41:29] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 19:41:29] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 19:41:29] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 19:41:29] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 19:41:29] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@ad26621
+[2018-03-30 19:41:30] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 19:41:38] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 19:41:38] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 19:41:38] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:41:38] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:41:38] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:41:39] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 19:41:45] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 19:43:16] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 19:44:07] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:44:07==============================
+[2018-03-30 19:44:07] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 19:44:07==============================
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:44:08==============================
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:497ms==============================
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 19:44:08==============================
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:558ms==============================
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 19:44:08] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormFieldDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.config.CgFormVersionDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgform.dao.upload.CgFormUploadDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.cgreport.dao.core.CgReportDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-03-30 20:02:11] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.purchase.dao.MaroPurchaseDao }
+[2018-03-30 20:02:13] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-03-30 20:02:15] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-03-30 20:02:19] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-03-30 20:02:23] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-03-30 20:02:23] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-03-30 20:02:23] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-03-30 20:02:23] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-03-30 20:02:23] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-03-30 20:02:23] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@5ceb8a4d
+[2018-03-30 20:02:26] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-03-30 20:02:36] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-03-30 20:02:36] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 20:02:36] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 20:02:37] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 20:02:43] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-03-30 20:02:43] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-03-30 20:02:43] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_1
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_1
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_1
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_1
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_1
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_2
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_2
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_2
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_2
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_2
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_3
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_3
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_3
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_3
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_3
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_4
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_4
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_4
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_4
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_4
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_5
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_5
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_5
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_5
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_5
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_6
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_6
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_6
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_6
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_6
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_7
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_7
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_7
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_7
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_7
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: createUsingPOST_8
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: deleteUsingDELETE_8
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: getUsingGET_8
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: listUsingGET_8
+[2018-03-30 20:02:44] [INFO] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] Generating unique operation named: updateUsingPUT_8
+[2018-03-30 20:03:18] [WARN] [net.sf.ehcache.distribution.RMICacheManagerPeerListener:120] Explicitly setting the listener hostname to 'localhost' is not recommended. It will only work if all CacheManager peers are on the same machine.
+[2018-03-30 20:03:33] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 20:03:33==============================
+[2018-03-30 20:03:33] [INFO] [com.maro.platform.web.system.controller.core.LoginController:600] ================================开始时间:2018-03-30 20:03:33==============================
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 20:03:34==============================
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:544ms==============================
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:605] ================================结束时间:2018-03-30 20:03:34==============================
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:606] ================================耗时:485ms==============================
+[2018-03-30 20:03:34] [INFO] [com.maro.platform.web.system.controller.core.LoginController:436] login 资源路径returnURL：null
+[2018-03-30 20:04:23] [ERROR] [com.maro.platform.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'null' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:226)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:301)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:248)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:57)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:299)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1098)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:910)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:140)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:857)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:745)
+[2018-03-30 20:05:09] [ERROR] [com.maro.platform.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'null' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:226)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:301)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:248)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:57)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:299)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1098)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:910)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:140)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:857)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:745)
+[2018-03-30 20:07:05] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select count(1) as hasPeizhi,physice_id id from cgform_head where 1=1 and physice_id in ('8a8a8bf86229640f016229e128310096','8a8a8bf86229640f016229d9c5cc007a','8a8a8bf86229640f016229ce91da004e','8a8a8bf86229640f016229c344410031','8a8a8bf86229640f0162299539b10003','8a8a8bf862278ab60162279731b90013','8a8a8bfa6223687d01622388f1b70022','8a8a8bfa6222545101622281de0800e4','8a8a8bfa622254510162227e7a1400d1','8a8a8bfa622254510162227bbd0100b3') group by physice_id
+[2018-03-30 20:07:26] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select count(1) as hasPeizhi,physice_id id from cgform_head where 1=1 and physice_id in ('8a8a8bf86229640f016229e128310096','8a8a8bf86229640f016229d9c5cc007a','8a8a8bf86229640f016229ce91da004e','8a8a8bf86229640f016229c344410031','8a8a8bf86229640f0162299539b10003','8a8a8bf862278ab60162279731b90013','8a8a8bfa6223687d01622388f1b70022','8a8a8bfa6222545101622281de0800e4','8a8a8bfa622254510162227e7a1400d1','8a8a8bfa622254510162227bbd0100b3','8a8a8bfa6222545101622277afe400a2','8a8a8bfa62225451016222766d2f008b','8a8a8bfa622254510162227401450072','8a8a8bfa622254510162226a233a0047','8a8a8bfa6222545101622267cdc30032','8a8a8bfa6222545101622264b108001e','8a8a8bfa622254510162225fcf0d0001','ff8080816021b031016021feb0c00016','ff8080816021b031016021fced100004','4028ab775afa555c015afa5958660007','4028b88153659dd4015365ab21d0000c','4028b881535b12bd01535b1ae3680001','402881e4534c0aea01534c0cfca50012','402881e4534c0aea01534c0cfe2b001b','402881e4534c0aea01534c0cf9f70001','402881e451fce3050151fd3e1b680021','402881e451fce3050151fd3e196b0019','402881e451fce3050151fd3dd20c0002','402881a151f09a900151f0ad74120001','4028138151adbcc50151adfd13680002') group by physice_id
+[2018-03-30 20:07:30] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select jform_version from cgform_head where table_name = 'maro_member'
+[2018-03-30 20:07:31] [INFO] [com.maro.platform.web.cgform.service.impl.autolist.ConfigServiceImpl:72] -- columns -- size--29
+[2018-03-30 20:07:33] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select jform_version from cgform_head where table_name = 'maro_member'
+[2018-03-30 20:07:37] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select jform_version from cgform_head where table_name = 'maro_member'
+[2018-03-30 20:07:37] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select f.* from cgform_field f,cgform_head h where f.table_id = h.id and f.is_show='Y' and h.table_name=:tableName order by f.order_num
+[2018-03-30 20:07:38] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:114] MiniDao-SQL:
+
+select f.* from cgform_field f,cgform_head h where f.table_id = h.id and f.is_show <> 'Y' and h.table_name=:tableName order by f.order_num
+[2018-03-30 20:07:38] [INFO] [com.maro.platform.web.cgform.controller.build.CgFormBuildController:186] ============================填值规则开始时间:2018-03-30 20:07:38==============================
+[2018-03-30 20:07:38] [INFO] [com.maro.platform.web.cgform.controller.build.CgFormBuildController:209] ================================填值规则结束时间:2018-03-30 20:07:38==============================
+[2018-03-30 20:07:38] [INFO] [com.maro.platform.web.cgform.controller.build.CgFormBuildController:210] ================================填值规则耗时:1ms==============================

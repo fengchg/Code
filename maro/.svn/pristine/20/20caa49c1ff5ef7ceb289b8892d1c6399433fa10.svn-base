@@ -1,0 +1,14 @@
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<!DOCTYPE html>
+<html style="height:93%;">
+<head>
+	<title>测试报表</title>
+	<t:base type="jquery,easyui,tools,DatePicker"></t:base>
+</head>
+<body style="height:100%;">
+<div style="width: 99%;height:100%;">
+	<iframe id="ifrmBirt" frameborder="0" height="100%" width="100%" scrolling="no" marginheight="0" marginwidth="0" src="frameset?__report=${code}.rptdesign&shopId=${shopId}"></iframe>
+</div>
+</body>
+</html>

@@ -1,0 +1,446 @@
+package com.maro.manager.print.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.maro.common.util.PrintUtil;
+import com.maro.manager.print.entity.CallUpShole;
+import com.maro.manager.print.entity.ChangeChannel;
+import com.maro.manager.print.entity.CombineTable;
+import com.maro.manager.print.entity.OrderSubmenu;
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.manager.print.entity.SettleAccountsDishes;
+import com.maro.manager.print.entity.ShiftingOfDuty;
+import com.maro.manager.print.entity.ShiftingOfDutyGatheringProject;
+import com.maro.manager.print.entity.SingleReturnDishes;
+import com.maro.manager.print.entity.SingleUrge;
+import com.maro.manager.print.entity.TakeOutSingle;
+
+public class PrintMain {
+	
+	private static String ip = "10.135.16.234";
+	private static int port = 9100;
+	
+	public static void main(String[] args) throws IOException {
+		SingleReturnDishes s = new SingleReturnDishes();
+		s.setSeatName("2号桌");
+		s.setNumber("3");
+		s.setQuitDishesTime("2018-01-44 15:54:15");
+		s.setBillMark("6546541");
+		s.setWaiter("何小小");
+		
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("西红柿炒番茄2");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		dishesList.add(sad);
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("蚂蚁辣椒2");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		dishesList.add(sad1);
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("回味小农炒2");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		dishesList.add(sad2);
+		
+		s.setDishesList(dishesList);
+		
+		s.setRemark("不加辣");
+		s.setCause("上菜慢");
+		
+		
+		PrintMain.printSingleReturnDishes(s);
+	}
+	
+	/**
+	 * 结账单*
+	 * 预结单*
+	 */
+	public static boolean printSettleAccounts(SettleAccounts s){
+		
+		String xmlStr="";
+				xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+				xmlStr += "<doucument>";
+				xmlStr += "<section><texts>";
+				xmlStr += "<text>兔行天下（光华店）"+s.getTitleName()+"</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Normal</fontSize>";
+				xmlStr += "<bold>true</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+				xmlStr += "<keyvalue>";
+				xmlStr += "<key>桌　名:</key>";
+				xmlStr += "<value>["+s.getSeatName()+"]</value>";
+				xmlStr += "</keyvalue>";
+				xmlStr += "<keyvalue>";
+				xmlStr += "<key>人　数:</key>";
+				xmlStr += "<value>["+s.getRenShu()+"]</value>";
+				xmlStr += "</keyvalue>";
+				xmlStr += "<keyvalue><key>账单号:</key>";
+				xmlStr += "<value>["+s.getBillNumber()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>开台时间:</key>";
+				xmlStr += "<value>["+s.getBeginTime()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>结账时间:</key>";
+				xmlStr += "<value>["+s.getSettleTime()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>服务员:</key>";
+				xmlStr += "<value>["+s.getWaiter()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>收银员:</key>";
+				xmlStr += "<value>["+s.getCashier()+"]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>会　员:</key>";
+				xmlStr += "<value>["+s.getMember()+"]</value></keyvalue>" ;
+				xmlStr += "<table>";
+				xmlStr += "<cws><cw>20</cw><cw>8</cw><cw>6</cw><cw>8</cw></cws>";
+				xmlStr += "<ars><ar>false</ar><ar>true</ar><ar>true</ar><ar>true</ar></ars>";
+				xmlStr += "<headers><header>品名</header><header>单价</header><header>数量</header><header>总额</header></headers>";
+				xmlStr += "<rows>";
+				
+				for(int j=0;j<s.getDishesList().size();j++){
+					xmlStr += "<row><td>["+s.getDishesList().get(j).getClassName()+"]</td> <td></td> <td></td> <td></td></row>";
+					for(int i=0;i<s.getDishesList().get(j).getSpsList().size();i++){
+						SettleAccountsDishes sd = s.getDishesList().get(j).getSpsList().get(i);
+						xmlStr += "<row><td>　"+sd.getDishesName()+"</td>";
+						xmlStr += "<td>"+sd.getDishesPrice()+"</td>";
+						xmlStr += "<td>"+sd.getShuLiang()+"</td>";
+						xmlStr += "<td>"+sd.getTotalMoney()+"</td></row>";
+					}
+				}
+				
+				xmlStr += "</rows></table>";
+				xmlStr += "<keyvalue><key>现金支付:</key><value>[100]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>微信支付:</key><value>[24]</value></keyvalue>" ;
+				xmlStr += "<keyvalue><key>实付金额:</key><value>[124]</value><font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>true</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></keyvalue>" ;
+				xmlStr += "<section><texts>" ;
+				xmlStr += "<text>光华北三路164号</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>false</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "<section><texts>" ;
+				xmlStr += "<text>17726461730</text>";
+				xmlStr += "<font>" ;
+				xmlStr += "<fontSize>Small</fontSize>";
+				xmlStr += "<bold>false</bold>";
+				xmlStr += "<underline>false</underline>";
+				xmlStr += "</font></texts>";
+				xmlStr += "<textAlign>Center</textAlign>";
+				xmlStr += "</section>";
+				xmlStr += "</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+
+
+	/**
+	 * 交接班*
+	 */
+	public static boolean printShiftingOfDuty(ShiftingOfDuty s){
+		String xmlStr="";
+		xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+		xmlStr += "<doucument>";
+		xmlStr += "<section><texts>";
+		xmlStr += "<text>兔行天下（光华店）交接班</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Normal</fontSize>";
+		xmlStr += "<bold>true</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+		xmlStr += "<keyvalue><key>交接班单号:</key><value>["+s.getShiftingOfDutyMark()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>班　次:</key><value>["+s.getClassNext()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>开始时间:</key><value>["+s.getStartTime()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>结束时间:</key><value>["+s.getEndTime()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>消费台数:</key><value>["+s.getConsumeSeatNumber()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>消费人数:</key><value>["+s.getConsumePersonNumber()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>人均消费:</key><value>["+s.getCapitaConsume()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>单均消费:</key><value>["+s.getSingleConsume()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>未结台数:</key><value>["+s.getOpenSeat()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>应收金额:</key><value>["+s.getRevenueMoney()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>食　堂:</key><value>["+s.getDiningHall()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>外　卖:</key><value>["+s.getTakeOut()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>上班余额:</key><value>["+s.getBeOnDutyBalance()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>备用金额:</key><value>["+s.getStandbyBalance()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>收到押金:</key><value>["+s.getReceiveCashPledge()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>结账押金:</key><value>["+s.getSettleCashPledge()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>服务费:</key><value>["+s.getServiceCharge()+"]</value></keyvalue>" ;
+		
+		xmlStr += "<table>";
+		xmlStr += "<cws><cw>20</cw><cw>6</cw><cw>14</cw></cws>";
+		xmlStr += "<ars><ar>false</ar><ar>true</ar><ar>true</ar></ars>";
+		xmlStr += "<headers><header>收款项目</header><header>笔数</header><header>金额</header></headers>";
+		xmlStr += "<rows>";
+		
+			for(int i=0;i<s.getGpList().size();i++){
+				ShiftingOfDutyGatheringProject sd = s.getGpList().get(i);
+				xmlStr += "<row><td>　"+sd.getProjectName()+"</td>";
+				xmlStr += "<td>"+sd.getStrokeCount()+"</td>";
+				xmlStr += "<td>"+sd.getMoney()+"</td></row>";
+			}
+		
+		xmlStr += "</rows></table>";
+		xmlStr += "<keyvalue><key>赠送金额:</key><value>["+s.getPresentedBalance()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>免单金额:</key><value>["+s.getNoSingleBalance()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>折扣金额:</key><value>["+s.getDiscountBalance()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>抹零金额:</key><value>["+s.getMoLing()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>礼卷金额:</key><value>["+s.getLiJuan()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>红　包:</key><value>["+s.getRedRnvelope()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>" ;
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>光华北三路164号</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>17726461730</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "</doucument>";
+		
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 外卖单
+	 */
+	public static boolean printTakeOutSingle(TakeOutSingle s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 点菜分单*
+	 */
+	public static boolean printOrderSubmenu(OrderSubmenu s){
+		String xmlStr="";
+		xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+		xmlStr += "<doucument>";
+		xmlStr += "<section><texts>";
+		xmlStr += "<text>兔行天下（光华店）点菜分单 [美团外买]</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Normal</fontSize>";
+		xmlStr += "<bold>true</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+		xmlStr += "<keyvalue><key>人　数:</key><value>["+s.getNumber()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>服务员:</key><value>["+s.getWaiter()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>下单时间:</key><value>["+s.getOrderTime()+"]</value></keyvalue>" ;
+		xmlStr += "<keyvalue><key>账单号:</key><value>["+s.getBillMark()+"]</value></keyvalue>" ;
+		
+		xmlStr += "<table>";
+		xmlStr += "<cws><cw>26</cw><cw>14</cw></cws>";
+		xmlStr += "<ars><ar>false</ar><ar>true</ar></ars>";
+		xmlStr += "<headers><header>品名</header><header>数量</header></headers>";
+		xmlStr += "<rows>";
+		
+			for(int i=0;i<s.getDishesList().size();i++){
+				SettleAccountsDishes sd = s.getDishesList().get(i);
+				xmlStr += "<row><td>　"+sd.getDishesName()+"</td>";
+				xmlStr += "<td>"+sd.getShuLiang()+" "+sd.getUnit()+"</td></row>";
+			}
+		
+		xmlStr += "</rows></table>";
+		xmlStr += "<keyvalue><key>备　注:</key><value>["+s.getRemark()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>" ;
+		xmlStr += "<keyvalue><key>整单备注:</key><value>["+s.getWholeRemark()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>" ;
+		xmlStr += "<keyvalue><key>送达时间:</key><value>["+s.getDeliveryTime()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>" ;
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>光华北三路164号</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>17726461730</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品崔菜单*
+	 */
+	public static boolean printSingleUrge(SingleUrge s){
+		String xmlStr="";
+		xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+		xmlStr += "<doucument>";
+		xmlStr += "<section><texts>";
+		xmlStr += "<text>兔行天下（光华店）[崔菜单]</text>";
+		xmlStr += "<font>";
+		xmlStr += "<fontSize>Normal</fontSize>";
+		xmlStr += "<bold>true</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+		xmlStr += "<keyvalue><key>桌　名:</key><value>["+s.getSeatName()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>人　数:</key><value>["+s.getNumber()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>服务员:</key><value>["+s.getWaiter()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>催菜时间:</key><value>["+s.getUrgeDishesTime()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>账单号:</key><value>["+s.getBillMark()+"]</value></keyvalue>";
+		
+		xmlStr += "<table>";
+		xmlStr += "<cws><cw>26</cw><cw>14</cw></cws>";
+		xmlStr += "<ars><ar>false</ar><ar>true</ar></ars>";
+		xmlStr += "<headers><header>品名</header><header>数量</header></headers>";
+		xmlStr += "<rows>";
+		
+			for(int i=0;i<s.getDishesList().size();i++){
+				SettleAccountsDishes sd = s.getDishesList().get(i);
+				xmlStr += "<row><td>　"+sd.getDishesName()+"</td>";
+				xmlStr += "<td>"+sd.getShuLiang()+" "+sd.getUnit()+"</td></row>";
+			}
+		
+		xmlStr += "</rows></table>";
+		xmlStr += "<keyvalue><key>备　注:</key><value>["+s.getRemark()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>";
+		xmlStr += "<keyvalue><key>整单备注:</key><value>["+s.getWholeRemark()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>";
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>光华北三路164号</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>17726461730</text>";
+		xmlStr += "<font>" ;
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 单品退菜单*
+	 */
+	public static boolean printSingleReturnDishes(SingleReturnDishes s){
+		String xmlStr="";
+		xmlStr += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+		xmlStr += "<doucument>";
+		xmlStr += "<section><texts>";
+		xmlStr += "<text>兔行天下（光华店）[崔菜单]</text>";
+		xmlStr += "<font>";
+		xmlStr += "<fontSize>Normal</fontSize>";
+		xmlStr += "<bold>true</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<blankRow><lineNumber>1</lineNumber></blankRow>";
+		xmlStr += "<keyvalue><key>桌　名:</key><value>["+s.getSeatName()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>人　数:</key><value>["+s.getNumber()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>服务员:</key><value>["+s.getWaiter()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>退菜时间:</key><value>["+s.getQuitDishesTime()+"]</value></keyvalue>";
+		xmlStr += "<keyvalue><key>账单号:</key><value>["+s.getBillMark()+"]</value></keyvalue>";
+		
+		xmlStr += "<table>";
+		xmlStr += "<cws><cw>26</cw><cw>14</cw></cws>";
+		xmlStr += "<ars><ar>false</ar><ar>true</ar></ars>";
+		xmlStr += "<headers><header>品名</header><header>数量</header></headers>";
+		xmlStr += "<rows>";
+		
+			for(int i=0;i<s.getDishesList().size();i++){
+				SettleAccountsDishes sd = s.getDishesList().get(i);
+				xmlStr += "<row><td>　"+sd.getDishesName()+"</td>";
+				xmlStr += "<td>"+sd.getShuLiang()+" "+sd.getUnit()+"</td></row>";
+			}
+		
+		xmlStr += "</rows></table>";
+		xmlStr += "<keyvalue><key>备　注:</key><value>["+s.getRemark()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>";
+		xmlStr += "<keyvalue><key>退菜原因:</key><value>["+s.getCause()+"]</value><font><fontSize>Small</fontSize><bold>true</bold><underline>false</underline></font></keyvalue>";
+		xmlStr += "<section><texts>";
+		xmlStr += "<text>光华北三路164号</text>";
+		xmlStr += "<font>";
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "<section><texts>" ;
+		xmlStr += "<text>17726461730</text>";
+		xmlStr += "<font>";
+		xmlStr += "<fontSize>Small</fontSize>";
+		xmlStr += "<bold>false</bold>";
+		xmlStr += "<underline>false</underline>";
+		xmlStr += "</font></texts>";
+		xmlStr += "<textAlign>Center</textAlign>";
+		xmlStr += "</section>";
+		xmlStr += "</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 换台单
+	 */
+	public static boolean printChangeChannel(ChangeChannel s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCombineTable(CombineTable s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	/**
+	 * 并台单
+	 */
+	public static boolean printCallUpShole(CallUpShole s){
+		String xmlStr="";
+		boolean isPrint = PrintUtil.print(xmlStr,ip,port);
+		return isPrint;
+	}
+	
+	
+}

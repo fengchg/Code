@@ -1,0 +1,65 @@
+<div data-controller="CategoryNewController">
+    <div class="pages">
+        <div data-page="categoryNewPage" class="page no-tabbar">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="back link">
+                            <i class="icon icon-backgray"></i>
+                        </a>
+                    </div>
+                    <div class="center">新增图书类型</div>
+                    <div class="right addrNewPage-address-submit">
+                        <a id="id_typesaveBtn">保存</a>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="user-list">
+                    <div class="list-block all-order  m-b-0" id="id_typelistdiv">
+                        
+                    </div>
+                    <div class="list-block m-t-10" id="delete-category">
+                        <ul>
+                            <li class="item-content contactPage-btn-del" style="padding-left: 0px;">
+                                <div class="only-one-btn">
+                                    <a class=" color-red font-14" id="id_dtpdelbtn">删除图书类型</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template7" id="CategoryInfoTemplate">
+    	<form id="form-ContactManage">
+			<input type="hidden" value="{{id}}" id="id_tpidhdn"/>
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                           	 图书类型名
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入图书类型" value="{{name}}" name="cFullName" id="id_tpnmtext">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="m-t-10">
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                           	 备注：
+                                        </div>
+                                        <div class="item-input">
+                                            <textarea name="comment" id="id_tprmtext">{{remark}}</textarea>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+          </form>
+    </script>
+    <script type="text/javascript" src="../phone/js/pages/CategoryNewController.js"></script>
+</div>

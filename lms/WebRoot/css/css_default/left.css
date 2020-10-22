@@ -1,0 +1,116 @@
+/* CSS Document */
+/*======================鼠标样式==================
+A {
+CURSOR: url(../../css/css_default/img/Link.cur)
+}
+input,textarea {
+CURSOR: url(../../css/css_default/img/text.cur)
+}
+body,fieldset,SELECT,option{
+CURSOR: url(../../css/css_default/img/Link_Ice.ani)
+}
+*/
+/*left.html*/
+
+ body {
+ margin:0;
+ color:#000000;
+ font:normal 12px Arial,Verdana,Tahoma;
+ text-align:center;
+ line-height:150%;
+ background:url(img/zou-bg.gif) repeat-y left;
+ }
+ a:link,a:visited {
+ color:#000000;
+ text-decoration:none;
+ }
+ a:hover {
+ text-decoration:underline;
+ }
+ #menu {
+ width:117px;
+ margin:0px 0px;
+ padding:0px;
+ text-align:left;
+ list-style:none;
+ }
+ #menu .item {
+ margin:0px 0px;
+ padding:0px;
+ list-style:none;
+ background:url(./img/leftsubtitlebg.gif) no-repeat;
+ }
+ a.title:link, a.title:visited {
+ height:26px;
+ display:block;
+ background:url(./img/tutu02.gif) no-repeat 10px 50%;
+ color:#000000;
+ padding:2px 0 0 20px;
+ width:117px;
+ line-height:23px;
+ cursor:pointer;
+ text-decoration:none;
+ text-indent:10px;
+ }
+ a.title:hover{
+ background:url(./img/tutu02_1.gif) no-repeat 10px 50%; 
+ }
+ #menu .item ul {
+ margin:0;
+ width:110px;
+ padding:3px 0px 3px 5px;
+ list-style:none;
+ display:none;
+ }
+ #menu .item ul li {
+ display:block;
+ }
+ a.sub:link,a.sub:visited,a.sub:active{
+ background:url(./img/tutu11.gif) no-repeat 0 50%;
+ padding-left:20px;
+ text-indent:10px;
+ }
+ a.sub:hover{
+ color:#FF0000;
+ background:url(./img/tutu11_1.gif) no-repeat 0 50%;
+ }
+/*=========第一个按钮对其属性==========*/
+ #menu .item1 {
+ margin-top:5px;
+ padding:0px;
+ list-style:none;
+ background:url(./img/leftsubtitlebg_1.gif) no-repeat;
+ }
+
+ #menu .item1 ul {
+ margin:0;
+ width:110px;
+ padding:3px 0px 3px 5px;
+ list-style:none;
+ display:none;
+ }
+ #menu .item1 ul li {
+ display:block;
+ }
+ /*=========按钮中间横线==========*/
+ #menu .item2 {
+ padding:0px;
+ list-style:none;
+ background:url(./img/leftsubtitlebg.gif) no-repeat;
+ }
+
+ #menu .item2 ul {
+ margin:0;
+ width:110px;
+ padding:3px 0px 3px 5px;
+ list-style:none;
+ display:none;
+ }
+ 
+ #menu .item1 ul li {
+ display:block;
+ }
+ /*=========二级按钮中间横线==========*/
+ .sub1{
+ border-bottom:1px #CCCCCC dotted;
+}

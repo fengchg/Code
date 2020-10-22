@@ -1,0 +1,81 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<script type="text/javascript">
+	$('#addMaroDishesDiscountDetailBtn').linkbutton({   
+	    iconCls: 'icon-add'  
+	});  
+	$('#delMaroDishesDiscountDetailBtn').linkbutton({   
+	    iconCls: 'icon-remove'  
+	}); 
+	$('#addMaroDishesDiscountDetailBtn').bind('click', function(){   
+ 		 var tr =  $("#add_maroDishesDiscountDetail_table_template tr").clone();
+	 	 $("#add_maroDishesDiscountDetail_table").append(tr);
+	 	 resetTrNum('add_maroDishesDiscountDetail_table');
+	 	 return false;
+    });  
+	$('#delMaroDishesDiscountDetailBtn').bind('click', function(){   
+      	$("#add_maroDishesDiscountDetail_table").find("input:checked").parent().parent().remove();   
+        resetTrNum('add_maroDishesDiscountDetail_table'); 
+        return false;
+    }); 
+    $(document).ready(function(){
+    	$(".datagrid-toolbar").parent().css("width","auto");
+    	if(location.href.indexOf("load=detail")!=-1){
+			$(":input").attr("disabled","true");
+			$(".datagrid-toolbar").hide();
+		}
+    });
+</script>
+<div style="padding: 3px; height: 25px;width:auto;" class="datagrid-toolbar">
+	<a id="addMaroDishesDiscountDetailBtn" href="#">添加</a> <a id="delMaroDishesDiscountDetailBtn" href="#">删除</a> 
+</div>
+<table border="0" cellpadding="2" cellspacing="0" id="maroDishesDiscountDetail_table">
+	<tr bgcolor="#E6E6E6">
+		<td align="center" bgcolor="#EEEEEE" style="width: 25px;">序号</td>
+		<td align="center" bgcolor="#EEEEEE" style="width: 25px;">操作</td>
+				  <td align="left" bgcolor="#EEEEEE" style="width: 126px;">
+						菜品
+				  </td>
+					<td align="left" bgcolor="#EEEEEE" style="width: 126px;">
+						规格
+					</td>
+	</tr>
+	<tbody id="add_maroDishesDiscountDetail_table">
+	<c:if test="${fn:length(maroDishesDiscountDetailList)  <= 0 }">
+			<tr>
+				<td align="center"><div style="width: 25px;" name="xh">1</div></td>
+				<td align="center"><input style="width:20px;"  type="checkbox" name="ck"/></td>
+					<input name="maroDishesDiscountDetailList[0].id" type="hidden"/>
+				  <td align="left">
+					  <input type="text" style="width: 120px" class="inputxt"  ignore="ignore" readonly="readonly" onclick="openMaterialselect(this)"/>
+					  <input type="hidden" name="maroDishesDiscountDetailList[0].dishesId" value="" readonly="readonly"/>
+					  <label class="Validform_label" style="display: none;">菜品</label>
+					</td>
+				<td align="left">
+					<input type="text" style="width: 120px" class="inputxt"  ignore="ignore" readonly="readonly"/>
+					<input type="hidden" name="maroDishesDiscountDetailList[0].specificationsId" value="" readonly="readonly"/>
+					<label class="Validform_label" style="display: none;">菜品规格</label>
+				</td>
+   			</tr>
+	</c:if>
+	<c:if test="${fn:length(maroDishesDiscountDetailList)  > 0 }">
+		<c:forEach items="${maroDishesDiscountDetailList}" var="poVal" varStatus="stuts">
+			<tr>
+				<td align="center"><div style="width: 25px;" name="xh">${stuts.index+1 }</div></td>
+				<td align="center"><input style="width:20px;"  type="checkbox" name="ck" /></td>
+						<input name="maroDishesDiscountDetailList[${stuts.index }].id" type="hidden" value="${poVal.id }"/>
+				   <td align="left">
+					   <input type="text" style="width: 120px" class="inputxt"  ignore="ignore" readonly="readonly" value="${poVal.dishName}" onclick="openMaterialselect(this)"/>
+					   <input type="hidden" name="maroDishesDiscountDetailList[${stuts.index }].dishesId" value="${poVal.dishesId}" readonly="readonly"/>
+					  <label class="Validform_label" style="display: none;">菜品</label>
+				   </td>
+				<td align="left">
+					<input type="text" style="width: 120px" class="inputxt"  ignore="ignore" readonly="readonly" value="${poVal.specificationsName}"/>
+					<input type="hidden" name="maroDishesDiscountDetailList[${stuts.index }].specificationsId" value="${poVal.specificationsId}" readonly="readonly"/>
+					<label class="Validform_label" style="display: none;">菜品规格</label>
+				</td>
+   			</tr>
+		</c:forEach>
+	</c:if>	
+	</tbody>
+</table>

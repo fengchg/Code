@@ -1,0 +1,64 @@
+CallUpShole s = new CallUpShole();
+		s.setSeatName("2号桌");
+		s.setNumber("3");
+		s.setCallUpTime("2018-01-44 15:54:15");
+		s.setBillMark("6546541");
+		
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("特色套餐");
+		sad.setDishesPrice("58.00");
+		sad.setVipPrice("58.00");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		sad.setRemark("不加辣");
+		sad.setDishesType("package");
+		
+		List<SettleAccountsDishes> spsList = new ArrayList<SettleAccountsDishes>();
+		  SettleAccountsDishes sps = new SettleAccountsDishes();
+		  sps.setDishesName("油门大虾");
+		  sps.setDishesPrice("85.00");
+		  sps.setShuLiang("1");
+		  sps.setUnit("只");
+		 spsList.add(sps);
+		 SettleAccountsDishes sps1 = new SettleAccountsDishes();
+		 sps1.setDishesName("拍黄瓜");
+		 sps1.setDishesPrice("3.00");
+		 sps1.setShuLiang("1");
+		 sps1.setUnit("条");
+		 spsList.add(sps1);
+		 SettleAccountsDishes sps2 = new SettleAccountsDishes();
+		 sps2.setDishesName("奶茶");
+		 sps2.setDishesPrice("3.00");
+		 sps2.setShuLiang("3");
+		 sps2.setUnit("杯");
+		 spsList.add(sps2);
+		 
+		sad.setSpsList(spsList);
+		dishesList.add(sad);
+		
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("麻辣兔头");
+		sad1.setDishesPrice("58.00");
+		sad1.setVipPrice("58.00");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		sad1.setRemark("不加辣");
+		sad1.setDishesType("ordinary");
+		dishesList.add(sad1);
+		
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("霸王冷兔");
+		sad2.setDishesPrice("68.00");
+		sad2.setVipPrice("68.00");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		sad2.setRemark("不加辣");
+		sad2.setDishesType("ordinary");
+		dishesList.add(sad2);
+		
+		s.setDishesList(dishesList);
+		
+		s.setWholeRemark("少放盐");
+		s.setDeliveryTime("立即送达");
+		PrintMain.printCallUpShole(s);

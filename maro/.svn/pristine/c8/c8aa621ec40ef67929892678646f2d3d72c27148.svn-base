@@ -1,0 +1,53 @@
+package com.maro.manager.print.entity;
+
+import java.util.List;
+
+public class SettleAccounts {
+	
+	//收银员
+	private String admin;
+	//销售单号
+	private String danjuh;
+	//总金额
+	private String zongJie;
+	
+	//详情列表
+	private List<ShangPinLingShou> shangPinList;
+
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+
+	public String getDanjuh() {
+		return danjuh;
+	}
+
+	public void setDanjuh(String danjuh) {
+		this.danjuh = danjuh;
+	}
+
+	public String getZongJie() {
+		return zongJie;
+	}
+
+	public void setZongJie(String zongJie) {
+		this.zongJie = zongJie;
+	}
+
+
+	public List<ShangPinLingShou> getShangPinList() {
+		return shangPinList;
+	}
+
+	public void setShangPinList(List<ShangPinLingShou> shangPinList) {
+		this.shangPinList = shangPinList;
+	}
+	
+	
+	
+}

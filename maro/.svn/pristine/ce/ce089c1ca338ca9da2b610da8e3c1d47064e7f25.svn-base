@@ -1,0 +1,12 @@
+#############是否同步服务器（服务器端需设置为true）#############
+rabbitmq.send=true
+
+#############(服务器要发送至的MQ地址)#############
+#MQ地址
+rabbitmq.shost=193.112.42.207
+#MQ端口
+rabbitmq.sport=5672
+#MQ用户名
+rabbitmq.susername=admin
+#MQ密码
+rabbitmq.spassword=123456

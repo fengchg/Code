@@ -1,0 +1,70 @@
+<div data-controller="BorrowListController">
+    <div class="pages">
+        <div data-page="borrowListPage" class="page navbar-fixed toolbar-fixed">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center">可借阅图书</div>
+                </div>
+            </div>
+            <div class="page-content list-block media-list m-t-0 infinite-scroll" data-distance="50">
+                <div class="choose-book">
+                    <div class="choose-client-link">
+                        <div class="client-list">
+                            <div class="center link icon-only search-alient">
+                                <div class="input-group-addon"><i class="icon icon-search-gray"></i></div>
+                                <input type="search" class="search" placeholder="请输入书名">
+                                <div class="input-group-addon"><i class="icon icon-voice-no"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="listContainer">
+                    <div class="content-block-title">物理类</div>
+                    <div class="list-block media-list">
+                        <ul>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/borrowBook.html">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #000;">《大学物理高级》</span><br />
+                                                    <span class="author">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li data-id="{{id}}" class="book-item">
+                                <a href="pages/orderStatus-pay.html?pid={{id}}">
+                                    <div class="item-content" style="padding-left:8px;">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    <span style="color: #000;">《大学物理高级》</span><br />
+                                                    <span class="author">矫丽颖</span>
+                                                </div>
+                                                <div class="item-after">
+                                                    <span>中南大学出版社</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../phone/js/pages/BorrowListController.js"></script>
+</div>
+
+

@@ -1,0 +1,44 @@
+TakeOutSingle s = new TakeOutSingle();
+		s.setOrderTime("2018-05-04 15:25:47");
+		s.setReceivingTime("2018-05-04 15:26:47");
+		s.setOrderNumber("21365487855");
+		
+		s.setRemark("加辣，超级辣");
+		s.setActivity("买A送B");
+		s.setInvoice("兔行天下");
+		s.setDutyParagraph("123456");
+		
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("冷吃兔");
+		sad.setShuLiang("1");
+		sad.setDishesPrice("30.00");
+		sad.setUnit("份");
+		dishesList.add(sad);
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("霸王兔");
+		sad1.setShuLiang("1");
+		sad1.setDishesPrice("40.00");
+		sad1.setUnit("份");
+		dishesList.add(sad1);
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("大个的兔腿");
+		sad2.setShuLiang("1");
+		sad2.setDishesPrice("108.00");
+		sad2.setUnit("只");
+		dishesList.add(sad2);
+		
+		s.setDishesList(dishesList);
+		
+		s.setDeliveryCost("6");
+		s.setMealsFee("2");
+		
+		s.setPreferentialReduction("10");
+		s.setNewUserUiscounts("5");
+		
+		s.setOnLinePayment("0");
+		
+		s.setAddress("广州白云区人和镇");
+		s.setPhone("13556154039");
+		s.setUserName("赵子龙");
+		PrintMain.printTakeOutSingle(s);

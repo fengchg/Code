@@ -1,0 +1,73 @@
+<div data-controller="SelectUserController">
+    <div class="pages">
+        <div data-page="selectUserPage" class="page no-tabbar">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link back">
+                            <i class="icon icon-backgray"></i>
+                        </a>
+                    </div>
+                    <div class="center nav-title-container"></div>
+                    <div class="right">
+                    </div>
+                </div>
+            </div>
+            <form data-search-list=".selectUser-Container" data-search-in=".item-title" class="searchbar searchbar-init">
+                <div class="searchbar-input">
+                    <input type="search" placeholder="搜索"><a href="#" class="searchbar-clear"></a>
+                </div><a href="#" class="searchbar-cancel">取消</a>
+            </form>
+            <div class="searchbar-overlay"></div>
+            <div class="page-content">
+                <div class="content-block searchbar-not-found">
+                    <div class="content-block-inner">Nothing found</div>
+                </div>
+                <div class="list-block m-t-0 selectUser-Container">
+                    <ul>
+                        <li data-value="140001" data-name="用户1">
+                            <div class="item-inner">
+                                <div class="item-title">用户1</div>
+                            </div>
+                        </li>
+                        <li data-value="140002" data-name="用户2">
+                            <div class="item-inner">
+                                <div class="item-title">用户2</div>
+                            </div>
+                        </li>
+                        <li data-value="140003" data-name="用户3">
+                            <div class="item-inner">
+                                <div class="item-title">用户3</div>
+                            </div>
+                        </li>
+                        <li data-value="140004" data-name="用户4">
+                            <div class="item-inner">
+                                <div class="item-title">用户4</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script type="text/template7" id="smartSelectItemTpl">
+        <ul>
+            {{#each data}}
+            <li data-value="{{value}}" data-name="{{name}}">
+                <label class="label-radio item-content">
+                    <input type="radio" name="my-radio" value="{{value}}" {{#if checked}}checked{{ />if}}>
+                    {{#if cPhoneImage}}
+                    <div class="item-media">
+                        <img src="{{cPhoneImage}}" style="width:35px;height:35px;">
+                    </div>
+                    {{/if}}
+                    <div class="item-inner">
+                        <div class="item-title">{{name}}</div>
+                    </div>
+                </label>
+            </li>
+            {{/each}}
+        </ul>
+    </script>-->
+    <script type="text/javascript" src="../phone/js/pages/SelectUserController.js"></script>
+</div>

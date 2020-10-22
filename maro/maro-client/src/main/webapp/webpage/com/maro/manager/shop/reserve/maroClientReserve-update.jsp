@@ -1,0 +1,161 @@
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>maro_client_reserve</title>
+  <t:base type="jquery,easyui,tools,DatePicker"></t:base>
+  <script type="text/javascript">
+  //编写自定义JS代码
+  var num=0;//计数器
+   function selectShop(obj){
+	   var shopId=$("#restaurantId").val();//店铺
+		var reserveTime=$("#reserveTime").val();//预定时间
+		var period=$("#period").val();//时段
+		var personNumber=$("#personNumber").val();//就餐人数
+		if(shopId==""||reserveTime==""||period==""||personNumber==""){
+			$("#destSeatId").combobox({data:[]});
+			$("#destSeatId").combobox("clear");
+			return;
+		}
+		$("#destSeatId").combobox("reload","maroClientReserveController.do?listSeat&shopId="+shopId+"&reserveTime="+reserveTime+"&period="+period+"&personNumber="+personNumber);
+		$("#destSeatId").combobox("clear");
+  }
+  </script>
+ </head>
+ <body>
+		<t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="maroClientReserveController.do?doUpdate" >
+					<input id="id" name="id" type="hidden" value="${maroClientReservePage.id }"/>
+		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							店铺:
+						</label>
+					</td>
+					<td class="value">
+						<t:dictSelect  id="restaurantId" field="restaurantId" type="list" defaultVal="${maroClientReservePage.restaurantId}"  dictTable="maro_shop" dictField="id" dictText="name" dictCondition="${dictCondition}" hasLabel="false"  title="店铺" onChange="selectShop(this)"></t:dictSelect>
+				     	<!--  <input id="shopId" name="shopId" type="text" style="width: 150px" class="inputxt"  ignore="ignore" /> -->
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">店铺</label>
+					</td>
+						
+					<td align="right">
+						<label class="Validform_label">
+							预定时间:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="reserveTime" name="reserveTime" type="text" style="width: 150px" value="${maroClientReservePage.reserveTime}"  class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" datatype="*" ignore="checked" onchange="selectShop(this)"/>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">预定时间</label>
+					</td>
+				<tr>		
+					<td align="right">
+						<label class="Validform_label">
+							时段:
+						</label>
+					</td>
+					<td class="value">
+						<t:dictSelect id="period" datatype="*"  field="period" type="list"   typeGroupCode="maro_period" defaultVal="${maroClientReservePage.period}"  hasLabel="false"  title="时段" onChange="selectShop(this)"></t:dictSelect>
+				     	<!-- <input id="period" name="period" type="text" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" /> -->
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">时段</label>
+					</td>	
+						
+					<td align="right">
+						<label class="Validform_label">
+							预计到来时间:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="planComeTime" name="planComeTime" type="text" style="width: 150px" value="${maroClientReservePage.planComeTime}"  class="Wdate" onClick="WdatePicker({dateFmt:'HH:mm:ss'})" ignore="ignore" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">预计到来时间</label>
+					</td>	
+				<tr>		
+					<td align="right">
+						<label class="Validform_label">
+							就餐人数:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="personNumber" name="personNumber" value="${maroClientReservePage.personNumber}" type="text" style="width: 150px" class="inputxt" datatype="n" ignore="checked" onchange="selectShop(this)"/>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">就餐人数</label>
+					</td>
+					
+					<td align="right">
+						<label class="Validform_label">
+							桌位:
+						</label>
+					</td>
+					<td class="value">
+						<input id="destSeatId" class="easyui-combobox" style="width: 157px" name="destSeatId"  data-options="valueField:'id',textField:'text',url:'utilController.do?combobox&id=id&text=name&table_name=maro_shop_seat&conditions=shop_id\=\'${maroClientReservePage.restaurantId}\'',onLoadSuccess:function(){
+								if(num==0){
+									num++;
+									$(this).combobox('setValue', '${maroClientReservePage.destSeatId}');
+								}
+							}" />  
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">桌位</label>
+					</td>
+				<tr>		
+					<td align="right">
+						<label class="Validform_label">
+							手机号码:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="phone" name="phone" type="text" value="${maroClientReservePage.phone}" style="width: 150px" class="inputxt"  ignore="ignore" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">手机号码</label>
+					</td>
+						
+					<td align="right">
+						<label class="Validform_label">
+							顾客姓名:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="customerName" name="customerName" type="text" value="${maroClientReservePage.customerName}" style="width: 150px" class="inputxt"  ignore="ignore" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">顾客姓名</label>
+					</td>
+				<tr>	
+					<td align="right">
+						<label class="Validform_label">
+							订金:
+						</label>
+					</td>
+					<td class="value">
+				     	<input id="deposit" name="deposit" type="text" value="${maroClientReservePage.deposit}" style="width: 150px" class="inputxt"  ignore="ignore" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">订金</label>
+					</td>
+					<td align="right">
+						<label class="Validform_label">
+							订单类型:
+						</label>
+					</td>
+					<td class="value">
+						<input id="type" name="type" value="${maroClientReservePage.type}" type="text" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">订单类型</label>
+					</td>
+				<tr>	
+					<td align="right">
+						<label class="Validform_label">
+							内容:
+						</label>
+					</td>
+					<td class="value" colspan="3">
+						<textarea id="content" style="width:455px;" class="inputxt" rows="6" name="content"  ignore="ignore" >${maroClientReservePage.content}</textarea>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">内容</label>
+					</td>
+				</tr>
+			</table>
+		</t:formvalid>
+ </body>
+  <script src = "webpage/com/maro/manager/shop/reserve/maroClientReserve.js"></script>		

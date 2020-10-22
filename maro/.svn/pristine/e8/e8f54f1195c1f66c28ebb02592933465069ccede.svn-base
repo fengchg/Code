@@ -1,0 +1,210 @@
+package com.maro.manager.print.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.maro.common.util.PrintUtil;
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.manager.print.entity.SettleAccountsDishes;
+import com.maro.manager.print.service.PrintTaiQiuService;
+import com.maro.platform.core.common.controller.BaseController;
+import com.maro.platform.core.common.model.json.AjaxJson;
+
+/**   
+ * @Title: Controller  
+ * @Description: 点机号
+ * @author onlineGenerator
+ * @date 2018-06-13 10:40:59	
+ * @version V1.0   
+ *
+ */
+@Controller
+@RequestMapping("/PrintController")
+public class PrintController extends BaseController {
+	
+	/**
+	 * 结账单
+	 * 预结单
+	 */
+	@RequestMapping(params = "printSettleAccounts")
+	@ResponseBody
+	public AjaxJson printSettleAccounts(SettleAccounts s){
+		AjaxJson j = new AjaxJson();
+		
+		boolean b = PrintMain.printSettleAccounts(s);
+		
+		return j;
+	}
+	 
+	
+	/**
+	 * 01 点菜宝登录
+	 * @param type 打印单
+	 *  结账单 printSettleAccounts
+	 *  预结单 printExpected
+	 * @return
+	 */
+	@RequestMapping(params = "printData")
+	@ResponseBody
+	public AjaxJson printData(String type){
+		AjaxJson aj = new AjaxJson();
+
+		List<SettleAccountsDishes> spsList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sps = new SettleAccountsDishes();
+		sps.setShangPin_name("青椒肉丝1");
+		sps.setSingle_Price("1");
+		sps.setShuLiang("1");
+		sps.setTotalMoney("88.9");
+		spsList.add(sps);
+		SettleAccountsDishes sps2 = new SettleAccountsDishes();
+		sps2.setShangPin_name("青椒肉丝2");
+		sps2.setSingle_Price("1");
+		sps2.setShuLiang("2");
+		sps2.setTotalMoney("100");
+		spsList.add(sps2);
+		SettleAccountsDishes sps0 = new SettleAccountsDishes();
+		sps0.setShangPin_name("青椒肉丝3");
+		sps0.setSingle_Price("1");
+		sps0.setShuLiang("2");
+		sps0.setTotalMoney("100");
+		spsList.add(sps0);
+		SettleAccountsDishes sps3 = new SettleAccountsDishes();
+		sps3.setShangPin_name("青椒肉丝4");
+		sps3.setSingle_Price("1");
+		sps3.setShuLiang("2");
+		sps3.setTotalMoney("100");
+		spsList.add(sps3);
+		SettleAccountsDishes sps4 = new SettleAccountsDishes();
+		sps4.setShangPin_name("青椒肉丝5");
+		sps4.setSingle_Price("1");
+		sps4.setShuLiang("2");
+		sps4.setTotalMoney("100");
+		spsList.add(sps4);
+		SettleAccountsDishes sps5 = new SettleAccountsDishes();
+		sps5.setShangPin_name("青椒肉丝6");
+		sps5.setSingle_Price("1");
+		sps5.setShuLiang("2");
+		sps5.setTotalMoney("100");
+		spsList.add(sps5);
+		SettleAccountsDishes sps6 = new SettleAccountsDishes();
+		sps6.setShangPin_name("青椒肉丝7");
+		sps6.setSingle_Price("1");
+		sps6.setShuLiang("2");
+		sps6.setTotalMoney("100");
+		spsList.add(sps6);
+		SettleAccountsDishes sps7 = new SettleAccountsDishes();
+		sps7.setShangPin_name("青椒肉丝8");
+		sps7.setSingle_Price("1");
+		sps7.setShuLiang("2");
+		sps7.setTotalMoney("100");
+		spsList.add(sps7);
+		SettleAccountsDishes sps8 = new SettleAccountsDishes();
+		sps8.setShangPin_name("青椒肉丝9");
+		sps8.setSingle_Price("1");
+		sps8.setShuLiang("2");
+		sps8.setTotalMoney("100");
+		spsList.add(sps8);
+
+		SettleAccounts sa = new SettleAccounts();
+		sa.setMember("何善龙");
+		sa.setBillNumber("0001245");
+		sa.setZongJie("9862");
+		sa.setShangPinList(spsList);
+
+		new PrintTaiQiuService().print(type,sa,19);
+
+		return aj;
+	}
+
+
+	public static void main(String[] args) throws IOException {
+
+		String xmlStr="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+				"<doucument>" +
+				"<section><texts>" +
+				"<text>兔行天下（光华店）结账单</text>"+
+				"<font>" +
+				"<fontSize>Normal</fontSize>"+
+				"<bold>true</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"<blankRow><lineNumber>1</lineNumber></blankRow>"+
+				"<keyvalue>"+
+				"<key>桌　名:</key>"+
+				"<value>[1号桌]</value>"+
+				"</keyvalue>"+
+				"<keyvalue>"+
+				"<key>人　数:</key>"+
+				"<value>[2]</value>"+
+				"</keyvalue>"+
+				"<keyvalue><key>账单号:</key>"+
+				"<value>[000000012]</value></keyvalue>" +
+				"<keyvalue><key>开台时间:</key>"+
+				"<value>[2018-9-19 11:28:42]</value></keyvalue>" +
+				"<keyvalue><key>结账时间:</key>"+
+				"<value>[2018-9-19 11:28:42]</value></keyvalue>" +
+				"<keyvalue><key>服务员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<keyvalue><key>收银员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<keyvalue><key>会　员:</key>"+
+				"<value>[赵孝琴]</value></keyvalue>" +
+				"<table>"+
+				"<cws><cw>20</cw><cw>8</cw><cw>6</cw><cw>8</cw></cws>"+
+				"<ars><ar>false</ar><ar>true</ar><ar>true</ar><ar>true</ar></ars>"+
+				"<headers><header>品名</header><header>单价</header><header>数量</header><header>总额</header></headers>"+
+				"<rows><row><td>鸿鹤鲜锅兔小份</td><td>78</td><td>1</td><td>78</td></row>"+
+				"<row><td>麻辣兔腿</td><td>10</td><td>2</td><td>20</td></row>"+
+				"<row><td>豆奶</td><td>16</td><td>2</td><td>32</td></row>"+
+				"<row><td>白米饭</td><td>2</td><td>2</td><td>4</td></row>"+
+				"</rows></table>"+
+				"<keyvalue><key>现金支付:</key><value>[100]</value></keyvalue>" +
+				"<keyvalue><key>微信支付:</key><value>[24]</value></keyvalue>" +
+				"<keyvalue><key>实付金额:</key><value>[124]</value><font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>true</bold>"+
+				"<underline>false</underline>"+
+				"</font></keyvalue>" +
+				"<section><texts>" +
+				"<text>光华北三路164号</text>"+
+				"<font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>false</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"<section><texts>" +
+				"<text>17726461730</text>"+
+				"<font>" +
+				"<fontSize>Small</fontSize>"+
+				"<bold>false</bold>"+
+				"<underline>false</underline>"+
+				"</font></texts>"+
+				"<textAlign>Center</textAlign>"+
+				"</section>"+
+				"</doucument>";
+		boolean isPrint = PrintUtil.print(xmlStr,"10.135.16.234",9100);
+		//System.out.println("args = [" + PrintUtil.isOnline("192.168.1.200",9100) + "]");
+
+		/*Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				try{
+					boolean s = PrintUtil.isOnline("192.168.1.200",9100);
+					System.out.println("args = [" + s + "]");
+				}
+				catch (Exception e){
+
+				}
+			}
+		}, 5000 , 5000);*/
+	}
+}

@@ -1,0 +1,105 @@
+package com.maro.client.module.serverorder.pojo.dto;
+
+import com.maro.client.module.serverorder.pojo.entity.MaroClientFoodorderDO;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.platform.core.util.DateUtils;
+import net.sf.json.JSONObject;
+
+import java.util.Date;
+
+public class FoodCookedPrintResultDTO {
+    private String table;
+    private String orderNum;
+    private String waiter;
+    private Integer guests;
+    private String dateTime1;
+    private String dateTime2;
+    private String dishes;
+    private String remark;
+
+    public FoodCookedPrintResultDTO(MaroClientServerorderDO maroClientServerorderDO,MaroClientFoodorderDO maroClientFoodorderDO){
+        Long l = maroClientFoodorderDO.getCreateTime();
+        dateTime1 = DateUtils.formatDate(new Date(l),DateUtils.datetimeFormat.toPattern());
+        dateTime2 = DateUtils.formatDate(new Date(),DateUtils.datetimeFormat.toPattern());
+        guests =maroClientServerorderDO.getPersonNumber();
+        orderNum =  maroClientServerorderDO.getCode();
+        table = maroClientFoodorderDO.getSeatName();
+        waiter = maroClientServerorderDO.getWaiterName();
+        StringBuffer tmpRemark = new StringBuffer();
+        if(maroClientFoodorderDO.getRemark() != null && !maroClientFoodorderDO.getRemark().isEmpty()) {
+            tmpRemark.append(",").append(maroClientFoodorderDO.getFoodName()).append(maroClientFoodorderDO.getSpecificationsName()).append("(").append(maroClientFoodorderDO.getRemark()).append(")");
+        }
+        if(tmpRemark.length() > 0) {
+            remark = tmpRemark.substring(1);
+        }
+        JSONObject json = new JSONObject();
+        json.put("name",maroClientFoodorderDO.getFoodName() + maroClientFoodorderDO.getSpecificationsName());
+        json.put("number",maroClientFoodorderDO.getQuantity());
+        dishes = json.toString();
+    }
+
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(String waiter) {
+        this.waiter = waiter;
+    }
+
+    public Integer getGuests() {
+        return guests;
+    }
+
+    public void setGuests(Integer guests) {
+        this.guests = guests;
+    }
+
+    public String getDateTime1() {
+        return dateTime1;
+    }
+
+    public void setDateTime1(String dateTime1) {
+        this.dateTime1 = dateTime1;
+    }
+
+    public String getDateTime2() {
+        return dateTime2;
+    }
+
+    public void setDateTime2(String dateTime2) {
+        this.dateTime2 = dateTime2;
+    }
+
+    public String getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(String dishes) {
+        this.dishes = dishes;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+}

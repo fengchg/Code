@@ -1,0 +1,57 @@
+/* CSS Document */
+body{
+  margin:0px;
+  border:0px;
+  text-align:center;
+}
+#grhead{
+height:96px;
+width:100%;;
+background:url(img/person/topbg.jpg) repeat-x 0 0;
+}
+#grlogo{
+width:409px;
+height:76px;
+background:url(img/person/logo.jpg) no-repeat;
+float:left;
+margin-top:5px;
+margin-left:15px;
+}
+#grlink{
+width:409px;
+height:96px;
+float:right
+}
+.topimg{
+ width:50px;
+ height:50px;
+ float:left;
+ margin-left:23px;
+ margin-top:23px;
+ text-align:center;
+ font-size:12px;
+ line-height:30px;
+}
+#topimg1{
+  background:url(img/person/topimg1.jpg) repeat-x top;
+}
+#topimg2{
+  background:url(img/person/topimg2.jpg) repeat-x top;
+}
+#topimg3{
+  background:url(img/person/topimg3.jpg) repeat-x top;
+}
+#topimg4{
+  background:url(img/person/topimg4.jpg) repeat-x top;
+}
+#topimg5{
+  background:url(img/person/topimg5.jpg) repeat-x top;
+}
+.topimg a{
+  font-size:12px;
+  text-decoration:none;
+  color:#000000;
+}
+#grlink a:hover{
+  color:#FF0000;
+}

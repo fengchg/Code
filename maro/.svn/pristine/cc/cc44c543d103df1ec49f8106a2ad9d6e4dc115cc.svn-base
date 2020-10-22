@@ -1,0 +1,283 @@
+<template>
+  <el-container class="my-con" direction="horizontal">
+    <el-main class="my-block my-block-left">
+      <my-header :title="title_02"></my-header>
+      <div class="my-table-container">
+        <table-undo :undo="undo" @toCookHandle="toCookHandle($event)"></table-undo>
+      </div>
+    </el-main>
+    <el-main class="my-block my-block-right">
+      <my-header :title="title_01"></my-header>
+      <div class="my-table-container">
+        <table-done :done="done" @outDish="outDish($event)"></table-done>
+      </div>
+    </el-main>
+  </el-container>
+</template>
+<script>
+import myHeader from './Header'
+import tableDone from '../Table/tableDone'
+import tableUndo from '../Table/tableUndo'
+export default {
+  name: 'app-main',
+  components: {
+    'myHeader': myHeader,
+    'tableDone': tableDone,
+    'tableUndo': tableUndo
+  },
+  data() {
+    return {
+      title_01: {
+        'titleText': '已做菜单',
+        'btns': [{
+          'class': 'el-icon-back',
+          'usage': 'exit'
+        }]
+      },
+      title_02: {
+        'titleText': '未做菜单'
+      },
+      done: [],
+      undo: []
+    };
+  },
+  mounted() {
+
+  },
+  methods: {
+    toCookHandle: function(ev) {
+      let data = new URLSearchParams();
+      let that = this
+      let orderList = []
+      // ev.obj.maroClientFoodorderVOList.forEach(function(m, i) {
+      //   orderList.push(m.id)
+      // })
+      data.append('foodorderIdListJson', JSON.stringify(ev.obj));
+      let param = {
+        data: data,
+        myVue: this,
+        baseUrl:this.BaseUrl
+      }
+      this.common.$ajax(this.BaseUrl+'maroClientServerorderController.do?cookFood', param, function(data) {
+        that.$message({
+          message: '打厨成功!',
+          type: 'success'
+        });
+        that.loadData();
+      },function () {
+        that.$message.error('打厨失败!');
+      })
+
+
+
+      // param.append("foodorderIdListJson", JSON.stringify(ev.obj));
+      // this.$http.post(that.BaseUrl + 'maroClientServerorderController.do?cookFood', param, {
+      //     withCredentials: true
+      //   })
+      //   .then(function(response) {
+      //     if (response.data.success) {
+      //       that.$message({
+      //         message: '打厨成功!',
+      //         type: 'success'
+      //       });
+      //       // that.undo[ev.indexType].maroClientFoodorderVOList.splice(ev.indexMenu, 1);
+      //       // let doneDate = new Date().getHours() + ':' + new Date().getMinutes();
+      //       // that.$set(ev.obj, 'doneTime', doneDate);
+      //       that.loadData();
+      //     } else {
+      //       that.$message.error('打厨失败!');
+      //     }
+      //
+      //   })
+      //   .catch(function(error) {
+      //     that.$alert('登录超时，请重新登录', '登录超时', {
+      //       confirmButtonText: '确定',
+      //       callback: action => {
+      //         that.$router.push({
+      //           path: '/'
+      //         })
+      //       }
+      //     });
+      //   })
+
+    },
+    outDish: function() {
+      this.loadData();
+    },
+    handleData: function(obj) {
+      //计算总份数
+      let that = this;
+
+      //类别
+      obj.forEach(function(n, i) {
+        that.$set(n, 'typeName', n.typeString)
+        that.$set(n, 'typeId', n.type)
+        let caip = [];
+
+        //菜品列表
+        n.foodOrderItemGroupResultDTOList.forEach(function(m, j) {
+          let li = m.maroClientFoodorderVOList;
+          if (li.length === 1) {
+            li[0].flag = -1;
+            caip.push(li[0])
+          } else if (li.length > 1) {
+            li[0].flag = 0;
+            li[1].flag = 1;
+            caip.push(li[0], li[1])
+          }
+        })
+        that.$set(n, 'menu', caip)
+      })
+
+      that.undo = obj;
+    },
+    handleDoneData: function(obj) {
+      var that = this;
+      that.done = [];
+      //类别
+      obj.forEach(function(n, i) {
+
+        //菜品列表
+        n.foodOrderItemGroupResultDTOList.forEach(function(m, j) {
+          let seatNameList = "";
+          m.maroClientFoodorderVOList.forEach(function(h, g) {
+            seatNameList = seatNameList + "," + h.seatName + "(" + h.quantity + ")"
+          })
+
+          if (seatNameList.substring(0, 1) == ",") {
+            seatNameList = seatNameList.substring(1, seatNameList.length);
+          }
+          m.maroClientFoodorderVO.seatNameList = seatNameList;
+          var json = {
+            maroClientFoodorderVO: m.maroClientFoodorderVO,
+            maroClientFoodorderVOList: m.maroClientFoodorderVOList
+          }
+          that.done.push(json);
+          that.$set(m.maroClientFoodorderVO, 'typeName', n.typeString)
+          that.$set(m.maroClientFoodorderVO, 'typeId', n.type)
+          /*that.$set(m, 'typeName', n.typeString)
+          that.$set(m, 'typeId', n.type)*/
+
+          let s = 0;
+        });
+      })
+      //that.done = JSON.parse(JSON.stringify(obj));
+    },
+    loadData: function() {
+      let that=this;
+      let data = new URLSearchParams();
+      let param = {
+        data: data,
+        myVue: this,
+        baseUrl:this.BaseUrl
+      }
+      this.common.$ajax(this.BaseUrl+'maroClientServerorderController.do?listFoodToKitchen', param, function(data) {
+        console.log(data);
+        that.handleData(data.obj.foodOrderItemResultDTOList);
+        that.handleDoneData(data.obj.doneFoodOrderItemResultDTOList);
+      },function(data){
+
+      })
+
+
+
+
+
+      // this.$http.get(this.BaseUrl + 'maroClientServerorderController.do?listFoodToKitchen', {
+      //     withCredentials: true
+      //   })
+      //   .then((response) => {
+      //     if (response.data.success) {
+      //       this.handleData(response.data.obj.foodOrderItemResultDTOList);
+      //       this.handleDoneData(response.data.obj.doneFoodOrderItemResultDTOList);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     that.$alert('登录超时，请重新登录', '登录超时', {
+      //       confirmButtonText: '确定',
+      //       callback: action => {
+      //         that.$router.push({
+      //           path: '/'
+      //         })
+      //       }
+      //     })
+      //
+      //   })
+    }
+  },
+  created() {
+    this.loadData();
+    var that = this;
+    setInterval(function() {
+      that.loadData();
+    }, 30000)
+  }
+}
+
+</script>
+<style>
+[v-cloak] {
+  display: none !important;
+}
+
+.el-button {
+  font-size: .26rem;
+  padding: .2rem .4rem;
+  border-radius: .08rem;
+}
+
+.el-message-box {
+  width: 8.4rem;
+  border-radius: .08rem;
+  padding-bottom: .2rem;
+  font-size: .36rem;
+  -webkit-box-shadow: 0 .04rem .24rem 0 rgba(0,0,0,.1);
+  box-shadow: 0 .04rem .24rem 0 rgba(0,0,0,.1);
+}
+
+.el-message-box__header {
+  padding: .3rem .3rem .2rem;
+}
+
+.el-message-box__headerbtn {
+  top: .3rem;
+  right: .3rem;
+  font-size: .32rem;
+}
+
+.el-message-box__title {
+  font-size: .36rem;
+}
+
+.el-message-box__content {
+  padding: .2rem .3rem;
+  font-size: .28rem;
+}
+
+</style>
+<style scoped>
+.my-con {
+  height: 100%;
+}
+
+.my-block {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-block-left {
+  width: 61.8%;
+}
+
+.my-block-right {
+  border-left: 1px solid #e4e7ed;
+  width: 38.2%;
+}
+
+.my-table-container {
+  flex: 1;
+  overflow-x: hidden;
+}
+
+</style>

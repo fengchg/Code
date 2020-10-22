@@ -1,0 +1,876 @@
+new Vue({
+	el: '#pay',
+	data: {
+		myModal: -1,
+		orderTableJson: "",
+		amount:0,
+		pay: {
+			deskName: "",
+			disNo: "",
+			payAmount: "",
+			beginTime: "",
+			orderList: [],
+			pay: 0,
+			//订单金额
+			payedDeposit: 0,
+			//抹零
+			smallChange: 0,
+			//已结
+			collectedAmount: 0,
+			orderSmallChange: 0,
+			numpadInit: false,
+			card:'',
+            discountList:[],
+
+		},
+        showDiscountQuan:'',
+        pickDiscount:'',
+        discountEntity:'',
+		//优惠券
+        showGroupQuan:'',
+        groupDiscount:{},
+        groupDiscountObj:{},
+        isGroupDiscount:1,
+
+		payMethods: [{
+				'name': '现金',
+				'class': 'cash',
+				'id': 0
+			},
+			{
+				'name': '微信',
+				'class': 'wx',
+				'id': 1
+			},
+			{
+				'name': '支付宝',
+				'class': 'zfb',
+				'id': 1
+			},
+			{
+				'name': '会员卡',
+				'class': 'vip',
+				'id': 2
+			},
+			{
+				'name': '银联刷卡',
+				'class': 'pos',
+				'id': 3
+			},
+			//			{'name': '预结账', 'class': 'prepay', 'id': ''},
+			{
+				'name': '其他',
+				'class': 'other',
+				'id': 5
+			},
+			/*{'name': '挂账', 'class': 'onaccount', 'id': ''}*/
+		],
+		thisMethod: null,
+		//发票
+		invoiceAmount: 0,
+		//实际收款。
+		factAmount: 0,
+		factAmount0: 0,
+		factAmount1: 0,
+		factAmount2: 0,
+		factAmount3: 0,
+		factAmount4: 0,
+		factAmount5: 0,
+		phone: '',
+        card:'',
+		member: {
+			phone: ' ',
+			name: ' ',
+			level: ' ',
+			id: ''
+		},
+		memberNum: "未使用",
+		packageList:[],
+		showDiscount:false,
+        memberNumUser: "未使用",
+		dicountId:'',
+        isX:false,
+        ruleFlag:-1
+
+	},
+	computed: {},
+	created: function() {
+		var that = this;
+		this.orderTableJson = JSON.parse(window.localStorage.getItem("orderTableJson"));
+		//获取订单
+		ajaxRequest({
+			path: 'maroClientServerorderController.do?getServerOrderById',
+			data: {
+				serverOrderId: that.orderTableJson.serverOrderId,
+			}
+		}, function(data) {
+			console.log(data);
+			var destSeatName = "";
+			for(var i = 0; i < data.obj.maroClientSeatchangeVOs.length; i++) {
+				if(destSeatName.indexOf(data.obj.maroClientSeatchangeVOs[i].destSeatName) == -1) {
+					destSeatName = destSeatName + data.obj.maroClientSeatchangeVOs[i].destSeatName + "，";
+				}
+			}
+			for(var i=0;i<data.obj.discountList.length;i++){
+				if(data.obj.discountList[i].discountType==1){
+                    switch (data.obj.discountList[i].startWeek) {
+                        case 1:
+                            data.obj.discountList[i].startWeekString='周一';
+                            break;
+                        case 2:
+                            data.obj.discountList[i].startWeekString='周二';
+                            break;
+                        case 3:
+                            data.obj.discountList[i].startWeekString='周三';
+                            break;
+                        case 4:
+                            data.obj.discountList[i].startWeekString='周四';
+                            break;
+                        case 5:
+                            data.obj.discountList[i].startWeekString='周五';
+                            break;
+                        case 6:
+                            data.obj.discountList[i].startWeekString='周六';
+                            break;
+                        case 7:
+                            data.obj.discountList[i].startWeekString='周日';
+                            break;
+                        default:
+                            data.obj.discountList[i].startWeekString='周一';
+                            break;
+                    }
+                    switch (data.obj.discountList[i].endWeek) {
+                        case 1:
+                            data.obj.discountList[i].endWeekString='周一';
+                            break;
+                        case 2:
+                            data.obj.discountList[i].endWeekString='周二';
+                            break;
+                        case 3:
+                            data.obj.discountList[i].endWeekString='周三';
+                            break;
+                        case 4:
+                            data.obj.discountList[i].endWeekString='周四';
+                            break;
+                        case 5:
+                            data.obj.discountList[i].endWeekString='周五';
+                            break;
+                        case 6:
+                            data.obj.discountList[i].endWeekString='周六';
+                            break;
+                        case 7:
+                            data.obj.discountList[i].endWeekString='周日';
+                            break;
+                        default:
+                            data.obj.discountList[i].endWeekString='周一';
+                            break;
+                    }
+				}
+				if(data.obj.discountList[i].discountType==2){
+                    data.obj.discountList[i].startTimeString=formatDateNoTime(data.obj.discountList[i].startTime);
+                    data.obj.discountList[i].endTimeString=formatDateNoTime(data.obj.discountList[i].endTime);
+				}
+			}
+			that.discountList=data.obj.discountList;
+			that.groupDiscountList=data.obj.groupDiscountList;
+			destSeatName = destSeatName.substring(0, destSeatName.length - 1);
+			if(data.obj.maroClientServerorderVO.smallChange != "" && data.obj.maroClientServerorderVO.smallChange != "undefined") {
+				that.pay.orderSmallChange = Number(data.obj.maroClientServerorderVO.smallChange);
+			}
+            console.log(data.obj.maroClientServerorderVO.amount,data.obj.maroClientServerorderVO.collectedAmount);
+			that.pay.payAmount = data.obj.maroClientServerorderVO.receivableAmount;
+			that.amount=data.obj.maroClientServerorderVO.receivableAmount;
+			that.factAmount = data.obj.maroClientServerorderVO.receivableAmount;
+			that.pay.pay = data.obj.maroClientServerorderVO.amount;
+
+			that.pay.deskName = destSeatName;
+			that.pay.disNo = data.obj.maroClientServerorderVO.code;
+			that.pay.beginTime = formatDate(data.obj.maroClientServerorderVO.beginTime);
+			for(var i = 0; i < data.obj.maroClientFoodOrderVOs.length; i++) {
+				data.obj.maroClientFoodOrderVOs[i].amountPrice = Number(data.obj.maroClientFoodOrderVOs[i].totalPrice) * Number(data.obj.maroClientFoodOrderVOs[i].quantity);
+			}
+			console.log(data.obj.maroClientFoodOrderVOs);
+			that.pay.orderList = data.obj.maroClientFoodOrderVOs;
+			var m = 0;
+			var arr = new Array();
+			var flag = false;
+			console.log(data.obj.maroClientFoodOrderVOs)
+			for(var i = 0; i < data.obj.maroClientFoodOrderVOs.length; i++) {
+				if(data.obj.maroClientServerorderVO.collectedAmount != 0) {
+					if(!flag) {
+						if((data.obj.maroClientFoodOrderVOs[i].payId == 'null' || data.obj.maroClientFoodOrderVOs[i].payId == null) && i != 0) {
+							console.log(data.obj.maroClientFoodOrderVOs[i].payId);
+							flag = true;
+							var a = {
+								"isX": true,
+								"isXamount": m
+							}
+							arr.push(a);
+							m = 0;
+							that.isX=true;
+
+						}
+					}
+				}
+				m = data.obj.maroClientFoodOrderVOs[i].amountPrice + m;
+				data.obj.maroClientFoodOrderVOs[i].isX = false
+				data.obj.maroClientFoodOrderVOs[i].isXamount = 0
+				arr.push(data.obj.maroClientFoodOrderVOs[i])
+
+			}
+			that.pay.orderList = arr;
+			console.log(arr);
+			that.pay.payedDeposit = data.obj.maroClientServerorderVO.payedDeposit;
+
+			that.pay.collectedAmount = data.obj.maroClientServerorderVO.collectedAmount;
+		})
+	},
+	mounted: function() {
+		$.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
+		$.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
+		$.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
+		$.fn.numpad.defaults.buttonNumberTpl =  '<button type="button" class="btn btn-default"></button>';
+		$.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
+		$.fn.numpad.defaults.decimalSeparator = '.';
+		$.fn.numpad.defaults.textDone = '确定';
+		$.fn.numpad.defaults.textDelete = '退格';
+		$.fn.numpad.defaults.textClear = '清除';
+		$.fn.numpad.defaults.textCancel = '取消';
+		$.fn.numpad.defaults.onKeypadCreate = function(){$(this).find('.done').addClass('btn-primary');};
+	},
+	methods: {
+		back: function() {
+			window.history.go(-1)
+		},
+		clsModal: function() {
+			//关闭自己写的模态框
+			this.myModal = -1;
+			if(this.member.card != '') {
+				this.memberNum = this.member.card;
+			}
+		},
+		pickDiscountSure:function(){
+			var day=new Date();
+            var arr=new Array(7);
+            arr[0]=7;
+            arr[1]=1;
+            arr[2]=2;
+            arr[3]=3;
+            arr[4]=4;
+            arr[5]=5;
+            arr[6]=6;
+			var weekDay=arr[day.getDay()];
+			var times=day.getTime();
+            this.pay.payAmount= this.amount
+			//是否为全单打折
+			if(this.pickDiscount.discountType==1){
+                console.log(this.pickDiscount.endWeek,weekDay,this.pickDiscount.startWeek);
+				if(this.pickDiscount.endWeek>=weekDay && weekDay>=this.pickDiscount.startWeek){}
+				else{
+                    console.log(this.pickDiscount.endWeek,weekDay,this.pickDiscount.startWeek)
+					layerToast('所选的折扣不在今天打折范围之内');
+					return;
+				}
+			}else{
+                if(this.pickDiscount.endTime>=times && times>=this.pickDiscount.startTime){}
+                else{
+                	console.log(this.pickDiscount.startTime,times,this.pickDiscount.endTime)
+                    layerToast('所选的折扣不在今天打折范围之内');
+                    return;
+                }
+			}
+			if(this.pickDiscount.id==this.dicountId){
+                this.clsModal();
+				return;
+			}else{
+                this.dicountId=this.pickDiscount.id;
+
+			}
+			if(this.pickDiscount.discountWay==1){
+                this.pay.payAmount=((this.pay.payAmount*(Number('0.'+this.pickDiscount.discountNumber))).toFixed(1));
+                //赋值给优惠券
+                this.groupDiscountObj.payAmount = this.pay.payAmount;
+
+                this.showDiscountQuan='(折后)';
+                this.showDiscount=false;
+                this.ruleFlag=0;
+			}else{
+				 for(var i=0;i<this.pickDiscount.dishesDiscountDetails.length;i++){
+				 	var detail=this.pickDiscount.dishesDiscountDetails[i];
+				 	for(var j=this.pay.orderList.length-1;j>=0;j--){
+				 		if(this.pay.orderList[j].hasOwnProperty('isX') && this.pay.orderList[j].isX){
+                            break;
+						}
+				 		if(detail.dishesId == this.pay.orderList[j].foodId && detail.specificationsId == this.pay.orderList[j].specificationsId && this.pay.orderList[j].type!=2){
+                            this.pay.orderList[j].discountPrice=((Number('0.'+this.pickDiscount.discountNumber)*Number(this.pay.orderList[j].totalPrice))).toFixed(1);
+                            this.pay.orderList[j].amountPrice = ((this.pay.orderList[j].discountPrice * Number(this.pay.orderList[j].quantity))).toFixed(1);
+                            this.pay.orderList[j].discount=this.pickDiscount.discountNumber;
+						}
+					}
+
+				 }
+				 var count=0;
+				 for(var j=this.pay.orderList.length-1;j>=0;j--){
+				 	console.log(this.pay.orderList[j]);
+                     if(this.pay.orderList[j].hasOwnProperty('isX') && this.pay.orderList[j].isX){
+                         break;
+                     }
+                     if(this.pay.orderList[j].type!=2){
+						count=count+Number(this.pay.orderList[j].amountPrice);
+                     }
+				 }
+				 console.log(count);
+				 this.pay.payAmount=Number(count).toFixed(1);
+				 //赋值给优惠券
+                this.groupDiscountObj.payAmount = this.pay.payAmount;
+
+                this.showDiscount=true;
+                this.showDiscountQuan='';
+                this.ruleFlag=1;
+			}
+            this.isGroupDiscount = 2
+			if(this.groupDiscountObj.id){
+                layerToast('请重新选择优惠券')
+                this.noCoupon();
+			}
+            this.memberNumUser='('+this.pickDiscount.discountName+')';
+            this.clsModal();
+		},
+		pickPayMtd: function(obj) {
+			//选择结账方式
+			if(!this.thisMethod || this.thisMethod.name !== obj.name) {
+				this.thisMethod = obj;
+
+			} else {
+				this.thisMethod = null;
+			}
+
+		},
+		serch: function() {
+			var that = this;
+			ajaxRequest({
+				path: 'maroClientServerorderController.do?getMember',
+				data: {
+					phone: this.phone
+				},
+				layer: false
+			}, function(data) {
+				if(data.obj == null) {
+					layerToast("暂无此会员！");
+					return;
+				}
+				console.log(data.obj);
+				if(data.obj.level=="null" || data.obj.level==null){
+                    that.member.level = "";
+				}else{
+                    that.member.level = data.obj.level + "级";
+				}
+				that.member.card=data.obj.card;
+
+				that.member.phone = data.obj.phone;
+				that.member.name = data.obj.name;
+				that.member.id = data.obj.id;
+
+			})
+		},
+		openModal: function() {
+			if(this.pay.smallChange < 0) {
+				layerToast("抹零必须为正数");
+				return;
+			}
+			this.myModal = 0;
+			// this.factAmount=this.pay.pay-this.pay.payedDeposit-this.pay.smallChange-this.pay.collectedAmount-this.pay.orderSmallChange;
+			this.factAmount0 = this.pay.payAmount - this.pay.smallChange;
+			
+			var that = this;
+			if(!this.numpadInit) {
+				$('#factAmount0').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount0');
+					}
+				});
+				$('#factAmount1').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount1');
+					}
+				});
+				$('#factAmount2').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount2');
+					}
+				});
+				$('#factAmount3').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount3');
+					}
+				});
+				$('#factAmount4').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount4');
+					}
+				});
+				$('#factAmount5').numpad({
+					onKeypadClose: function() {
+						that.handleNumpad('#factAmount5');
+					}
+				});
+				this.numpadInit = true;
+			}
+		},
+		handleNumpad: function(selector) {
+			var obj = $(selector),
+				vals = obj.val();
+			if(vals == '') {
+				obj.val(0);
+			} else if(vals.indexOf('.') != -1) {
+				obj.val(parseFloat(vals).toFixed(1));
+			}
+			obj[0].dispatchEvent(new Event('input'));
+		},
+		openModalHui: function() {
+			this.myModal = 1;
+		},
+        pickDiscountM: function(item){
+            this.pickDiscount=item;
+
+		},
+		noDiscount:function(){
+
+            if (this.isGroupDiscount === 1) {
+                return false
+            }
+            this.pickDiscount = {};
+            this.pay.payAmount = this.amount;
+            for (var j = 0; j < this.pay.orderList.length; j++) {
+                if (this.pay.orderList[j].type != 2) {
+                    this.pay.orderList[j].amountPrice = ((Number(this.pay.orderList[j].totalPrice) * Number(this.pay.orderList[j].quantity)).toFixed(1));
+                }
+            }
+            this.showDiscountQuan = "";
+            this.showDiscount = false;
+            this.memberNumUser = '未使用';
+            this.dicountId = '';
+            this.ruleFlag = -1;
+
+            this.isGroupDiscount = 1
+            if (this.groupDiscountObj.id) {
+                layerToast('请重新选择优惠券')
+                // 不使用优惠券
+                this.showGroupQuan = ''
+                this.groupDiscount = {}
+                this.groupDiscountObj.id = ''
+                this.groupDiscountObj.payAmount = this.pay.payAmount;
+            }
+        },
+        openModalZhe: function() {
+            this.myModal = 3;
+        },
+        canPrint:function(){
+			var that=this;
+            ajaxRequest({
+                path: 'maroClientServerorderController.do?printOrder',
+                data: {
+                    'orderId':that.orderTableJson.serverOrderId,
+					'isPre':true,
+					'payId':''
+
+                },
+                layer: true
+            }, function (data) {
+            	console.log(data);
+
+                if(window.print2 != "undefined" && window.print2 != undefined) {
+                    if(data.attributes.printJson.shop == "null") {
+                        print2.SetShop(""); // 店铺名称
+                    } else {
+                        print2.SetShop(data.attributes.printJson.shop); // 店铺名称
+                    }
+                    if(data.attributes.printJson.cashier == "null") {
+                        print2.SetCashier(""); // 店铺名称
+                    } else {
+                        print2.SetCashier(data.attributes.printJson.cashier); //收银员
+                    }
+                    if(data.attributes.printJson.dateTime == "null") {
+                        print2.SetDatetime(""); // 结账时间
+                    } else {
+                        print2.SetDatetime(data.attributes.printJson.dateTime); // 结账时间
+                    }
+                    if(data.attributes.printJson.guests == "null") {
+                        print2.SetGuests(""); // 来客
+                    } else {
+                        print2.SetGuests(data.attributes.printJson.guests); // 来客
+                    }
+                    if(data.attributes.printJson.orderNum == "null") {
+                        print2.SetOrdernum(""); // 流水号
+                    } else {
+                        print2.SetOrdernum(data.attributes.printJson.orderNum); // 流水号
+                    }
+                    if(data.attributes.printJson.table == "null") {
+                        print2.SetTable(""); // 桌号
+                    } else {
+                        print2.SetTable(data.attributes.printJson.table); // 桌号
+                    }
+                    if(data.attributes.printJson.waiter == "null") {
+                        print2.SetWaiter(""); // 服务员
+                    } else {
+                        print2.SetWaiter(data.attributes.printJson.waiter); // 服务员
+                    }
+                    if(data.attributes.printJson.payment == "null") {
+                        print2.SetPayment(""); //支付方式
+                    } else {
+                        print2.SetPayment(data.attributes.printJson.payment); //支付方式
+                    }
+                    if(data.attributes.printJson.odd == "") {
+                        print2.SetOdd(0);
+                    } else {
+                        print2.SetOdd(Number(data.attributes.printJson.odd)); //抹零，如果没有写入0即可
+                    }
+                    if(data.attributes.printJson.deposit == "") {
+                        print2.SetDeposit(0); //定金，如果没有写入0即可
+                    } else {
+                        print2.SetDeposit(Number(data.attributes.printJson.deposit)); //定金，如果没有写入0即可
+                    }
+                    if(data.attributes.printJson.discount == "null" || data.attributes.printJson.discount == "") {
+                        print2.SetDiscount(""); //折扣，如果没有写入空字符串
+                    } else {
+                        print2.SetDiscount(data.attributes.printJson.discount); //折扣，如果没有写入空字符串
+                    }
+
+                        print2.SetTotal(0); //应收价格，扣除定金抹零等后，最后需要支付的金额
+
+                    if(data.attributes.printJson.address == "null" || data.attributes.printJson.address == "") {
+                        print2.SetAddress("");
+                    } else {
+                        print2.SetAddress(data.attributes.printJson.address);
+                    }
+                    if(data.attributes.printJson.telphone == "" || data.attributes.printJson.telphone == "null") {
+                        print2.SetTelphone("");
+                    } else {
+                        print2.SetTelphone(data.attributes.printJson.telphone);
+                    }
+                    if(data.attributes.printJson.dishes == "[]") {
+                        print2.SetDishes("[]");
+                    } else {
+                        print2.SetDishes(data.attributes.printJson.dishes);
+                    }
+                    print2.Print();
+                }
+
+            })
+		},
+		paySuccess: function() {
+			var that = this;
+			var makeBillType = 0;
+			if(that.invoiceAmount != 0) {
+				makeBillType = 1;
+			}
+			var payArray = new Array();
+			console.log(Number(that.factAmount1))
+			var payName = "";
+			if(Number(that.factAmount0) != 0) {
+				var json = {
+					'payType': 0,
+					'payTerminal': 0,
+					'amount': that.factAmount0
+				}
+				payName = "现金,";
+				payArray.push(json);
+			}
+			if(Number(that.factAmount1) != 0) {
+				var json = {
+					'payType': 1,
+					'payTerminal': 0,
+					'amount': that.factAmount1
+				}
+				payName = payName + "微信,";
+				payArray.push(json);
+			}
+			if(Number(that.factAmount2) != 0) {
+				var json = {
+					'payType': 2,
+					'payTerminal': 0,
+					'amount': that.factAmount2
+				}
+				payName = payName + "支付宝,";
+
+				payArray.push(json);
+			}
+			if(Number(that.factAmount3) != 0) {
+				var json = {
+					'payType': 3,
+					'payTerminal': 0,
+					'amount': that.factAmount3
+				}
+				payName = payName + "会员卡,";
+				payArray.push(json);
+			}
+			if(Number(that.factAmount4) != 0) {
+				var json = {
+					'payType': 4,
+					'payTerminal': 0,
+					'amount': that.factAmount4
+				}
+				payName = payName + "银联刷卡,";
+				payArray.push(json);
+			}
+			if(Number(that.factAmount5) != 0) {
+				var json = {
+					'payType': 5,
+					'payTerminal': 0,
+					'amount': that.factAmount5
+				}
+				payName = payName + "其他,";
+				payArray.push(json);
+			}
+
+			var count = 0;
+			console.log(payArray);
+			for(var i = 0; i < payArray.length; i++) {
+				count = Number(count) + Number(payArray[i].amount);
+			}
+			if(this.pay.payAmount > 0) {
+				if(this.pay.payAmount < this.pay.smallChange) {
+					layerToast("当前抹零不能超过订单金额");
+					return;
+				}
+			}
+			if(count > 0) {
+
+				if(Number(count) < (Number(that.pay.payAmount) - Number(that.pay.smallChange))) {
+					layerToast("支付金额不能小于订单金额");
+					payArray = new Array();
+					return;
+				}
+				if(Number(count) > (Number(that.pay.payAmount) - Number(that.pay.smallChange))) {
+					layerToast("支付金额不能大于订单金额");
+					payArray = new Array();
+					return;
+				}
+			}
+			if(count == 0) {
+				layerToast("支付金额不能小于订单金额");
+				return;
+			}
+			if(count < 0 && count != (this.pay.payAmount - this.pay.smallChange)) {
+				layerToast("支付金额必须等于订单金额");
+				return;
+			}
+			that.factAmount = count;
+			var discountEntery=that.pickDiscount;
+			if(discountEntery!=''){
+				if(discountEntery.hasOwnProperty('startTimeString')){
+                    delete discountEntery.startTimeString;
+				}
+                if(discountEntery.hasOwnProperty('endTimeString')){
+                    delete discountEntery.endTimeString;
+                }
+                if(discountEntery.hasOwnProperty('endWeekString')){
+                    delete discountEntery.endWeekString;
+                }
+                if(discountEntery.hasOwnProperty('startWeekString')){
+                    delete discountEntery.startWeekString;
+                }
+			}
+			payName = payName.substring(0, payName.length - 1);
+			var foodorderlist=new Array();
+            for(var j=this.pay.orderList.length-1;j>=0;j--){
+                if(this.pay.orderList[j].hasOwnProperty('isX') && this.pay.orderList[j].isX){
+                    break;
+                }
+                console.log(this.pay.orderList[j]);
+                var a=JSON.parse(JSON.stringify(this.pay.orderList[j]));
+                delete a.amountPrice;
+                delete a.isX;
+                delete a.isXamount;
+                delete a.statusString;
+                delete a.typeString;
+                delete a.packageTypeString;
+                delete a.isFavourableString;
+                delete a.createTimeString;
+                delete a.createTimeMMSSString;
+                delete a.waitTime;
+                delete a.discountPrice;
+                foodorderlist.push(a);
+            }
+
+			var payParamsDTOJson = {
+				"maroClientPayedDO": {
+					"payType": "",
+					"payTerminal": 0,
+					"cardNumber": "",
+					"amount": count,
+					"serverOrderId": that.orderTableJson.serverOrderId
+				},
+                //"maroDishesDiscountEntity":discountEntery,
+				"maroClientServerorderDO": {
+					"id": that.orderTableJson.serverOrderId,
+					"smallChange": that.pay.smallChange,
+					"billMoney": that.invoiceAmount,
+					"makeBillType": makeBillType,
+					"memberPhone": that.member.phone,
+					"memberId": that.member.id,
+					"memberName": that.member.name
+
+				},
+				"maroClientPayedDetailDOList": payArray,
+				"maroClientFoodorderDOList":foodorderlist,
+				"ruleFlag":this.ruleFlag
+			}
+			if(this.ruleFlag==0){
+				console.log(payParamsDTOJson);
+                payParamsDTOJson.maroClientServerorderDO.discount=discountEntery.discountNumber
+			}
+			console.log(payParamsDTOJson);
+				//return;
+			ajaxRequest({
+				path: 'maroClientServerorderController.do?pay',
+				data: {
+					"payParamsDTOJson": JSON.stringify(payParamsDTOJson)
+				}
+			}, function(data) {
+				console.log(data);
+				var payJson = {
+					//应收金额
+					"receivableAmount": that.factAmount,
+					//实收金额
+					"collectedAmount": that.factAmount,
+					//订金
+					"payedDeposit": data.obj.maroClientServerorderVO.payedDeposit,
+					"payTypeString": payName,
+					"amount": data.obj.maroClientServerorderVO.amount,
+					"smallChange": that.pay.smallChange,
+					"orderId":that.orderTableJson.serverOrderId,
+					"payId":data.obj.maroClientPayedVOs[data.obj.maroClientPayedVOs.length-1].id
+
+                };
+
+				if(window.print2 != "undefined" && window.print2 != undefined) {
+					if(data.attributes.printJson.shop == "null") {
+						print2.SetShop(""); // 店铺名称
+					} else {
+						print2.SetShop(data.attributes.printJson.shop); // 店铺名称
+					}
+					if(data.attributes.printJson.cashier == "null") {
+						print2.SetCashier(""); // 店铺名称
+					} else {
+						print2.SetCashier(data.attributes.printJson.cashier); //收银员
+					}
+					if(data.attributes.printJson.dateTime == "null") {
+						print2.SetDatetime(""); // 结账时间
+					} else {
+						print2.SetDatetime(data.attributes.printJson.dateTime); // 结账时间
+					}
+					if(data.attributes.printJson.guests == "null") {
+						print2.SetGuests(""); // 来客
+					} else {
+						print2.SetGuests(data.attributes.printJson.guests); // 来客
+					}
+					if(data.attributes.printJson.orderNum == "null") {
+						print2.SetOrdernum(""); // 流水号
+					} else {
+						print2.SetOrdernum(data.attributes.printJson.orderNum); // 流水号
+					}
+					if(data.attributes.printJson.table == "null") {
+						print2.SetTable(""); // 桌号
+					} else {
+						print2.SetTable(data.attributes.printJson.table); // 桌号
+					}
+					if(data.attributes.printJson.waiter == "null") {
+						print2.SetWaiter(""); // 服务员
+					} else {
+						print2.SetWaiter(data.attributes.printJson.waiter); // 服务员
+					}
+					if(data.attributes.printJson.payment == "null") {
+						print2.SetPayment(""); //支付方式
+					} else {
+						print2.SetPayment(data.attributes.printJson.payment); //支付方式
+					}
+					if(data.attributes.printJson.odd == "") {
+						print2.SetOdd(0);
+					} else {
+						print2.SetOdd(Number(data.attributes.printJson.odd)); //抹零，如果没有写入0即可
+					}
+					if(data.attributes.printJson.deposit == "") {
+						print2.SetDeposit(0); //定金，如果没有写入0即可
+					} else {
+						print2.SetDeposit(Number(data.attributes.printJson.deposit)); //定金，如果没有写入0即可
+					}
+					if(data.attributes.printJson.discount == "null" || data.attributes.printJson.discount == "") {
+						print2.SetDiscount(""); //折扣，如果没有写入空字符串
+					} else {
+						print2.SetDiscount(data.attributes.printJson.discount); //折扣，如果没有写入空字符串
+					}
+					if(data.attributes.printJson.total == "null" || data.attributes.printJson.total == "") {
+						print2.SetTotal(0); //应收价格，扣除定金抹零等后，最后需要支付的金额
+					} else {
+						print2.SetTotal(Number(data.attributes.printJson.total) - Number(that.pay.smallChange)); //应收价格，扣除定金抹零等后，最后需要支付的金额
+					}
+					if(data.attributes.printJson.address == "null" || data.attributes.printJson.address == "") {
+						print2.SetAddress("");
+					} else {
+						print2.SetAddress(data.attributes.printJson.address);
+					}
+					if(data.attributes.printJson.telphone == "" || data.attributes.printJson.telphone == "null") {
+						print2.SetTelphone("");
+					} else {
+						print2.SetTelphone(data.attributes.printJson.telphone);
+					}
+					if(data.attributes.printJson.dishes == "[]") {
+						print2.SetDishes("[]");
+					} else {
+						print2.SetDishes(data.attributes.printJson.dishes);
+					}
+					print2.Print();
+				}
+
+				window.localStorage.setItem('payJson', JSON.stringify(payJson));
+				//点击确定
+                window.location.href = 'success.html';
+
+			})
+		},
+        showPackage:function (item) {
+            if(item.packageType == 1){
+                this.myModal = 2;
+                console.log(item);
+                this.packageList = item.list;
+			}
+        },
+
+        //优惠券
+        noCoupon:function () {
+            this.showGroupQuan = ''
+            this.groupDiscount = {}
+            this.groupDiscountObj.id = ''
+            this.pay.payAmount = this.groupDiscountObj.payAmount
+        },
+        openModalCoupon:function () {
+            this.myModal = 4;
+        },
+        pickCouponSure: function () {
+            if (!this.groupDiscount.id || this.groupDiscountObj.id === this.groupDiscount.id) {
+                this.clsModal();
+                return
+            } else {
+                this.groupDiscountObj.id = this.groupDiscount.id;
+                this.groupDiscountObj.money = this.groupDiscount.money;
+                this.groupDiscountObj.name = this.groupDiscount.name;
+
+            }
+            if(!this.groupDiscountObj.payAmount){
+                this.groupDiscountObj.payAmount = this.pay.payAmount
+			}
+            if((this.groupDiscountObj.payAmount - this.groupDiscount.money).toFixed(1) < 0){
+                this.pay.payAmount = 0
+            }else {
+                this.pay.payAmount = ((this.groupDiscountObj.payAmount - this.groupDiscount.money).toFixed(1));
+            }
+            console.log(this.groupDiscountObj);
+            this.showGroupQuan = '(优惠券)';
+            this.clsModal();
+        },
+        pickCouponM:function (item) {
+            this.groupDiscount = item;
+        }
+	}
+})

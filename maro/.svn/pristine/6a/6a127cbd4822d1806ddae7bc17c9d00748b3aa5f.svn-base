@@ -1,0 +1,135 @@
+new Vue({
+	el: '#success',
+	data: {
+		payJson:{
+            receivableAmount:"",
+            collectedAmount:"",
+            payedDeposit:"",
+            payTypeString:"",
+            amount:"",
+		    payCount:0,
+            smallChange:0,
+            orderId:"",
+            payid:""
+
+		}
+	},
+    created:function(){
+        var pay=JSON.parse(window.localStorage.getItem("payJson"));
+        this.payJson.receivableAmount=pay.receivableAmount;
+        this.payJson.collectedAmount=pay.collectedAmount;
+        this.payJson.payedDeposit=pay.payedDeposit;
+        this.payJson.payTypeString=pay.payTypeString;
+        this.payJson.amount=pay.amount;
+        this.payJson.smallChange=pay.smallChange;
+        this.payCount=Number(pay.amount)-Number(pay.receivableAmount);
+        this.payJson.payid=pay.payId;
+        this.payJson.orderId=pay.orderId;
+	},
+	computed: {
+	},
+	methods: {
+        canPrint:function(){
+            var that=this;
+            ajaxRequest({
+                path: 'maroClientServerorderController.do?printOrder',
+                data: {
+                    'orderId':that.payJson.orderId,
+                    'isPre':false,
+                    'payId':that.payJson.payid
+
+                },
+                layer: false
+            }, function (data) {
+                console.log(data);
+
+                if(window.print2 != "undefined" && window.print2 != undefined) {
+                    if(data.attributes.printJson.shop == "null") {
+                        print2.SetShop(""); // 店铺名称
+                    } else {
+                        print2.SetShop(data.attributes.printJson.shop); // 店铺名称
+                    }
+                    if(data.attributes.printJson.cashier == "null") {
+                        print2.SetCashier(""); // 店铺名称
+                    } else {
+                        print2.SetCashier(data.attributes.printJson.cashier); //收银员
+                    }
+                    if(data.attributes.printJson.dateTime == "null") {
+                        print2.SetDatetime(""); // 结账时间
+                    } else {
+                        print2.SetDatetime(data.attributes.printJson.dateTime); // 结账时间
+                    }
+                    if(data.attributes.printJson.guests == "null") {
+                        print2.SetGuests(""); // 来客
+                    } else {
+                        print2.SetGuests(data.attributes.printJson.guests); // 来客
+                    }
+                    if(data.attributes.printJson.orderNum == "null") {
+                        print2.SetOrdernum(""); // 流水号
+                    } else {
+                        print2.SetOrdernum(data.attributes.printJson.orderNum); // 流水号
+                    }
+                    if(data.attributes.printJson.table == "null") {
+                        print2.SetTable(""); // 桌号
+                    } else {
+                        print2.SetTable(data.attributes.printJson.table); // 桌号
+                    }
+                    if(data.attributes.printJson.waiter == "null") {
+                        print2.SetWaiter(""); // 服务员
+                    } else {
+                        print2.SetWaiter(data.attributes.printJson.waiter); // 服务员
+                    }
+                    if(data.attributes.printJson.payment == "null") {
+                        print2.SetPayment(""); //支付方式
+                    } else {
+                        print2.SetPayment(data.attributes.printJson.payment); //支付方式
+                    }
+                    if(data.attributes.printJson.odd == "") {
+                        print2.SetOdd(0);
+                    } else {
+                        print2.SetOdd(Number(data.attributes.printJson.odd)); //抹零，如果没有写入0即可
+                    }
+                    if(data.attributes.printJson.deposit == "") {
+                        print2.SetDeposit(0); //定金，如果没有写入0即可
+                    } else {
+                        print2.SetDeposit(Number(data.attributes.printJson.deposit)); //定金，如果没有写入0即可
+                    }
+                    if(data.attributes.printJson.discount == "null" || data.attributes.printJson.discount == "") {
+                        print2.SetDiscount(""); //折扣，如果没有写入空字符串
+                    } else {
+                        print2.SetDiscount(data.attributes.printJson.discount); //折扣，如果没有写入空字符串
+                    }
+
+                    if(data.attributes.printJson.total == "null" || data.attributes.printJson.total == "") {
+                        print2.SetTotal(0); //应收价格，扣除定金抹零等后，最后需要支付的金额
+                    } else {
+                        print2.SetTotal( that.payJson.receivableAmount); //应收价格，扣除定金抹零等后，最后需要支付的金额
+                    }
+
+                    if(data.attributes.printJson.address == "null" || data.attributes.printJson.address == "") {
+                        print2.SetAddress("");
+                    } else {
+                        print2.SetAddress(data.attributes.printJson.address);
+                    }
+                    if(data.attributes.printJson.telphone == "" || data.attributes.printJson.telphone == "null") {
+                        print2.SetTelphone("");
+                    } else {
+                        print2.SetTelphone(data.attributes.printJson.telphone);
+                    }
+                    if(data.attributes.printJson.dishes == "[]") {
+                        print2.SetDishes("[]");
+                    } else {
+                        print2.SetDishes(data.attributes.printJson.dishes);
+                    }
+                    print2.Print();
+                }
+
+            })
+        },
+		backtoIndex: function () {
+            window.location.href = 'index.html'
+			//window.history.go(2-window.history.length);
+		}
+	}
+
+})

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点餐</title>
+</head>
+
+<body>
+
+</body>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="js/zepto-1.1.6.min.js" ></script>
+<script>
+    /*公众号支付*/
+    $(function(){
+       ajaxRequest();
+    });
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
+
+    function ajaxRequest () {
+
+        var seatId= getParam("seatId");
+        var shopId= getParam("shopId");
+        alert(seatId)
+        alert(shopId)
+        var url = "http://app.tuxingtianxia.com.cn/client/webpage/orderDist/index.html?seatId="+seatId+"&shopId="+shopId; //注意此处的basePath是没有端口号的域名地址。如果包含:80,在提交给微信时有可能会提示 “redirect_uri参数错误” 。
+        //money为订单需要支付的金额
+        //state中存放的为商品订单号
+        console.log(url);
+        var weixinUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx230c617d7f6c9677&redirect_uri="+encodeURI(url)+"&response_type=code&scope=snsapi_base#wechat_redirect";
+        var path=encodeURI(weixinUrl);
+        window.location.href=path;
+    }
+</script>
+</html>

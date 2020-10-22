@@ -1,0 +1,324 @@
+package com.maro.common.dishes.dishes.service.impl;
+
+import com.maro.common.dishes.dishes.dao.MaroCommonDishesDao;
+import com.maro.common.dishes.dishes.pojo.dto.DishLabelsRusltDTO;
+import com.maro.common.dishes.dishes.pojo.entity.MaroDishesEntity;
+import com.maro.common.dishes.dishes.pojo.vo.MaroCommonDishesSpecificationsEntity;
+import com.maro.common.dishes.dishes.service.MaroCommonDishesServiceI;
+import com.maro.common.util.Util;
+import com.maro.manager.dishes.dishesspecifications.entity.MaroDishesSpecificationsEntity;
+import com.maro.manager.dishes.setmealdishes.entity.MaroSetmealDishesEntity;
+import com.maro.manager.dishes.setmealdishes.entity.MaroSetmealDishesSelectEntity;
+import com.maro.platform.core.common.hibernate.qbc.CriteriaQuery;
+import com.maro.platform.core.common.model.json.DataGrid;
+import com.maro.platform.core.common.service.impl.CommonServiceImpl;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.web.system.pojo.base.TSType;
+import com.maro.platform.web.system.pojo.base.TSTypegroup;
+import com.maro.platform.web.system.service.SystemService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+
+import java.util.*;
+
+@Service("maroCommonDishesServiceI")
+@Transactional
+public class MaroCommonDishesServiceImpl extends CommonServiceImpl implements MaroCommonDishesServiceI {
+
+	@Autowired
+	private MaroCommonDishesDao maroDishesDao;
+	@Resource
+	private SystemService systemService;
+	
+	@Override
+	public List<MaroDishesEntity> getDishesList(String departId) {
+		List<MaroDishesEntity> dishesList = maroDishesDao.getDishesList(departId);
+        
+		for (int i = 0; i<dishesList.size();i++) {
+			//根据菜肴id获取规格
+			List<MaroCommonDishesSpecificationsEntity> specificationsList = maroDishesDao.getSpecificationsList(dishesList.get(i).getId());
+			
+			//匹配规格中字典的中文
+			for(int ds=0;ds<specificationsList.size();ds++){
+				//把规格的字典名称匹配出来
+				specificationsList.get(ds).setPageName(Util.getValueFromTypeByTypeCodeAndKey("maro_specifications",(specificationsList.get(ds).getName() == null) ? "" : specificationsList.get(ds).getName()));
+	        }
+			
+			//匹配菜肴单位中字典的中文
+			dishesList.get(i).setUnitName(Util.getValueFromTypeByTypeCodeAndKey("maro_unit_name",(dishesList.get(i).getUnit() == null) ? "" : dishesList.get(i).getUnit()));
+			
+			//制作方式(字典)
+			dishesList.get(i).setMakeWayName(Util.getValueFromTypeByTypeCodeAndKey("maro_make_way",(dishesList.get(i).getMakeWay() == null) ? "" : dishesList.get(i).getMakeWay()));
+			
+			//口味分类(字典)
+			dishesList.get(i).setTasteCassificationName(Util.getValueFromTypeByTypeCodeAndKey("maro_taste_cassification",(dishesList.get(i).getTasteCassification() == null) ? "" : dishesList.get(i).getTasteCassification()));
+			
+			//标签(字典)  这里的复选框，需要分割
+			if(StringUtil.isNotEmpty(dishesList.get(i).getTheLabel())){
+				String[] databaseArr = dishesList.get(i).getTheLabel().split(",");
+				String theLabel = "";
+				for(int a=0;a<databaseArr.length;a++){
+					String data = Util.getValueFromTypeByTypeCodeAndKey("maro_the_label",(databaseArr[a] == null) ? "" : databaseArr[a]);
+					if(dishesList.get(i).getTheLabelName()!=null){
+						 theLabel = dishesList.get(i).getTheLabelName() + data;
+					}else{
+						theLabel = data;
+					}
+					
+					if(a != (databaseArr.length - 1)){
+						theLabel += ",";
+					}
+					dishesList.get(i).setTheLabelName(theLabel);
+				}
+			}
+			
+			
+			//菜品类型(字典)
+			dishesList.get(i).setTypeName(Util.getValueFromTypeByTypeCodeAndKey("maro_dis_type",(dishesList.get(i).getType() == null) ? "" : dishesList.get(i).getType()));
+			
+			//菜品分类(数据库外键)  根据菜肴分类查出菜肴分类名称
+			String name = maroDishesDao.getByIdName(dishesList.get(i).getDishesClassification());
+			dishesList.get(i).setDishesClassificationName(name);
+        	
+			
+			
+			if(specificationsList.size() > 0){
+				dishesList.get(i).setSpecificationsList(specificationsList);
+			}
+		}
+	
+		//在这边把套餐加上去，应为套餐没有上边的字典
+		List<MaroDishesEntity> setmealList = maroDishesDao.getSetmealList(departId);
+		for (int i = 0; i < setmealList.size(); i++) {
+			//====获取套餐类====
+			List<MaroSetmealDishesEntity> setmealDishesList = maroDishesDao.getBySetmealIdList(setmealList.get(i).getId());
+			for (int j = 0; j < setmealDishesList.size(); j++) {
+				//====获取套餐菜====
+				List<MaroSetmealDishesSelectEntity> setmealDishesSelectList = maroDishesDao.getBysetmealDishesIdList(setmealDishesList.get(j).getId());
+				/***根据 规格id 查出菜肴名称等需要的补助字段*/
+				for (int k = 0; k < setmealDishesSelectList.size(); k++) {
+					//先根据规格id获取菜品
+					MaroDishesSpecificationsEntity mds = maroDishesDao.getBymdsIdEntity(setmealDishesSelectList.get(k).getSpecificationsId());
+					MaroDishesEntity md =  maroDishesDao.getBymdIdEntity(mds.getMaroDishesId());
+					
+					//菜肴ID
+					setmealDishesSelectList.get(k).setDishesId(md.getId());
+					//菜肴名字
+					setmealDishesSelectList.get(k).setDishesName(md.getDishesName());
+					//菜肴单位
+					String unitName = Util.getValueFromTypeByTypeCodeAndKey("maro_unit_name",(md.getUnit() == null) ? "" : md.getUnit());
+					setmealDishesSelectList.get(k).setDishesUnit(unitName);
+					//规格名称
+					String specificationsName = Util.getValueFromTypeByTypeCodeAndKey("maro_specifications",(mds.getName() == null) ? "" : mds.getName());
+					setmealDishesSelectList.get(k).setSpecificationsName(specificationsName);
+					
+				}
+				setmealDishesList.get(j).setSetmealDishesSelectList(setmealDishesSelectList);
+			}
+			setmealList.get(i).setSetmealSishesList(setmealDishesList);
+			
+			dishesList.add(setmealList.get(i));
+		}
+		
+		return dishesList;
+	}
+
+	@Override
+	public MaroDishesEntity getByidDishes(String id,String shopId) {
+		//获取菜肴详情
+		MaroDishesEntity dishes = maroDishesDao.getByidDishes(id);
+		
+		//制作方式(字典)
+		dishes.setMakeWayName(Util.getValueFromTypeByTypeCodeAndKey("maro_make_way",(dishes.getMakeWay() == null) ? "" : dishes.getMakeWay()));
+		
+		//口味分类(字典)
+		dishes.setTasteCassificationName(Util.getValueFromTypeByTypeCodeAndKey("maro_taste_cassification",(dishes.getTasteCassification() == null) ? "" : dishes.getTasteCassification()));
+		
+		//标签(字典)  这里的复选框，需要分割
+		if(StringUtil.isNotEmpty(dishes.getTheLabel())){
+			String[] databaseArr = dishes.getTheLabel().split(",");
+			String theLabel = "";
+			for(int a=0;a<databaseArr.length;a++){
+				String data = Util.getValueFromTypeByTypeCodeAndKey("maro_the_label",(databaseArr[a] == null) ? "" : databaseArr[a]);
+				if(dishes.getTheLabelName()!=null){
+					 theLabel = dishes.getTheLabelName() + data;
+				}else{
+					theLabel = data;
+				}
+				
+				if(a != (databaseArr.length - 1)){
+					theLabel += ",";
+				}
+				dishes.setTheLabelName(theLabel);
+			}
+		}
+		
+		//菜品类型(字典)
+		dishes.setTypeName(Util.getValueFromTypeByTypeCodeAndKey("maro_dis_type",(dishes.getType() == null) ? "" : dishes.getType()));
+		
+		//菜肴单位(字典)
+		dishes.setUnitName(Util.getValueFromTypeByTypeCodeAndKey("maro_unit_name",(dishes.getUnit() == null) ? "" : dishes.getUnit()));
+		
+		//菜品分类(数据库外键)  根据菜肴分类查出菜肴分类名称
+		String name = maroDishesDao.getByIdName(dishes.getDishesClassification());
+		dishes.setDishesClassificationName(name);
+		
+		
+		/**====== 规格========== */
+		//根据菜肴id获取规格
+		List<MaroCommonDishesSpecificationsEntity> specificationsList = maroDishesDao.getSpecificationsList(dishes.getId());
+		
+        //匹配规格中文
+        for(int ds=0;ds<specificationsList.size();ds++){
+        	//把规格的字典名称匹配出来
+        	specificationsList.get(ds).setPageName(Util.getValueFromTypeByTypeCodeAndKey("maro_specifications",(specificationsList.get(ds).getName() == null) ? "" : specificationsList.get(ds).getName()));
+        	
+        	//把会员折扣方式的字典名称匹配出来
+        	specificationsList.get(ds).setPageMemberDiscount(Util.getValueFromTypeByTypeCodeAndKey("maro_member_discoun",(specificationsList.get(ds).getMemberDiscount() == null) ? "" : specificationsList.get(ds).getMemberDiscount()));
+        	
+        	/** 获取规格价格  */
+        	//根据店铺id 与 规格id 获取价格
+        	String price = maroDishesDao.getSpecificationsPrice(shopId, specificationsList.get(ds).getId().toString());
+        	if(StringUtil.isNotEmpty(price)){
+        		 specificationsList.get(ds).setUnitPrice(Double.valueOf(price));
+        	}
+        }
+        dishes.setSpecificationsList(specificationsList);
+
+		return dishes;
+	}
+
+	/**
+	 * 解析字典类型
+	 * 类型编码 typecode 
+	 * @return
+	 */
+	private List<TSType> parsingDictionary(String typecode){
+		
+		DataGrid dataGrid = new DataGrid();
+		CriteriaQuery cq = new CriteriaQuery(TSTypegroup.class,dataGrid);
+    	cq.eq("typegroupcode", typecode);
+    	cq.add();
+        super.getDataGridReturn(cq, true);
+        List<TSTypegroup> typegroupList = dataGrid.getResults();
+		
+        //返回字典类型
+		List<TSType> typeList= new ArrayList<TSType>();
+        
+        for (int i=0;i<typegroupList.size();i++) {
+        	List<TSType> list= typegroupList.get(i).getTSTypes();
+        	TSType tt = null;
+	    	 for (int j=0;j<list.size();j++) {
+	    		 tt = new TSType();
+	    		 tt.setId(list.get(j).getId());
+	    		 tt.setTypecode(list.get(j).getTypecode());
+	    		 tt.setTypename(list.get(j).getTypename());
+	    		 typeList.add(tt);
+	    	 }
+		}
+		
+        return typeList;
+	}
+
+
+	@Override
+	public List<MaroDishesEntity> listDishes(String departId){
+		List<MaroDishesEntity> dishesList = maroDishesDao.getDishesList(departId);
+		return dishesList;
+	}
+
+	@Override
+	public List<MaroDishesSpecificationsEntity> listSpecifications(List<MaroDishesEntity> dishesList){
+		List<MaroDishesSpecificationsEntity> specificationsEntityList = new ArrayList<MaroDishesSpecificationsEntity>();
+		if(dishesList != null || dishesList.size()>0){
+			for(MaroDishesEntity dishesEntity : dishesList){
+				List<MaroDishesSpecificationsEntity> specificationsEntityList1 = findByProperty(MaroDishesSpecificationsEntity.class, "maroDishesId", dishesEntity.getId());
+				specificationsEntityList.addAll(specificationsEntityList1);
+			}
+		}
+		return specificationsEntityList;
+	}
+
+
+	@Override
+	public List<DishLabelsRusltDTO> listDishLabels(String departId){
+		TSTypegroup typeGroup = systemService.getTypeGroup("maro_the_label","");
+		List<TSType> tsTypes = typeGroup.getTSTypes();
+		Map<String,String> typeMap = new HashMap<String,String>();
+
+		for(int i=0;i<tsTypes.size();i++){
+			TSType tsType = tsTypes.get(i);
+			typeMap.put(tsType.getTypecode(),tsType.getTypename());
+		}
+
+
+		Map<String,DishLabelsRusltDTO> labelMap = new HashMap<String,DishLabelsRusltDTO>();
+
+		List<MaroDishesEntity> maroDishesEntityList = listDishes(departId);
+
+		for(int i=0;i<maroDishesEntityList.size();i++){
+			MaroDishesEntity maroDishesEntity = maroDishesEntityList.get(i);
+			String theLabel = maroDishesEntity.getTheLabel();
+			DishLabelsRusltDTO dishLabelsRusltDTO = null;
+			if(theLabel != null && !theLabel.isEmpty()){
+				String[] labels = theLabel.split(",");
+				for(String label:labels){
+					dishLabelsRusltDTO = labelMap.get(label);
+					if(dishLabelsRusltDTO == null){
+						dishLabelsRusltDTO = new DishLabelsRusltDTO();
+						dishLabelsRusltDTO.setLabelCode(label);
+						dishLabelsRusltDTO.setLabelName(typeMap.get(label));
+						dishLabelsRusltDTO.setMaroDishesEntityList(new ArrayList<Map<String,Object>>());
+						labelMap.put(label,dishLabelsRusltDTO);
+					}
+				}
+				List<Map<String,Object>> maroDishesEntityListTmp = dishLabelsRusltDTO.getMaroDishesEntityList();
+				Map<String,Object> row = new HashMap<String,Object>();
+				row.put("coding",maroDishesEntity.getCoding());
+				row.put("unit",maroDishesEntity.getUnit());
+				row.put("quantity",row.get("quantity")==null?1:((Integer)row.get("quantity")+1));
+				row.put("ds_code",row.get("quantity")==null?1:((Integer)row.get("quantity")+1));
+				row.put("unitPrice",row.get("quantity")==null?1:((Integer)row.get("quantity")+1));
+				maroDishesEntityListTmp.add(row);
+			}
+		}
+
+		List<DishLabelsRusltDTO> dishLabelsRusltDTOList = new ArrayList<DishLabelsRusltDTO>(labelMap.values());
+
+		return dishLabelsRusltDTOList;
+
+	}
+
+	@Override
+	public List<Map<String,Object>> listDishesBySql(String shopId){
+		return maroDishesDao.listDishesBySql(shopId);
+	}
+	@Override
+	public List<Map<String,Object>> listDishesClassificationBySql(String departId){
+		return maroDishesDao.listDishesClassificationBySql();
+	}
+	@Override
+	public List<Map<String,Object>> getDishesListBySql(){
+		return maroDishesDao.getDishesListBySql();
+	}
+	@Override
+	public 	List<Map<String,Object>> listFoodorderDOBySql(String shopId){
+		return maroDishesDao.listFoodorderDOBySql(shopId);
+	}
+	@Override
+	public List<Map<String,Object>> listMarkWayBySql(){
+		return maroDishesDao.listMarkWayBySql();
+	}
+	@Override
+	public List<Map<String,Object>> listTerminalMessageTemplateBySql(){
+		return maroDishesDao.listTerminalMessageTemplateBySql();
+	}
+	@Override
+	public List<Map<String,Object>> listDishesRetireReasonBySql(String shopId){
+		return maroDishesDao.listDishesRetireReasonBySql(shopId);
+	}
+}

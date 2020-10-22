@@ -1,0 +1,7 @@
+ChangeChannel s = new ChangeChannel();
+		s.setSeatName("2号桌");
+		s.setNumber("3");
+		s.setChangeChannelTime("2018-01-44 15:54:15");
+		s.setBillMark("6546541");
+		s.setTargetSeatName("3号桌");
+		PrintMain.printChangeChannel(s);

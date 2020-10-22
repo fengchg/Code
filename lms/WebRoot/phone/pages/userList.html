@@ -1,0 +1,46 @@
+﻿<div data-controller="UserListController">
+    <div class="pages">
+        <div data-page="userListPage" class="page navbar-fixed toolbar-fixed">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center">用户列表</div>
+                    <!--<div class="right">
+                        <a class="link" href="pages/userInfo.html?newCategory=true">新增</a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="user-list m-t-0">
+                    <div class="list-block  all-order  m-b-0 media-list contacts contactsListPage-container">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="template" type="text/template7">
+        {{#each users}}
+        <ul class="m-t-10">
+            <li class="usersList ">
+                <div class=" item-content addressList" data-id="{{id}}">
+                    <div class="item-inner ">
+                        <div class="item-title-row no-bg">
+                            <div class="item-title font-red">{{realName}}</div>
+                            <div class="item-after font-black">{{phoneNumber}}</div>
+                        </div>
+                        <div class="item-title-row no-bg">
+                            <div class="item-title">{{code}}</div>
+                        </div>
+                        <div class="item-text font-black">
+                            {{address}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {{/each}}  
+    </script>
+    <script type="text/javascript" src="../phone/js/pages/UserListController.js"></script>
+</div>
+
+

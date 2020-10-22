@@ -1,0 +1,159 @@
+/*date.html页面菜单样式*/
+#datepage{
+    TEXT-ALIGN:center;
+    margin:0 auto;
+	left:50%;
+	margin-left: -50%;
+    font-size:12px;
+    color:#000000;
+    width:100%;
+	position:absolute;
+	height:30px;
+	background-color:#CBDFF3;
+    }
+#datepage ul{
+    MARGIN:0; 
+    padding:0; 
+	text-align:center;
+	list-style:none;
+}
+#datepage ul li{
+	font:bold #006699;
+	font-family:'宋体','新宋体',arial,verdana,sans-serif; 
+	vertical-align:-1px;
+	padding:1px 6px 4px 3px;
+    display:inline;/*!!!important*/
+	}
+	
+   #date {
+   display:block;
+   onmouseover: expression(onmouseover=function (){this.style.borderColor ='blue';this.style.color='blue';this.style.backgroundColor ='#CBDFF3'});
+
+  /*设置onmouseout事件*/
+  onmouseout: expression(onmouseout=function (){this.style.borderColor='';this.style.color='';this.style.backgroundColor =''});
+  
+  background-Color:#DCF1FC;
+   width:100%px;
+   margin:0px 0px;
+   padding:0px;
+   text-align:right;
+   list-style:none;
+   
+   }
+   
+ #item {
+ margin:1px 0px;
+ padding:0px;
+ list-style:none;
+ margin:0;
+ padding:0;
+ 
+ }
+
+ #item li {
+ margin:2px 0;
+ padding:0px 2px;
+ width:100%px;
+ background: #ffcc00 no-repeat bottom;
+ border:1px solid #000;
+height:18px;
+ line-height:18px;
+overflow:hidden;
+ display:block;
+ list-style:none;
+ }
+ 
+  /*更多*/
+ #item li.priv {
+ margin:0;
+ padding:0;
+ 
+ width:100%px;
+ background: #00eeff no-repeat bottom;
+ height:18px;
+ line-height:18px;
+overflow:hidden;
+ 
+ display:block;
+ text-align:right;
+ list-style:none;
+ }
+ 
+ /*更多*/
+ #item li.spec {
+ margin:0;
+ padding:0;
+ 
+ width:100%px;
+ background: url(../images/new_list_line.gif) no-repeat bottom;
+ height:18px;
+ line-height:18px;
+overflow:hidden;
+ 
+ display:block;
+ text-align:right;
+ list-style:none;
+ }
+#item a{
+ color:#000000;
+ margin:0;
+ padding:0px;
+ height:18px;
+ line-height:18px;
+overflow:hidden;
+ }
+ #item a:hover{
+ color:#ff0000;
+ 
+ margin:0;
+  padding:0px;
+  height:18px;
+ line-height:18px;
+overflow:hidden;
+ }
+  td.date{
+  width:14%;
+  height:90px;
+  vertical-align:top;
+  font:normal 12px "宋体";
+  color:#000;
+  border-left:1px solid #B3D0EE;
+  border-top:1px solid #76CEEF ;
+  letter-spacing:2px;
+  text-align:left;
+  padding:1px 1px 1px 1px;
+  border-collapse:collapse;
+  background-color:#ffffff;
+  }
+td.nowdate{
+  width:14%;
+  background-color:#FFFbc9;
+  vertical-align:top;
+ margin:0;
+ padding:0;
+  font:normal 12px "宋体";
+  color:#000;
+  border-left:1px solid #B3D0EE;
+  border-top:1px solid #B3D0EE;
+  letter-spacing:2px;
+  text-align:left;
+  padding:1px 1px 1px 1px;
+  border-collapse:collapse;
+  }
+  td.pastdate{
+  width:14%;
+  background-color:#efefef;
+  vertical-align:top;
+ margin:0;
+ padding:0;
+  font:normal 12px "宋体";
+  color:#000;
+  border-left:1px solid #B3D0EE;
+  border-top:1px solid #B3D0EE;
+  letter-spacing:2px;
+  text-align:left;
+  padding:1px 1px 1px 1px;
+  border-collapse:collapse;
+  }
+
+ /*date.html页面菜单样式结束*/

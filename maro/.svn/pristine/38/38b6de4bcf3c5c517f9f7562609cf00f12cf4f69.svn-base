@@ -1,0 +1,182 @@
+package com.maro.manager.maroprint.maroprinter.service.impl;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.jeecgframework.core.util.ApplicationContextUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maro.common.util.MqUtil;
+import com.maro.manager.maroprint.maroprinter.dao.MaroPrinterDao;
+import com.maro.manager.maroprint.maroprinter.entity.MaroPrinterEntity;
+import com.maro.manager.maroprint.maroprinter.service.MaroPrinterServiceI;
+import com.maro.platform.core.common.service.impl.CommonServiceImpl;
+import com.maro.platform.core.util.MyClassLoader;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.web.cgform.enhance.CgformEnhanceJavaInter;
+import com.maro.platform.web.system.pojo.base.TSUser;
+
+@Service("maroPrinterService")
+@Transactional
+public class MaroPrinterServiceImpl extends CommonServiceImpl implements MaroPrinterServiceI {
+
+	@Autowired
+	MaroPrinterDao maroPrinterDao;
+	
+ 	public void delete(MaroPrinterEntity entity) throws Exception{
+ 		super.delete(entity);
+ 		
+ 		if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+			String orgCode = ResourceUtil.getSessionUser().getCurrentDepart().getOrgCode();
+			MqUtil.remoteOpt(orgCode,"maroSynchronizationPrinterController","doDel",entity);
+ 		}
+ 		
+ 		//执行删除操作增强业务
+		this.doDelBus(entity);
+ 	}
+ 	
+ 	public Serializable save(MaroPrinterEntity entity) throws Exception{
+ 		Serializable t = super.save(entity);
+ 		
+ 		/**=====发送给MQ========*/
+		if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+			String orgCode = ResourceUtil.getSessionUser().getCurrentDepart().getOrgCode();
+			MqUtil.remoteOpt(orgCode,"maroSynchronizationPrinterController","doAdd",entity);
+ 		}
+ 		
+ 		//执行新增操作增强业务
+ 		this.doAddBus(entity);
+ 		return t;
+ 	}
+ 	
+ 	public void saveOrUpdate(MaroPrinterEntity entity) throws Exception{
+ 		super.saveOrUpdate(entity);
+ 		
+ 		/**=====发送给MQ========*/
+		if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+			String orgCode = ResourceUtil.getSessionUser().getCurrentDepart().getOrgCode();
+			MqUtil.remoteOpt(orgCode,"maroSynchronizationPrinterController","doUpdate",entity);
+ 		}
+ 		
+ 		//执行更新操作增强业务
+ 		this.doUpdateBus(entity);
+ 	}
+ 	
+ 	/**
+	 * 新增操作增强业务
+	 * @param t
+	 * @return
+	 */
+	private void doAddBus(MaroPrinterEntity t) throws Exception{
+		//-----------------sql增强 start----------------------------
+	 	//-----------------sql增强 end------------------------------
+	 	
+	 	//-----------------java增强 start---------------------------
+	 	//-----------------java增强 end-----------------------------
+ 	}
+ 	/**
+	 * 更新操作增强业务
+	 * @param t
+	 * @return
+	 */
+	private void doUpdateBus(MaroPrinterEntity t) throws Exception{
+		//-----------------sql增强 start----------------------------
+	 	//-----------------sql增强 end------------------------------
+	 	
+	 	//-----------------java增强 start---------------------------
+	 	//-----------------java增强 end-----------------------------
+ 	}
+ 	/**
+	 * 删除操作增强业务
+	 * @param id
+	 * @return
+	 */
+	private void doDelBus(MaroPrinterEntity t) throws Exception{
+	    //-----------------sql增强 start----------------------------
+	 	//-----------------sql增强 end------------------------------
+	 	
+	 	//-----------------java增强 start---------------------------
+	 	//-----------------java增强 end-----------------------------
+ 	}
+ 	
+ 	private Map<String,Object> populationMap(MaroPrinterEntity t){
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", t.getId());
+		map.put("create_name", t.getCreateName());
+		map.put("create_by", t.getCreateBy());
+		map.put("create_date", t.getCreateDate());
+		map.put("update_name", t.getUpdateName());
+		map.put("update_by", t.getUpdateBy());
+		map.put("update_date", t.getUpdateDate());
+		map.put("sys_org_code", t.getSysOrgCode());
+		map.put("sys_company_code", t.getSysCompanyCode());
+		map.put("printer_ip", t.getPrinterIp());
+		map.put("printer_port", t.getPrinterPort());
+		map.put("printer_name", t.getPrinterName());
+		map.put("printer_location", t.getPrinterLocation());
+		map.put("printer_standby1", t.getPrinterStandby1());
+		map.put("printer_standby2", t.getPrinterStandby2());
+		map.put("printer_standby3", t.getPrinterStandby3());
+		return map;
+	}
+ 	
+ 	/**
+	 * 替换sql中的变量
+	 * @param sql
+	 * @param t
+	 * @return
+	 */
+ 	public String replaceVal(String sql,MaroPrinterEntity t){
+ 		sql  = sql.replace("#{id}",String.valueOf(t.getId()));
+ 		sql  = sql.replace("#{create_name}",String.valueOf(t.getCreateName()));
+ 		sql  = sql.replace("#{create_by}",String.valueOf(t.getCreateBy()));
+ 		sql  = sql.replace("#{create_date}",String.valueOf(t.getCreateDate()));
+ 		sql  = sql.replace("#{update_name}",String.valueOf(t.getUpdateName()));
+ 		sql  = sql.replace("#{update_by}",String.valueOf(t.getUpdateBy()));
+ 		sql  = sql.replace("#{update_date}",String.valueOf(t.getUpdateDate()));
+ 		sql  = sql.replace("#{sys_org_code}",String.valueOf(t.getSysOrgCode()));
+ 		sql  = sql.replace("#{sys_company_code}",String.valueOf(t.getSysCompanyCode()));
+ 		sql  = sql.replace("#{printer_ip}",String.valueOf(t.getPrinterIp()));
+ 		sql  = sql.replace("#{printer_port}",String.valueOf(t.getPrinterPort()));
+ 		sql  = sql.replace("#{printer_name}",String.valueOf(t.getPrinterName()));
+ 		sql  = sql.replace("#{printer_location}",String.valueOf(t.getPrinterLocation()));
+ 		sql  = sql.replace("#{printer_standby1}",String.valueOf(t.getPrinterStandby1()));
+ 		sql  = sql.replace("#{printer_standby2}",String.valueOf(t.getPrinterStandby2()));
+ 		sql  = sql.replace("#{printer_standby3}",String.valueOf(t.getPrinterStandby3()));
+ 		sql  = sql.replace("#{UUID}",UUID.randomUUID().toString());
+ 		return sql;
+ 	}
+ 	
+ 	/**
+	 * 执行JAVA增强
+	 */
+ 	private void executeJavaExtend(String cgJavaType,String cgJavaValue,Map<String,Object> data) throws Exception {
+ 		if(StringUtil.isNotEmpty(cgJavaValue)){
+			Object obj = null;
+			try {
+				if("class".equals(cgJavaType)){
+					//因新增时已经校验了实例化是否可以成功，所以这块就不需要再做一次判断
+					obj = MyClassLoader.getClassByScn(cgJavaValue).newInstance();
+				}else if("spring".equals(cgJavaType)){
+					obj = ApplicationContextUtil.getContext().getBean(cgJavaValue);
+				}
+				if(obj instanceof CgformEnhanceJavaInter){
+					CgformEnhanceJavaInter javaInter = (CgformEnhanceJavaInter) obj;
+					javaInter.execute("maro_printer",data);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new Exception("执行JAVA增强出现异常！");
+			} 
+		}
+ 	}
+
+	@Override
+	public Integer examinePrinterIp(String shopId,String ip) {
+		return maroPrinterDao.examinePrinterIp(shopId, ip);
+	}
+}

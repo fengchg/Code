@@ -1,0 +1,76 @@
+SettleAccounts s = new SettleAccounts();
+		s.setTitleName("结账单");
+		s.setSeatName("1号包间");
+		s.setRenShu(8);
+		s.setBillNumber("000001245");
+		s.setBeginTime("2018-01-05 12:51:24");
+		s.setSettleTime("2018-01-05 12:51:24");
+		s.setWaiter("小二哥");
+		s.setCashier("何露林");
+		s.setMember("会员");
+
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		//菜组
+		SettleAccountsDishes sadMian = new SettleAccountsDishes();
+		sadMian.setClassName("热菜组");
+		
+		//菜列表
+		List<SettleAccountsDishes> spsList = new ArrayList<SettleAccountsDishes>();
+		
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("油焖大虾");
+		sad.setDishesPrice("58.00");
+		sad.setVipPrice("58.00");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		Double totalMoney = Double.valueOf(sad.getDishesPrice()) *  Double.valueOf(sad.getShuLiang());
+		sad.setTotalMoney(totalMoney.toString());
+		spsList.add(sad);
+		
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("麻辣兔头");
+		sad1.setDishesPrice("58.00");
+		sad1.setVipPrice("58.00");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		Double totalMoney2 = Double.valueOf(sad1.getDishesPrice()) *  Double.valueOf(sad1.getShuLiang());
+		sad1.setTotalMoney(totalMoney2.toString());
+		spsList.add(sad1);
+		
+		sadMian.setSpsList(spsList);
+		dishesList.add(sadMian);
+		
+		//菜组
+		SettleAccountsDishes sadMian1 = new SettleAccountsDishes();
+		sadMian1.setClassName("凉菜组");
+		
+		//菜列表
+		List<SettleAccountsDishes> spsList1 = new ArrayList<SettleAccountsDishes>();
+		
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("霸王冷兔");
+		sad2.setDishesPrice("68.00");
+		sad2.setVipPrice("68.00");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		Double totalMoney3 = Double.valueOf(sad2.getDishesPrice()) *  Double.valueOf(sad2.getShuLiang());
+		sad2.setTotalMoney(totalMoney3.toString());
+		spsList1.add(sad2);
+		
+		SettleAccountsDishes sad3 = new SettleAccountsDishes();
+		sad3.setDishesName("冷吃兔");
+		sad3.setDishesPrice("58.00");
+		sad3.setVipPrice("58.00");
+		sad3.setShuLiang("1");
+		sad3.setUnit("份");
+		Double totalMoney4 = Double.valueOf(sad3.getDishesPrice()) *  Double.valueOf(sad3.getShuLiang());
+		sad3.setTotalMoney(totalMoney4.toString());
+		spsList1.add(sad3);
+		
+		sadMian1.setSpsList(spsList1);
+		dishesList.add(sadMian1);
+
+		s.setDishesList(dishesList);
+		
+		
+		System.out.println("");

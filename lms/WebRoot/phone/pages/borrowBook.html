@@ -1,0 +1,98 @@
+<div data-controller="BorrowBookController">
+    <div class="pages">
+        <div data-page="borrowBookPage" class="page no-tabbar">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="back link">
+                            <i class="icon icon-backgray"></i>
+                        </a>
+                    </div>
+                    <div class="center">图书借阅</div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="user-list">
+                    <div class="list-block all-order  m-b-0">
+                        <form id="form-ContactManage">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            图书分类
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" value="生物类" name="cFullName" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            编号
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="number" value="1111" name="cMobile" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">书名</div>
+                                        <div class="item-input">
+                                            <input type="text" value="大学物理" name="cAge" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">作者</div>
+                                        <div class="item-input">
+                                            <input type="text" value="教授" name="cPosition" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">出版时间</div>
+                                        <div class="item-input">
+                                            <input type="text" value="2015-1-1" name="cPosition" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            备注
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" value="这本书很好" name="comment" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="m-t-10">
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner  bg-arrow">
+                                            <div class="item-title label"><span>借阅用户</span></div>
+                                            <div class="item-input" id="newAddrInput">
+                                                <input type="text" name="cDistrct" placeholder="请选择借阅用户" id="picker-dependent">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="list-block m-t-25" id="select-user">
+                        <p>
+                            <a href="#" class="button button-fill new-button submit" id="borrow-btn">借阅</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../phone/js/pages/BorrowBookController.js"></script>
+</div>

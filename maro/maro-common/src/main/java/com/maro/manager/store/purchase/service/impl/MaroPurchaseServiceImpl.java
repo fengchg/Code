@@ -1,0 +1,433 @@
+package com.maro.manager.store.purchase.service.impl;
+
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.util.MqUtil;
+import com.maro.common.util.UUIDUtil;
+import com.maro.manager.store.purchase.entity.MaroPurchaseEntity;
+import com.maro.manager.store.purchase.service.MaroPurchaseServiceI;
+import com.maro.manager.store.purchasedetail.entity.MaroPurchaseDetailEntity;
+import com.maro.platform.core.common.exception.BusinessException;
+import com.maro.platform.core.common.service.impl.CommonServiceImpl;
+import com.maro.platform.core.util.MyBeanUtils;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.core.util.oConvertUtils;
+import com.maro.platform.web.system.pojo.base.TSDepart;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+
+@Service("maroPurchaseService")
+@Transactional
+public class MaroPurchaseServiceImpl extends CommonServiceImpl implements MaroPurchaseServiceI {
+ 	public <T> void delete(T entity) {
+ 		super.delete(entity);
+ 		//执行删除操作配置的sql增强
+		this.doDelSql((MaroPurchaseEntity)entity);
+ 	}
+	
+	public void addMain(MaroPurchaseEntity maroPurchase,
+	        List<MaroPurchaseDetailEntity> maroPurchaseDetailList){
+			//保存主信息
+			this.save(maroPurchase);
+			/**保存-采购详情表*/
+			for(MaroPurchaseDetailEntity maroPurchaseDetail:maroPurchaseDetailList){
+				//外键设置
+				maroPurchaseDetail.setPurchaseId(maroPurchase.getId());
+				this.save(maroPurchaseDetail);
+			}
+			//执行新增操作配置的sql增强
+ 			this.doAddSql(maroPurchase);
+ 			//MQ同步
+ 			if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+ 				//初始化店铺队列
+ 				MaroShopEntity maroShop = this.get(MaroShopEntity.class, maroPurchase.getShopId());
+ 				TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+ 				try {
+ 					MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseAddMain", maroPurchase,maroPurchaseDetailList);
+ 				} catch (Exception e) {
+ 					// TODO Auto-generated catch block
+ 					e.printStackTrace();
+ 				}
+ 			}
+	}
+
+	
+	public void updateMain(MaroPurchaseEntity maroPurchase,
+	        List<MaroPurchaseDetailEntity> maroPurchaseDetailList) {
+		//保存主表信息
+		if(StringUtil.isNotEmpty(maroPurchase.getId())){
+			try {
+				MaroPurchaseEntity temp = findUniqueByProperty(MaroPurchaseEntity.class, "id", maroPurchase.getId());
+				MyBeanUtils.copyBeanNotNull2Bean(maroPurchase, temp);
+				this.saveOrUpdate(temp);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else{
+			this.saveOrUpdate(maroPurchase);
+		}
+		//===================================================================================
+		//获取参数
+		Object id0 = maroPurchase.getId();
+		//===================================================================================
+		//1.查询出数据库的明细数据-采购详情表
+	    String hql0 = "from MaroPurchaseDetailEntity where 1 = 1 AND pURCHASE_ID = ? ";
+	    List<MaroPurchaseDetailEntity> maroPurchaseDetailOldList = this.findHql(hql0,id0);
+		//2.筛选更新明细数据-采购详情表
+		if(maroPurchaseDetailList!=null&&maroPurchaseDetailList.size()>0){
+		for(MaroPurchaseDetailEntity oldE:maroPurchaseDetailOldList){
+			boolean isUpdate = false;
+				for(MaroPurchaseDetailEntity sendE:maroPurchaseDetailList){
+					//需要更新的明细数据-采购详情表
+					if(oldE.getId().equals(sendE.getId())){
+		    			try {
+							MyBeanUtils.copyBeanNotNull2Bean(sendE,oldE);
+							this.saveOrUpdate(oldE);
+						} catch (Exception e) {
+							e.printStackTrace();
+							throw new BusinessException(e.getMessage());
+						}
+						isUpdate= true;
+		    			break;
+		    		}
+		    	}
+	    		if(!isUpdate){
+		    		//如果数据库存在的明细，前台没有传递过来则是删除-采购详情表
+		    		super.delete(oldE);
+	    		}
+	    		
+			}
+			//3.持久化新增的数据-采购详情表
+			for(MaroPurchaseDetailEntity maroPurchaseDetail:maroPurchaseDetailList){
+				if(oConvertUtils.isEmpty(maroPurchaseDetail.getId())){
+					//设置id
+					UUIDUtil.setId(maroPurchaseDetail);
+					//外键设置
+					maroPurchaseDetail.setPurchaseId(maroPurchase.getId());
+					this.save(maroPurchaseDetail);
+				}else{
+					boolean have=false;
+					String id=maroPurchaseDetail.getId();
+					for(MaroPurchaseDetailEntity oldE:maroPurchaseDetailOldList){
+						if(oldE.getId().equals(id)){
+							have=true;
+							break;
+						}
+					}
+					if(!have){
+						//外键设置
+						if(maroPurchaseDetail.getPurchaseId()==null||maroPurchaseDetail.getPurchaseId().equals("")){
+							maroPurchaseDetail.setPurchaseId(maroPurchase.getId());
+						}
+						this.save(maroPurchaseDetail);
+					}
+				}
+			}
+		}
+		//执行更新操作配置的sql增强
+ 		this.doUpdateSql(maroPurchase);
+ 		//MQ同步
+		if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+			//初始化店铺队列
+			MaroShopEntity maroShop = this.get(MaroShopEntity.class, maroPurchase.getShopId());
+			TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+			try {
+				MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseUpdateMain", maroPurchase,maroPurchaseDetailList);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	
+	public void delMain(MaroPurchaseEntity maroPurchase) {
+		//删除主表信息
+		this.delete(maroPurchase);
+		//===================================================================================
+		//获取参数
+		Object id0 = maroPurchase.getId();
+		//===================================================================================
+		//删除-采购详情表
+	    String hql0 = "from MaroPurchaseDetailEntity where 1 = 1 AND pURCHASE_ID = ? ";
+	    List<MaroPurchaseDetailEntity> maroPurchaseDetailOldList = this.findHql(hql0,id0);
+		this.deleteAllEntitie(maroPurchaseDetailOldList);
+		//MQ同步
+		if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+			//初始化店铺队列
+			MaroShopEntity maroShop = this.get(MaroShopEntity.class, maroPurchase.getShopId());
+			TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+			try {
+				MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseDelMain", maroPurchase);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+ 	
+ 	/**
+	 * 默认按钮-sql增强-新增操作
+	 * @param id
+	 * @return
+	 */
+ 	public boolean doAddSql(MaroPurchaseEntity t){
+	 	return true;
+ 	}
+ 	/**
+	 * 默认按钮-sql增强-更新操作
+	 * @param id
+	 * @return
+	 */
+ 	public boolean doUpdateSql(MaroPurchaseEntity t){
+	 	return true;
+ 	}
+ 	/**
+	 * 默认按钮-sql增强-删除操作
+	 * @param id
+	 * @return
+	 */
+ 	public boolean doDelSql(MaroPurchaseEntity t){
+	 	return true;
+ 	}
+ 	
+ 	/**
+	 * 替换sql中的变量
+	 * @param sql
+	 * @return
+	 */
+ 	public String replaceVal(String sql,MaroPurchaseEntity t){
+ 		sql  = sql.replace("#{id}",String.valueOf(t.getId()));
+ 		sql  = sql.replace("#{create_name}",String.valueOf(t.getCreateName()));
+ 		sql  = sql.replace("#{create_by}",String.valueOf(t.getCreateBy()));
+ 		sql  = sql.replace("#{create_date}",String.valueOf(t.getCreateDate()));
+ 		sql  = sql.replace("#{update_name}",String.valueOf(t.getUpdateName()));
+ 		sql  = sql.replace("#{update_by}",String.valueOf(t.getUpdateBy()));
+ 		sql  = sql.replace("#{update_date}",String.valueOf(t.getUpdateDate()));
+ 		sql  = sql.replace("#{sys_org_code}",String.valueOf(t.getSysOrgCode()));
+ 		sql  = sql.replace("#{sys_company_code}",String.valueOf(t.getSysCompanyCode()));
+ 		sql  = sql.replace("#{bpm_status}",String.valueOf(t.getBpmStatus()));
+ 		sql  = sql.replace("#{shop_id}",String.valueOf(t.getShopId()));
+ 		sql  = sql.replace("#{code}",String.valueOf(t.getCode()));
+ 		sql  = sql.replace("#{option_user_id}",String.valueOf(t.getOptionUserId()));
+ 		sql  = sql.replace("#{approve_user_id}",String.valueOf(t.getApproveUserId()));
+ 		sql  = sql.replace("#{plan_start_time}",String.valueOf(t.getPlanStartTime()));
+ 		sql  = sql.replace("#{start_time}",String.valueOf(t.getStartTime()));
+ 		sql  = sql.replace("#{plan_end_time}",String.valueOf(t.getPlanEndTime()));
+ 		sql  = sql.replace("#{end_time}",String.valueOf(t.getEndTime()));
+ 		sql  = sql.replace("#{pay_type}",String.valueOf(t.getPayType()));
+ 		sql  = sql.replace("#{budget}",String.valueOf(t.getBudget()));
+ 		sql  = sql.replace("#{actual_budget}",String.valueOf(t.getActualBudget()));
+ 		sql  = sql.replace("#{submit_flag}",String.valueOf(t.getSubmitFlag()));
+ 		sql  = sql.replace("#{approve_state}",String.valueOf(t.getApproveState()));
+ 		sql  = sql.replace("#{delete_flag}",String.valueOf(t.getDeleteFlag()));
+ 		sql  = sql.replace("#{UUID}",UUID.randomUUID().toString());
+ 		return sql;
+ 	}
+	@Override
+	public boolean submitApprove(String ids, Integer sUBMIT,Integer aPPROVING) {
+		// TODO Auto-generated method stub
+		String[] splitIds = ids.split(",");
+		for(String id:splitIds){
+			MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+			if(m!=null){
+				m.setSubmitFlag(sUBMIT);
+				m.setApproveState(aPPROVING);
+				this.save(m);
+				//MQ同步
+				if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+					//初始化店铺队列
+					MaroShopEntity maroShop = this.get(MaroShopEntity.class, m.getShopId());
+					TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+					try {
+						MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseSubmitApprove", id,sUBMIT,aPPROVING);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean approvePass(String ids, Date date, Integer wORKING, Integer aPPROVE_PASS) {
+		// TODO Auto-generated method stub
+		String[] splitIds = ids.split(",");
+		for(String id:splitIds){
+			MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+			if(m!=null){
+				m.setStartTime(date);
+				m.setSubmitFlag(wORKING);
+				m.setApproveState(aPPROVE_PASS);
+				this.save(m);
+				//MQ同步
+				if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+					//初始化店铺队列
+					MaroShopEntity maroShop = this.get(MaroShopEntity.class, m.getShopId());
+					TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+					try {
+						MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseApprovePass", id,date,wORKING,aPPROVE_PASS);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean approveNotPass(String ids, Integer aPPROVE_NOT_PASS) {
+		// TODO Auto-generated method stub
+		String[] splitIds = ids.split(",");
+		for(String id:splitIds){
+			MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+			if(m!=null){
+				m.setApproveState(aPPROVE_NOT_PASS);
+				this.save(m);
+				//MQ同步
+				if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+					//初始化店铺队列
+					MaroShopEntity maroShop = this.get(MaroShopEntity.class, m.getShopId());
+					TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+					try {
+						MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseApproveNotPass", id,aPPROVE_NOT_PASS);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean PutInStorage(List<MaroPurchaseDetailEntity> maroPurchaseDetailList,String shopId) {
+		// TODO Auto-generated method stub
+		if(maroPurchaseDetailList!=null&&maroPurchaseDetailList.size()>0){
+			//更新库存
+			//this.updateStoreHouse(maroPurchaseDetailList);
+			//更新流水
+			//this.updateStoreHouseFlow(maroPurchaseDetailList,shopId);
+		}
+		return true;
+	}
+	/**
+	 * 更新库存流水信息
+	 * @param purchaseDetails
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月8日
+	 * @version
+	 * @param shopId 
+	 */
+	private void updateStoreHouseFlow(
+			List<MaroPurchaseDetailEntity> purchaseDetails,String shopId) {
+		// TODO Auto-generated method stub
+		for(MaroPurchaseDetailEntity ma:purchaseDetails){
+		}
+	}
+	/**
+	 * 更新库存
+	 * @param purchaseDetails
+	 * @author gongdaohai
+	 * @since v1.0,2018年4月8日
+	 * @version
+	 * @param shopId 
+	 */
+	private void updateStoreHouse(List<MaroPurchaseDetailEntity> purchaseDetails) {
+		// TODO Auto-generated method stub
+		/*for(MaroPurchaseDetailEntity ma:purchaseDetails){
+			MaroStoreGoodsEntity maroStoreGoodsEntity=null;
+			String storeId=ma.getStoreId();//仓库id
+			String goodsId=ma.getMaterialClassId();//原料id
+			String labelCode=ma.getLabelCode();
+			String number=ma.getNumber().toString();
+			if(labelCode!=null&&!"".equals(labelCode)){
+				maroStoreGoodsEntity=maroPurchaseDao.getMaroStoreGoodsEntity(storeId,goodsId,labelCode);
+				if(maroStoreGoodsEntity==null){
+					maroStoreGoodsEntity=new MaroStoreGoodsEntity();
+					maroStoreGoodsEntity.setStoreId(storeId);
+					maroStoreGoodsEntity.setGoodsId(goodsId);
+					maroStoreGoodsEntity.setLabelCode(labelCode);
+					maroStoreGoodsEntity.setNumber(number);
+					this.save(maroStoreGoodsEntity);
+				}else{
+					maroStoreGoodsEntity.setNumber(String.valueOf(Double.valueOf(maroStoreGoodsEntity.getNumber())+Double.valueOf(number)));
+					this.updateEntitie(maroStoreGoodsEntity);
+				}
+			}else{
+				maroStoreGoodsEntity=maroPurchaseDao.getMaroStoreGoodsEntity(storeId,goodsId);
+				if(maroStoreGoodsEntity==null){
+					maroStoreGoodsEntity=new MaroStoreGoodsEntity();
+					maroStoreGoodsEntity.setStoreId(storeId);
+					maroStoreGoodsEntity.setGoodsId(goodsId);
+					maroStoreGoodsEntity.setNumber(number);
+					this.save(maroStoreGoodsEntity);
+				}else{
+					maroStoreGoodsEntity.setNumber(String.valueOf(Double.valueOf(maroStoreGoodsEntity.getNumber())+Double.valueOf(number)));
+					this.updateEntitie(maroStoreGoodsEntity);
+				}
+			}
+		}*/
+	}
+
+	@Override
+	public boolean check(String ids,Integer flag) {
+		// TODO Auto-generated method stub
+		String[] splitIds = ids.split(",");
+		for(String id:splitIds){
+			MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+			if(m.getSubmitFlag().intValue()!=flag.intValue()){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean finishPurchase(String id, Integer aPPROVE_PASS, Integer wORKING, Integer fINISH) {
+		// TODO Auto-generated method stub
+		MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+		if(m.getApproveState().intValue()==aPPROVE_PASS.intValue()){
+			if(m.getSubmitFlag().intValue()==wORKING.intValue()){
+				//设置提交负状态为采购完成
+				m.setSubmitFlag(fINISH);
+				this.saveOrUpdate(m);
+				//MQ同步
+				if(ResourceUtil.getParameter("fromPath")==null||ResourceUtil.getParameter("fromPath").equals("")){
+					//初始化店铺队列
+					MaroShopEntity maroShop = this.get(MaroShopEntity.class, m.getShopId());
+					TSDepart tsDepart = this.get(TSDepart.class, maroShop.getDepartId());
+					try {
+						MqUtil.remoteOpt(tsDepart.getOrgCode(), "mqController", "purchaseFinishPurchase", id,aPPROVE_PASS,wORKING,fINISH);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean canPutInStore(String id, Integer fINISH) {
+		// TODO Auto-generated method stub
+		MaroPurchaseEntity m=this.get(MaroPurchaseEntity.class, id);
+		if(m.getSubmitFlag().intValue()==fINISH.intValue()){
+			return true;
+		}
+		return false;
+	}
+}

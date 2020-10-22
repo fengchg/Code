@@ -1,0 +1,18 @@
+package com.maro.manager.specialoffer.dao;
+
+import org.jeecgframework.minidao.annotation.Arguments;
+import org.jeecgframework.minidao.annotation.Sql;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
+@Repository
+public interface MaroSpecialOfferDao {
+    @Sql("SELECT t.buy_dishes_id buyid,(SELECT dishes_name from maro_dishes where id=t.buy_dishes_id) buyname,t.buy_number buynum,t.free_dishes_id freeid,(SELECT dishes_name from maro_dishes where id=t.free_dishes_id) freename,t.free_number freenum,t.is_add from maro_special_offer t where t.is_enable is null or t.is_enable='Y'")
+    List<Map> getOfferDetailAll();
+
+    @Arguments("shopId")
+    @Sql("SELECT t.buy_dishes_id buyid,(SELECT dishes_name from maro_dishes where id=t.buy_dishes_id) buyname,t.buy_number buynum,t.free_dishes_id freeid,(SELECT dishes_name from maro_dishes where id=t.free_dishes_id) freename,t.free_number freenum,t.is_add from maro_special_offer t where t.shop_id=:shopId and t.is_enable is null or t.is_enable='Y'")
+    List<Map> getOfferDetail(String shopId);
+}

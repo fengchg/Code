@@ -1,0 +1,14 @@
+#Tue Apr 19 21:18:46 CST 2016
+eclipse.preferences.version=1
+encoding//WebRoot/phone/pages/bookList.html=UTF-8
+encoding//WebRoot/phone/pages/bookNew.html=UTF-8
+encoding//WebRoot/phone/pages/borrow-read.html=UTF-8
+encoding//WebRoot/phone/pages/borrowBook.html=UTF-8
+encoding//WebRoot/phone/pages/borrowList.html=UTF-8
+encoding//WebRoot/phone/pages/categoryList.html=UTF-8
+encoding//WebRoot/phone/pages/categoryNew.html=UTF-8
+encoding//WebRoot/phone/pages/register.html=UTF-8
+encoding//WebRoot/phone/pages/selectUser.html=UTF-8
+encoding//WebRoot/phone/pages/userInfo.html=UTF-8
+encoding//WebRoot/phone/pages/userList.html=UTF-8
+encoding//src/org/fengcg/lms/action/PhoneAction.java=UTF-8

@@ -1,0 +1,28 @@
+SingleReturnDishes s = new SingleReturnDishes();
+		s.setSeatName("2号桌");
+		s.setNumber("3");
+		s.setQuitDishesTime("2018-01-44 15:54:15");
+		s.setBillMark("6546541");
+		s.setWaiter("何小小");
+		
+		List<SettleAccountsDishes> dishesList = new ArrayList<SettleAccountsDishes>();
+		SettleAccountsDishes sad = new SettleAccountsDishes();
+		sad.setDishesName("西红柿炒番茄2");
+		sad.setShuLiang("1");
+		sad.setUnit("份");
+		dishesList.add(sad);
+		SettleAccountsDishes sad1 = new SettleAccountsDishes();
+		sad1.setDishesName("蚂蚁辣椒2");
+		sad1.setShuLiang("1");
+		sad1.setUnit("份");
+		dishesList.add(sad1);
+		SettleAccountsDishes sad2 = new SettleAccountsDishes();
+		sad2.setDishesName("回味小农炒2");
+		sad2.setShuLiang("1");
+		sad2.setUnit("份");
+		dishesList.add(sad2);
+		
+		s.setDishesList(dishesList);
+		
+		s.setRemark("不加辣");
+		s.setCause("上菜慢");

@@ -1,0 +1,56 @@
+[2018-06-29 01:00:00] [INFO] [com.maro.platform.core.util.LogUtil:228] [com.maro.platform.core.timer.Job:oneOClockPerDay():25] - 1h
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.platform.web.system.dao.JeecgDictDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.common.dao.UtilDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.dishes.dao.MaroDishesDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.materialclass.dao.MaroMaterialClassDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsfoodcosts.dao.MaroSpecificationsFoodCostsDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.dishes.specificationsprice.dao.MaroSpecificationsPriceDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.mq.dao.MqDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.shop.reserve.dao.MaroClientReserveDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.shop.shop.dao.MaroShopDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.store.purchase.dao.MaroPurchaseDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.store.storeflow.dao.MaroStoreFlowDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.manager.store.storegoods.dao.MaroStoreGoodsDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.dishes.dishes.dao.MaroCommonDishesDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.finance.account.dao.MaroCommonAccountDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.finance.operatin.dao.MaroCommonOperatinDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.shop.dao.MaroCommonShopDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.users.member.dao.MaroCommonMemberDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.common.users.tsuser.dao.MaroCommonUserServiceDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.client.module.machinenumber.dao.MaroMachineNumberDao }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.client.module.serverorder.dao.MaroClientServerorderDAO }
+[2018-06-29 20:50:06] [INFO] [org.jeecgframework.minidao.aop.MiniDaoHandler:48] register minidao name is { com.maro.client.module.serverorder.dao.ServerOrderApplyDao }
+[2018-06-29 20:50:06] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:111] Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+[2018-06-29 20:50:07] [INFO] [com.alibaba.druid.pool.DruidDataSource:450] {dataSource-1} inited
+[2018-06-29 20:50:08] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-06-29 20:50:09] [INFO] [org.quartz.core.SchedulerSignalerImpl:63] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-06-29 20:50:09] [INFO] [org.quartz.core.QuartzScheduler:215] Quartz Scheduler v.1.6.2 created.
+[2018-06-29 20:50:09] [INFO] [org.quartz.simpl.RAMJobStore:141] RAMJobStore initialized.
+[2018-06-29 20:50:09] [INFO] [org.quartz.impl.StdSchedulerFactory:1224] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-06-29 20:50:09] [INFO] [org.quartz.impl.StdSchedulerFactory:1228] Quartz scheduler version: 1.6.2
+[2018-06-29 20:50:09] [INFO] [org.quartz.core.QuartzScheduler:2094] JobFactory set to: com.maro.platform.web.system.sms.util.JQuartzJobFactory@173728a7
+[2018-06-29 20:50:10] [INFO] [com.maro.platform.core.timer.DynamicTask:175]  register time task class num is [0] 
+[2018-06-29 20:50:11] [INFO] [com.maro.platform.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-06-29 20:50:11] [INFO] [org.quartz.core.QuartzScheduler:461] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-06-29 20:50:11] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-06-29 20:50:11] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-06-29 20:50:11] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references
+[2018-06-29 20:50:14] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:84] Context refreshed
+[2018-06-29 20:50:14] [INFO] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:87] Found 1 custom documentation plugin(s)
+[2018-06-29 20:50:14] [INFO] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:44] Scanning for api listing references

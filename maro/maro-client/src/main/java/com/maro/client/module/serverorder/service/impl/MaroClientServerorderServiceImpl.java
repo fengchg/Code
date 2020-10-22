@@ -1,0 +1,497 @@
+package com.maro.client.module.serverorder.service.impl;
+
+import com.maro.client.common.constant.enumconstant.CommonTypeEnum;
+import com.maro.client.common.constant.enumconstant.MakeBillTypeEnum;
+import com.maro.client.common.constant.enumconstant.ServerOrderLogTypeEnum;
+import com.maro.client.common.constant.enumconstant.ServerOrderStatusEnum;
+import com.maro.client.common.dao.ClientCommonDao;
+import com.maro.client.module.reserve.pojo.entity.MaroClientReserveDO;
+import com.maro.client.module.serverorder.pojo.dto.*;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientFoodorderDO;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientPayedDO;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.client.module.serverorder.service.MaroClientServerorderService;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.shop.pojo.entity.MaroShopSeatEntity;
+import com.maro.common.users.tsuser.pojo.vo.UserInfoVO;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.core.util.StringUtil;
+import com.maro.platform.web.cgform.exception.BusinessException;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * 服务订单服务实现
+ * @author 冯成果
+ * @date 2018-3-26
+ * @since 01.00.0001
+*/
+@Service
+public class MaroClientServerorderServiceImpl implements MaroClientServerorderService {
+    @Resource
+    private ClientCommonDao dao;
+
+
+    final String UPDATE_STATUS_SQL = "update maro_client__serverorder set status = ? where id = ?";
+    final String UPDATE_AMOUNT_SQL = "update maro_client__serverorder set amount = ? where id = ?";
+    final String UPDATE_SEAT_SQL = "update maro_client__serverorder set seat_id = ?,seat_code=?,seat_name=?,type=?,type_string=? where id = ?";
+    final String  SQL_UPDATE_MERGESERVERORDER = "update maro_client__serverorder set merge_serverorder_id=?,status=? where id=?";
+    final String  SQL_UPDATE_CANCELMERGESERVERORDER_1 = "update maro_client__serverorder set merge_serverorder_id=?,status=?,amount=? where id=?";
+    final String SQL_UPDATE_CANCELMERGESERVERORDER = "update maro_client__serverorder set payed_deposit = ?,amount=?,receivable_amount=? where id = ?";
+    final String SQL_UPDATE_UPDATESERVERORDER = "update maro_client__serverorder set person_number = ?,remark=?,waiter_id=?,waiter_name=? where id = ?";
+
+    final String SQL_UPDATE_CLEAR = "update maro_client__serverorder set status = ?,end_time=? where id = ?";
+    final String SQL_UPDATE_ORDERFOOD = "update maro_client__serverorder set kitchen_notify = ?,remark=? where id=?";
+    final String SQL_UPDATE_ORDERFOOD1 = "update maro_client__serverorder set kitchen_notify = ? where id=?";
+
+    @Override
+    public MaroClientServerorderDO saveServerOrderDO(MaroClientServerorderDO maroClientServerorderDO) {
+        String id = (String) dao.save(maroClientServerorderDO);
+        maroClientServerorderDO.setId(id);
+        return maroClientServerorderDO;
+    }
+
+    @Override
+    public List<MaroClientServerorderDO> listServerOrderDO(MaroClientServerorderDTO maroClientServerorderDTO) {
+        //根据参数拼接where条件
+        return dao.list("from MaroClientServerorderDO");
+    }
+
+    @Override
+    public MaroClientServerorderDO getServerOrderDObyId(String id) {
+        return dao.get(MaroClientServerorderDO.class,id);
+    }
+
+    @Override
+    public <T> void updateServerOrderDO(MaroClientServerorderDO maroClientServerorderDO) {
+        dao.updateEntitie(maroClientServerorderDO);
+    }
+
+    @Override
+    public void updateServerOrderDOStatus(String id, Integer status) {
+        dao.executeUpdateSql(UPDATE_STATUS_SQL,status,id);
+    }
+
+    @Override
+    public List<MaroClientServerorderDO> listOpenServerorder() {
+//        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+//        String shopId = sessionUser.getMaroShopEntity().getId();
+
+        String shopId = "32c4e41832bf4e8d8bb85e1c698d6fca";
+        String hql = "from MaroClientServerorderDO d where status in (?,?,?,?) and restaurantId=?";
+        List<MaroClientServerorderDO> list = dao.list(hql, ServerOrderStatusEnum.OPEN.getCode(), ServerOrderStatusEnum.ORDER.getCode(), ServerOrderStatusEnum.PAY.getCode(), ServerOrderStatusEnum.CLOSE.getCode(),shopId);
+        return list;
+    }
+
+    @Override
+    public List<MaroClientServerorderDO> listTypeIsNullServerorder(){
+        String hql = "from MaroClientServerorderDO d where status!=?";
+        List<MaroClientServerorderDO> list = dao.list(hql,ServerOrderStatusEnum.FINISH.getCode());
+        return list;
+    }
+
+    @Override
+    public void updateAmount(String serverorderId, BigDecimal foodAmount,BigDecimal payedAmount){
+        MaroClientServerorderDO maroClientServerorderDO = getServerOrderDObyId(serverorderId);
+        //订单金额
+        BigDecimal amount = maroClientServerorderDO.getAmount();
+        //应收金额
+        BigDecimal receivableAmount = maroClientServerorderDO.getReceivableAmount();
+        //实收金额
+        BigDecimal collectedAmount = maroClientServerorderDO.getCollectedAmount();
+        //折扣
+        BigDecimal discount = maroClientServerorderDO.getDiscount();
+        //已付订金
+        Integer payedDeposit = maroClientServerorderDO.getPayedDeposit();
+        BigDecimal discountAmount = maroClientServerorderDO.getDiscountAmount();
+        //支付金额
+//        BigDecimal payAmount = maroClientServerorderDO.getPayAmount();
+        //服务费
+        BigDecimal serviceCharge = maroClientServerorderDO.getServiceCharge();
+
+
+//        if(!foodAmount.equals(amount) || !collectedAmount.equals(payedAmount)){
+            amount = foodAmount;
+            collectedAmount = payedAmount;
+            //receivableAmount = (amount + serviceCharge - payedDeposit) - amount * discount
+            //应收金额 = 订单金额*折扣+服务费-已付定金-已经支付
+            //应收金额 = 订单金额+服务费-已付定金-已经支付
+            if(discountAmount == null){
+                discountAmount = BigDecimal.ZERO;
+            }
+            receivableAmount =  amount.add(serviceCharge).subtract(new BigDecimal(payedDeposit)).subtract(collectedAmount);
+
+
+        //已支付
+//        if(isSeatPayed){
+//            payedDeposit = 0;
+//        }
+
+        Integer status = maroClientServerorderDO.getStatus();
+        //应收金额为空（支付完成）并且有了点餐金额
+        if(receivableAmount.doubleValue() <= 0.0 && foodAmount.doubleValue() > 0.0){
+            status = ServerOrderStatusEnum.PAY.getCode();
+        }
+        if(collectedAmount.equals(amount)){
+            dao.executeUpdateSql("update maro_client__serverorder set amount = ?,collected_amount=?,receivable_amount=?,status=? where id = ?",amount,collectedAmount,receivableAmount,status,serverorderId);
+        }else{
+            dao.executeUpdateSql("update maro_client__serverorder set status=?,amount = ?,collected_amount=?,receivable_amount=? where id = ?",ServerOrderStatusEnum.OPEN.getCode(),amount,collectedAmount,receivableAmount,serverorderId);
+        }
+
+//        }
+
+
+    }
+
+    @Override
+    public void changeSeat(SeatchangeParamsDTO seatchangeParamsDTO) {
+        MaroShopSeatEntity destMaroShopSeatEntity = seatchangeParamsDTO.getDestMaroShopSeatEntity();
+        String seatId = destMaroShopSeatEntity.getId();
+        String name = destMaroShopSeatEntity.getName();
+        String serverorderId = seatchangeParamsDTO.getMaroClientServerorderDO().getId();
+        MaroClientServerorderDO maroClientServerorderDO = getServerOrderDObyId(serverorderId);
+        Integer type = maroClientServerorderDO.getType() == null ? 0:maroClientServerorderDO.getType();
+        type = type.intValue() + ServerOrderLogTypeEnum.CHANGE_SEAT.getCode();
+        String typeString = maroClientServerorderDO.getTypeString() + "-" + ServerOrderLogTypeEnum.CHANGE_SEAT.getName();
+        dao.executeUpdateSql(UPDATE_SEAT_SQL,seatId,seatId,name,type,typeString,serverorderId);
+
+    }
+
+    @Override
+    public void mergeListSeat(List<SeatchangeParamsDTO> seatchangeParamsDTOList) {
+        SeatchangeParamsDTO leadMergeSeatchangeParamsDTO = seatchangeParamsDTOList.get(0);
+        MaroClientServerorderDO leadMergeMaroClientServerorderDO = leadMergeSeatchangeParamsDTO.getMaroClientServerorderDO();
+//        MaroShopSeatEntity leadMergeMaroShopSeatEntity = leadMergeSeatchangeParamsDTO.getMergeMaroShopSeatEntity();
+//        leadMergeMaroClientServerorderDO = getServerOrderDObyId(leadMergeMaroClientServerorderDO.getId());
+//        leadMergeSeatchangeParamsDTO.setMaroClientServerorderDO(leadMergeMaroClientServerorderDO);
+
+        for(int i=1;i<seatchangeParamsDTOList.size();i++){
+            SeatchangeParamsDTO seatchangeParamsDTO = seatchangeParamsDTOList.get(i);
+
+            MaroClientServerorderDO maroClientServerorderDO = seatchangeParamsDTO.getMaroClientServerorderDO();
+
+            if (maroClientServerorderDO != null && !StringUtil.isEmpty(maroClientServerorderDO.getId())) {
+                maroClientServerorderDO = getServerOrderDObyId(maroClientServerorderDO.getId());
+
+                mergeServerOrder(leadMergeMaroClientServerorderDO, maroClientServerorderDO);
+                seatchangeParamsDTO.setCancelMergeMaroClientServerorderDO(maroClientServerorderDO);
+
+                dao.executeUpdateSql(SQL_UPDATE_CANCELMERGESERVERORDER,leadMergeMaroClientServerorderDO.getPayedDeposit(),leadMergeMaroClientServerorderDO.getAmount(),leadMergeMaroClientServerorderDO.getReceivableAmount(),leadMergeMaroClientServerorderDO.getId());
+
+
+                dao.executeUpdateSql(SQL_UPDATE_MERGESERVERORDER,leadMergeMaroClientServerorderDO.getId(),ServerOrderStatusEnum.INVALID.getCode(),maroClientServerorderDO.getId());
+//                updateServerOrderDOStatus(maroClientServerorderDO.getId(), ServerOrderStatusEnum.INVALID.getCode());
+            }
+        }
+
+    }
+
+    @Override
+    public void cancelMergeSeat(SeatchangeParamsDTO seatchangeParamsDTO) throws BusinessException {
+        MaroClientServerorderDO leadMergeMaroClientServerorderDO = seatchangeParamsDTO.getMaroClientServerorderDO();
+        String serverorderId = leadMergeMaroClientServerorderDO.getId();
+        MaroShopSeatEntity mergeMaroShopSeatEntity = seatchangeParamsDTO.getMergeMaroShopSeatEntity();
+        String seatId = mergeMaroShopSeatEntity.getId();
+        String hql = " from MaroClientServerorderDO where mergeServerorderId=? and seatId=?";
+        List<MaroClientServerorderDO> list = dao.list(hql, serverorderId, seatId);
+        if(list.size() > 0) {
+            MaroClientServerorderDO maroClientServerorderDO = list.get(0);
+            MaroClientServerorderDO cancelMergeMaroClientServerorderDO = seatchangeParamsDTO.getCancelMergeMaroClientServerorderDO();
+
+            BigDecimal amount = cancelMergeMaroClientServerorderDO.getAmount();
+            cancelMergeServerOrder(leadMergeMaroClientServerorderDO, maroClientServerorderDO);
+            seatchangeParamsDTO.setCancelMergeMaroClientServerorderDO(maroClientServerorderDO);
+            dao.executeUpdateSql(SQL_UPDATE_CANCELMERGESERVERORDER, leadMergeMaroClientServerorderDO.getPayedDeposit(), leadMergeMaroClientServerorderDO.getAmount(), leadMergeMaroClientServerorderDO.getReceivableAmount(), leadMergeMaroClientServerorderDO.getId());
+//            dao.executeUpdateSql(SQL_UPDATE_CANCELMERGESERVERORDER_1,null,ServerOrderStatusEnum.OPEN.getCode(),amount,maroClientServerorderDO.getId());
+            maroClientServerorderDO.setAmount(amount);
+            maroClientServerorderDO.setStatus(ServerOrderStatusEnum.OPEN.getCode());
+            maroClientServerorderDO.setMergeServerorderId(null);
+        }else{
+            MaroClientServerorderDO newMaroClientServerorderDO = createDO(null, null, mergeMaroShopSeatEntity,seatchangeParamsDTO.getMaroShopEntity());
+            saveServerOrderDO(newMaroClientServerorderDO);
+            seatchangeParamsDTO.setCancelMergeMaroClientServerorderDO(newMaroClientServerorderDO);
+            dao.executeUpdateSql(SQL_UPDATE_CANCELMERGESERVERORDER_1,"",ServerOrderLogTypeEnum.OPEN.getCode(),0,newMaroClientServerorderDO.getId());
+        }
+    }
+    private MaroClientServerorderDO createDO(MaroClientReserveDO maroClientReserveDO, MaroClientServerorderDO maroClientServerorderDOParam, MaroShopSeatEntity maroShopSeatEntity, MaroShopEntity maroShopEntity){
+
+        MaroClientServerorderDO maroClientServerorderDO = null;
+        if(maroClientServerorderDOParam == null){
+            maroClientServerorderDO = new MaroClientServerorderDO();
+        }else{
+            maroClientServerorderDO = maroClientServerorderDOParam;
+        }
+
+        maroClientServerorderDO.setPayedDeposit(0);
+        if(maroClientReserveDO != null){
+            maroClientServerorderDO.setReserveId(maroClientReserveDO.getId());
+            maroClientServerorderDO.setCustomerName(maroClientReserveDO.getCustomerName());
+            maroClientServerorderDO.setPhone(maroClientReserveDO.getPhone());
+            maroClientServerorderDO.setPayedDeposit(maroClientReserveDO.getDeposit());
+        }
+        maroClientServerorderDO.setId(UUID.randomUUID().toString());
+//        maroClientServerorderDO.setCode(getCode());
+        //从session中获取用户所在的店铺ID和店铺名称
+        maroClientServerorderDO.setRestaurantId(maroShopEntity.getId());
+        maroClientServerorderDO.setRestaurantName(maroShopEntity.getName());
+        maroClientServerorderDO.setAmount(new BigDecimal(0));
+        maroClientServerorderDO.setBeginTime(System.currentTimeMillis());
+        maroClientServerorderDO.setServiceCharge(new BigDecimal(0));
+        maroClientServerorderDO.setDiscount(BigDecimal.ONE);
+        maroClientServerorderDO.setStatus(ServerOrderStatusEnum.OPEN.getCode());
+
+        maroClientServerorderDO.setSeatId(maroShopSeatEntity.getId());
+        maroClientServerorderDO.setSeatCode(maroShopSeatEntity.getId());
+        maroClientServerorderDO.setSeatName(maroShopSeatEntity.getName());
+        maroClientServerorderDO.setSend(CommonTypeEnum.SEND_FLAG_NO.getCode());
+        maroClientServerorderDO.setMakeBillType(MakeBillTypeEnum.NO_MAKE.getCode());
+        return maroClientServerorderDO;
+    }
+
+
+    @Override
+    public MaroClientServerorderDO open(MaroClientServerorderParamsDTO maroClientServerorderParamsDTO) {
+        MaroClientServerorderDO maroClientServerorderDO = createDO(maroClientServerorderParamsDTO.getMaroClientReserveDO(), maroClientServerorderParamsDTO.getMaroClientServerorderDO(), maroClientServerorderParamsDTO.getMaroShopSeatEntity(),maroClientServerorderParamsDTO.getMaroShopEntity());
+        MaroClientServerorderDO serverorderDO = saveServerOrderDO(maroClientServerorderDO);
+        maroClientServerorderParamsDTO.setMaroClientServerorderDO(serverorderDO);
+        return serverorderDO;
+    }
+
+    private void cancelMergeServerOrder(MaroClientServerorderDO leadMergeMaroClientServerorderDO, MaroClientServerorderDO maroClientServerorderDO) {
+        BigDecimal amount = getBigDecimal(leadMergeMaroClientServerorderDO.getAmount());
+        BigDecimal amount1 = getBigDecimal(maroClientServerorderDO.getAmount());
+        BigDecimal receivableAmount = getBigDecimal(leadMergeMaroClientServerorderDO.getReceivableAmount());
+        BigDecimal receivableAmount1 =getBigDecimal(maroClientServerorderDO.getReceivableAmount());
+        Integer payedDeposit = getInteger(leadMergeMaroClientServerorderDO.getPayedDeposit());
+        Integer payedDeposit1 = getInteger(maroClientServerorderDO.getPayedDeposit());
+        amount = amount.subtract(amount1);
+        receivableAmount = receivableAmount.subtract(receivableAmount1);
+        payedDeposit = payedDeposit-payedDeposit1;
+
+        leadMergeMaroClientServerorderDO.setAmount(amount);
+        leadMergeMaroClientServerorderDO.setReceivableAmount(receivableAmount);
+        leadMergeMaroClientServerorderDO.setPayedDeposit(payedDeposit);
+
+    }
+
+    private void mergeServerOrder(MaroClientServerorderDO leadMergeMaroClientServerorderDO, MaroClientServerorderDO maroClientServerorderDO) {
+        BigDecimal amount = getBigDecimal(leadMergeMaroClientServerorderDO.getAmount());
+        BigDecimal amount1 = getBigDecimal(maroClientServerorderDO.getAmount());
+        BigDecimal receivableAmount = getBigDecimal(leadMergeMaroClientServerorderDO.getReceivableAmount());
+        BigDecimal receivableAmount1 =getBigDecimal(maroClientServerorderDO.getReceivableAmount());
+        Integer payedDeposit = getInteger(leadMergeMaroClientServerorderDO.getPayedDeposit());
+        Integer payedDeposit1 = getInteger(maroClientServerorderDO.getPayedDeposit());
+        amount = amount.add(amount1);
+        receivableAmount = receivableAmount.add(receivableAmount1);
+        payedDeposit = payedDeposit+payedDeposit1;
+
+        leadMergeMaroClientServerorderDO.setAmount(amount);
+        leadMergeMaroClientServerorderDO.setReceivableAmount(receivableAmount);
+        leadMergeMaroClientServerorderDO.setPayedDeposit(payedDeposit);
+
+    }
+    @Override
+    public void updateServerorder(MaroClientServerorderDO maroClientServerorderDO) {
+        String id = maroClientServerorderDO.getId();
+        String remark = maroClientServerorderDO.getRemark();
+        Integer personNumber = maroClientServerorderDO.getPersonNumber();
+        String waiterId = maroClientServerorderDO.getWaiterId();
+        String waiterName = maroClientServerorderDO.getWaiterName();
+        dao.executeUpdateSql(SQL_UPDATE_UPDATESERVERORDER,personNumber,remark,waiterId,waiterName,id);
+    }
+
+    @Override
+    public void pay(PayParamsDTO payParamsDTO) {
+        MaroClientPayedDO maroClientPayedDO = payParamsDTO.getMaroClientPayedDO();
+        BigDecimal payAmount = maroClientPayedDO.getAmount();
+        String serverorderId = payParamsDTO.getMaroClientServerorderDO().getId();
+        MaroClientServerorderDO maroClientServerorderDO = getServerOrderDObyId(serverorderId);
+        //订单金额
+        BigDecimal amount = maroClientServerorderDO.getAmount();
+        //实收金额
+        BigDecimal collectedAmount = maroClientServerorderDO.getCollectedAmount();
+
+        BigDecimal smallChange = payParamsDTO.getMaroClientServerorderDO().getSmallChange();
+        BigDecimal old_smallChange = maroClientServerorderDO.getSmallChange();
+        BigDecimal billMoney = payParamsDTO.getMaroClientServerorderDO().getBillMoney();
+        Integer makeBillType = payParamsDTO.getMaroClientServerorderDO().getMakeBillType();
+        //已经支付定金
+        Integer payedDeposit = maroClientServerorderDO.getPayedDeposit();
+
+
+
+        if(old_smallChange == null){
+            old_smallChange = BigDecimal.ZERO;
+        }
+        if(smallChange == null){
+            smallChange = BigDecimal.ZERO;
+        }
+        if(collectedAmount == null){
+            collectedAmount = BigDecimal.ZERO;
+        }
+        //抹零金额叠加
+        smallChange  = smallChange.add(old_smallChange);
+        collectedAmount = collectedAmount.add(payAmount);
+        Integer status = ServerOrderStatusEnum.OPEN.getCode();
+        //实际收费+抹零等于订单金额
+        BigDecimal collectedAmountTemp = collectedAmount.add(smallChange).add(new BigDecimal(payedDeposit));
+        if(collectedAmountTemp.equals(amount) || maroClientServerorderDO.getOpenId() != null){
+            status = ServerOrderStatusEnum.PAY.getCode();
+        }
+        Integer payType = payParamsDTO.getMaroClientPayedDO().getPayType();
+        Integer payTerminal = payParamsDTO.getMaroClientPayedDO().getPayTerminal();
+        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+        String memberId = payParamsDTO.getMaroClientServerorderDO().getMemberId();
+        String memberName = payParamsDTO.getMaroClientServerorderDO().getMemberName();
+        String memberPhone = payParamsDTO.getMaroClientServerorderDO().getMemberPhone();
+//        dao.executeUpdateSql("update maro_client__serverorder set status = ?,collected_amount=?,small_change=?,make_bill_type=?,bill_money=?,cashier_id=?,cashier_name=?,pay_type=?,pay_terminal=?,pay_time=?,member_id=?,member_name=?,member_phone=? where id = ?",status,collectedAmount,smallChange,makeBillType,billMoney,sessionUser.getId(),sessionUser.getRealName(),payType,payTerminal,System.currentTimeMillis(),memberId,memberName,memberPhone,serverorderId);
+        //结账定金清零
+        maroClientServerorderDO.setPayedDeposit(0);
+        maroClientServerorderDO.setStatus(status);
+        maroClientServerorderDO.setCollectedAmount(collectedAmount);
+        maroClientServerorderDO.setSmallChange(smallChange);
+        maroClientServerorderDO.setMakeBillType(makeBillType);
+        maroClientServerorderDO.setBillMoney(billMoney);
+        maroClientServerorderDO.setCashierId(sessionUser.getId());
+        maroClientServerorderDO.setCashierName(sessionUser.getRealName());
+        maroClientServerorderDO.setPayType(payType);
+        maroClientServerorderDO.setPayTerminal(payTerminal);
+        maroClientServerorderDO.setPayTime(System.currentTimeMillis());
+        maroClientServerorderDO.setMemberId(memberId);
+        maroClientServerorderDO.setMemberName(memberName);
+        maroClientServerorderDO.setMemberPhone(memberPhone);
+        Integer ruleFlag = payParamsDTO.getRuleFlag();
+
+        if(ruleFlag.intValue() == 0){//整单打折
+            BigDecimal disCount = payParamsDTO.getMaroClientServerorderDO().getDiscount().divide(new BigDecimal(10));
+            maroClientServerorderDO.setDiscount(disCount);
+            maroClientServerorderDO.setDiscountAmount(amount.multiply(BigDecimal.ONE.subtract(disCount)));
+        }
+
+        dao.updateEntitie(maroClientServerorderDO);
+        payParamsDTO.setMaroClientServerorderDO(maroClientServerorderDO);
+    }
+
+    @Override
+    public void clear(String serverOrderId) {
+        dao.executeUpdateSql(SQL_UPDATE_CLEAR,ServerOrderStatusEnum.FINISH.getCode(),System.currentTimeMillis(),serverOrderId);
+
+    }
+
+    @Override
+    public void orderFood(FoodOrderParamsDTO foodOrderParamsDTO) {
+        String serverorderId = foodOrderParamsDTO.getMaroClientServerorderDO().getId();
+        Integer kitchenNotify = foodOrderParamsDTO.getMaroClientServerorderDO().getKitchenNotify();
+        MaroClientServerorderDO serverOrderDO = getServerOrderDObyId(serverorderId);
+        foodOrderParamsDTO.setMaroClientServerorderDO(serverOrderDO);
+        String remark = getRemart(foodOrderParamsDTO);
+        if(!StringUtil.isEmpty(remark)) {
+            dao.executeUpdateSql(SQL_UPDATE_ORDERFOOD, kitchenNotify, remark, serverorderId);
+        }else{
+            dao.executeUpdateSql(SQL_UPDATE_ORDERFOOD1, kitchenNotify, serverorderId);
+        }
+    }
+
+    private String getRemart(FoodOrderParamsDTO foodOrderParamsDTO) {
+        String result = "";
+        List<MaroClientFoodorderDO> maroClientFoodorderDOList = foodOrderParamsDTO.getMaroClientFoodorderDOList();
+        if(maroClientFoodorderDOList != null && maroClientFoodorderDOList.size() > 0){
+            StringBuffer buffer = new StringBuffer();
+            for(int i=0;i<maroClientFoodorderDOList.size();i++){
+                MaroClientFoodorderDO foodorderDO = maroClientFoodorderDOList.get(i);
+                String remark = foodorderDO.getRemark();
+                if(!StringUtil.isEmpty(remark)){
+                    buffer.append(","+remark);
+                }
+            }
+            if(buffer.length() > 0){
+                result = buffer.substring(1);
+            }
+        }
+        return result;
+    }
+
+
+    @Override
+    public List<MaroClientServerorderDO> listFinishedServerorder() {
+        final String hql = " from MaroClientServerorderDO where send = ? and status = ?";
+        List<MaroClientServerorderDO> list = dao.list(hql, CommonTypeEnum.SEND_FLAG_NO.getCode(),ServerOrderStatusEnum.FINISH.getCode());
+        return list;
+    }
+
+    @Override
+    public void updateSendStatus(String serverorderId) {
+        final String SQL_UPDATE_UPDATESENDSTATUS = "update maro_client__serverorder set send=? where id = ?";
+        dao.executeUpdateSql(SQL_UPDATE_UPDATESENDSTATUS, CommonTypeEnum.SEND_FLAG_YES.getCode(),serverorderId);
+    }
+
+    @Override
+    public MaroClientServerorderDO getServerOrderByOpenId(String openId) {
+        final String SQL_GET_GETSERVERORDERBYOPENID = "from MaroClientServerorderDO where openId = ? and status in (?,?,?)";
+        List<MaroClientServerorderDO> list = dao.list(SQL_GET_GETSERVERORDERBYOPENID, openId, ServerOrderStatusEnum.OPEN.getCode(), ServerOrderStatusEnum.ORDER.getCode(), ServerOrderStatusEnum.PAY.getCode());
+        MaroClientServerorderDO maroClientServerorderDO = null;
+        if(list.size() > 0){
+            maroClientServerorderDO = list.get(0);
+        }else{
+            maroClientServerorderDO = null;
+        }
+        return maroClientServerorderDO;
+    }
+
+    @Override
+    public MaroClientServerorderDO getCurrentServerOrderBySeatId(String seatId){
+        final String SQL_GET_GETCURRENTSERVERORDERBYSEATID = "from MaroClientServerorderDO o where o.seatIdList like ? and o.status in (?,?,?) order by o.beginTime desc";
+        List<MaroClientServerorderDO> list = dao.list(SQL_GET_GETCURRENTSERVERORDERBYSEATID, "%"+seatId+"%", ServerOrderStatusEnum.OPEN.getCode(), ServerOrderStatusEnum.ORDER.getCode(), ServerOrderStatusEnum.PAY.getCode());
+        MaroClientServerorderDO maroClientServerorderDO = null;
+        if(list.size() > 0){
+            maroClientServerorderDO = list.get(0);
+        }else{
+            maroClientServerorderDO = null;
+        }
+        return maroClientServerorderDO;
+    }
+
+    @Override
+    public void updateServerOrderSeatchange(String orderId, String seatIds, String seatNames){
+        final String SQL_UPDATE_UPDATESERVERORDERSEATCHANGE = "update maro_client__serverorder set seat_id_list=?,seat_name_list=? where id = ?";
+        dao.executeUpdateSql(SQL_UPDATE_UPDATESERVERORDERSEATCHANGE,seatIds,seatNames,orderId);
+    }
+
+    private Integer getInteger(Integer value){
+        Integer returnValue = value == null ? 0 : value;
+        return returnValue;
+    }
+
+    private BigDecimal getBigDecimal(BigDecimal value){
+        BigDecimal returnValue = value == null ? BigDecimal.ZERO : value;
+        return returnValue;
+    }
+    @Override
+    public MaroClientServerorderDO getServerOrderDObySeatId(MaroShopSeatEntity maroShopSeatEntity){
+        String sql = "SELECT server_order_id FROM maro_client__serverorder so, maro_client_seatchange sc WHERE so.id = sc.server_order_id AND so.`status` IN (?,?,?) AND sc.delete_flag = ? and sc.dest_seat_id=? GROUP BY sc.dest_seat_id, sc.server_order_id";
+        Object obj = dao.getObjectBySql(sql, ServerOrderStatusEnum.OPEN.getCode(), ServerOrderStatusEnum.ORDER.getCode(), ServerOrderStatusEnum.PAY.getCode(), CommonTypeEnum.DELETE_FLAG_NO.getCode(), maroShopSeatEntity.getId());
+        if(obj == null){
+            return null;
+        }
+        String serverorderId = (String) obj;
+        return dao.get(MaroClientServerorderDO.class,serverorderId);
+    }
+
+    @Override
+    public List<MaroClientServerorderDO> listOpenServerorderToKitchen(){
+        UserInfoVO sessionUser = (UserInfoVO) ResourceUtil.getSessionUser();
+        String shopId = sessionUser.getMaroShopEntity().getId();
+        String hql = "from MaroClientServerorderDO d where status = ? and restaurantId=?";
+        List<MaroClientServerorderDO> list = dao.list(hql, ServerOrderStatusEnum.OPEN.getCode(),shopId);
+        return list;
+    }
+
+    @Override
+    public void updateServerOrderDOById(String shiftCode, String serverorderId) {
+        dao.executeUpdateSql("update maro_client__serverorder set shift_code=? where id=?",shiftCode,serverorderId);
+    }
+}

@@ -1,0 +1,15 @@
+package com.maro.manager.printtemplate.service;
+import java.io.Serializable;
+
+import com.maro.manager.printtemplate.entity.MaroPrintTemplateEntity;
+import com.maro.platform.core.common.service.CommonService;
+
+public interface MarpPrintTemplateServiceI extends CommonService{
+	
+ 	public void delete(MaroPrintTemplateEntity entity) throws Exception;
+ 	
+ 	public Serializable save(MaroPrintTemplateEntity entity) throws Exception;
+ 	
+ 	public void saveOrUpdate(MaroPrintTemplateEntity entity) throws Exception;
+ 	
+}

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>点餐</title>
+		<script type="text/javascript" src="js/setHtmlRem.js" ></script>
+		<link rel="shortcut icon" type="image/x-icon" href="#">
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+	</head>
+	<body>
+		<div class="container ub ub-ver" id="menu" v-cloak>
+			<div class="menu-title ub ub-pj">
+				<div class="menu-text" @click="back(0)">回主页</div>
+				<div class="menu-text">{{orderZo.deskName}}——点餐</div>
+			</div>
+			<div class="menu-container ub-f1 ub">
+				<div class="menu-main ub-f1 ub ub-ver">
+					<div class="menu-main-top clearfix">
+						<div class="menu-main-top-item fl" v-for="(item, index) in menuType" @click="menuSort(item)">
+							<button type="button" class="menu-main-top-btn" :class="{active: menuThis===item.typeId}">{{item.type}}</button>
+						</div>
+					</div>
+					<div class="menu-main-con ub-f1 clearfix">
+						<div class="menu-item ub ub-ver ub-pe" v-for="(item, index) in menu" @click="pick(item)" :class="{hide: menuThis!==item.typeId && menuThis!==-1}">
+							<div class="menu-item-top ub ub-ac">
+								<div class="menu-item-no">{{item.number}}</div>
+							</div>
+							<div class="menu-item-ctr ub ub-ac">
+								<div class="menu-item-text in2line">{{item.dishesName}}</div>
+							</div>
+							<div class="menu-item-btm ub ub-ac">
+								<div class="menu-item-text menu-item-money">{{item.salesPrice}}</div>
+							</div>
+							<div class="menu-item-badge-box" v-show="item.quantityAll">
+								<div class="menu-item-badge">{{item.quantityAll}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="menu-main-btm"></div>
+				</div>
+				<div class="menu-side ub ub-ver">
+					<div class="menu-order-data">
+						<dl class="menu-order-data-item ub">
+							<dt>桌位：</dt>
+							<dd class="ub-f1 inaline">{{orderZo.deskName}}</dd>
+						</dl>
+						<dl class="menu-order-data-item ub">
+							<dt>人数：</dt>
+							<dd class="ub-f1 inaline">{{orderZo.people}}</dd>
+						</dl>
+						<dl class="menu-order-data-item ub">
+							<dt>订单：</dt>
+							<dd class="ub-f1 inaline">{{orderComputed.sum}}</dd>
+						</dl>
+						<dl class="menu-order-data-item ub">
+							<dt>份数：</dt>
+							<dd class="ub-f1 inaline">{{orderComputed.piece}}</dd>
+						</dl>
+					</div>
+					<div class="menu-order-list tx-c ub-f1 ub ub-ver">
+						<div class="menu-order-list-head ub ub-ac">
+							<div class="menu-order-list-name">菜名</div>
+							<div class="menu-order-list-unit">单价</div>
+							<div class="menu-order-list-amount">数量</div>
+						</div>
+						<div class="menu-order-list-scroll ub-f1">
+							<div class="menu-order-list-row ub ub-ver ub-pc" v-for="(item, index) in pickMenu" @click="openSingleModal(item, index)">
+								<div class="ub ub-ac">
+									<div class="menu-order-list-name ub ub-ac">
+										<div class="menu-order-list-badge blue hide">急</div>
+										<div class="menu-order-list-badge green hide">即</div>
+										<div class="menu-order-list-badge orange hide">叫</div>
+										<div class="menu-order-list-badge orange" :class="item.type!=1? 'hide':''">赠</div>
+										<div class="menu-order-list-name-text ub-f1 tx-l">
+											{{item.foodName}}
+											<template v-if="item.spec&&item.specificationsList.length > 1">({{item.spec.name}})</template>
+											<template v-if="item.status!=-1">({{item.specificationsName}})</template>
+										</div>
+									</div>
+									<div class="menu-order-list-unit">
+										<span v-if="item.spec">{{item.spec.price}}</span>
+										<span v-if="item.price && item.status!=-1">{{item.price}}</span>
+									</div>
+									<div class="menu-order-list-amount">
+										<div class="ub ub-ac ub-pc" v-if="item.status===-1">
+											<div>{{item.quantity}}</div>
+											<!--<div class="menu-counter-btn" @click.stop="menuAdjust(item, index, -1)">-</div>-->
+											<!--<div class="menu-counter-num">{{item.quantity}}</div>-->
+											<!--<div class="menu-counter-btn" @click.stop="menuAdjust(item, index, 1)">+</div>-->
+										</div>
+										<div class="ub ub-ac ub-pc" v-else>
+											<div>{{item.quantity}}</div>
+											<div class="menu-order-list-status">{{item.statusText}}</div>
+											<div class="menu-order-list-status" v-if="item.status==4">{{item.urgeCount}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="menu-order-list-remark ub ub-ac hide">
+									<div class="menu-order-list-remark-text inaline">备注：</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="menu-order-btn ub">
+						<div class="menu-order-btn-item">
+							<button class="btns btns-silver" type="button" @click="back(1)">落单打厨</button>
+						</div>
+						<div class="menu-order-btn-item">
+							<button class="btns btns-silver" type="button" @click="more()">更多</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="dishRejectHistory" :class="{active:myModal===0}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="">
+					<div class="modal-head ub">
+						<div class="ub-f1">查看退菜</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="clsModal()">确定</button>
+					</div>
+					<div class="modal-body ub-f1">
+						<table class="modal-table modal-table-reject">
+							<tr class="modal-table-tr">
+								<!--<th>退菜时间</th>-->
+								<th>菜品名称</th>
+								<th>规格</th>
+								<th>数量</th>
+								<th>备注</th>
+							</tr>
+							<tr class="modal-table-tr" v-for="(item, index) in rejectList">
+								<!--<td>{{item.datetime}}</td>-->
+								<td>{{item.foodName}}</td>
+								<td>{{item.specificationsName}}</td>
+								<td>{{item.quantity}}</td>
+								<td>{{item.remark}}</td>
+							</tr>
+							<tr v-if="!rejectList.length">
+								<td colspan="5">无退菜记录</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="dishTrans" :class="{active:myModal===1||myModal===9}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&(myModal===1||myModal===9)">
+					<div class="modal-head ub">
+						<div class="ub-f1" v-if="myModal===1">{{orderZo.deskName}} 菜品转台</div>
+						<div class="ub-f1" v-if="myModal===9">多桌批量点餐</div>
+					</div>
+					<div class="modal-foot" v-if="objModal.menuList.length!==0">
+						<button type="button" class="btns btns-set" @click="pickModalMenuAll(1)">全选</button>
+						<button type="button" class="btns btns-set" @click="pickModalMenuAll(-1)">全消</button>
+						<button type="button" class="btns btns-set" @click="openModal(5)">选桌</button>
+					</div>
+					<div class="modal-body ub-f1 ub ub-ver">
+						<template v-if="objModal.menuList.length!==0">
+							<div class="dish ub-f1 clearfix">
+								<div class="dish-item" v-for="(item, index) in objModal.menuList" v-if="item.status!=-1">
+									<div class="dish-item-box ub ub-ver ub-pe" @click="pickModalMenu(item)">
+										<div class="dish-item-top ub ub-ac">
+											<!--&lt;!&ndash;<div class="dish-item-text">{{item.number}}</div>&ndash;&gt;-->
+										</div>
+										<div class="dish-item-ctr ub ub-ac">
+											<div class="dish-item-title in2line">{{item.foodName}}</div>
+											<template v-if="item.status!=-1"><div class="dish-item-title in2line">({{item.specificationsName}})</div></template>
+										</div>
+										<div class="dish-item-btm ub ub-ac">
+											<div class="dish-item-text dish-item-money">{{item.totalPrice}}</div>
+											<div class="dish-item-text">余{{item.amountStill}}份可用</div>
+										</div>
+										<div class="dish-item-tick-box" v-if="item.amountRej">
+											<i class="iconfont icon-tick dish-item-tick"></i>
+										</div>
+									</div>
+									<div class="dish-item-counter ub ub-pc ub-ac" v-if="item.amountRej">
+										<div class="dish-item-counter-btn" @click="rejAdjust(item, -1)">-</div>
+										<div class="dish-item-counter-num">{{item.amountRej}}</div>
+										<div class="dish-item-counter-btn" @click="rejAdjust(item, 1)">+</div>
+									</div>
+								</div>
+							</div>
+							<div class="reason" v-if="myModal===1">
+								<div class="reason-title">转台原因</div>
+								<div class="reason-box clearfix">
+									<div class="reason-box-item" v-for="(item, index) in objModal.reasonList" @click="rejReason(item)" :class="{active: item.id===objModal.reason}">{{item.text}}</div>
+								</div>
+							</div>
+						</template>
+						<div class="dish-item-empty" v-else>无可选菜品</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="dishUrge" :class="{active:myModal===2||myModal===7||myModal===8}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&(myModal===2||myModal===7||myModal===8)">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{orderZo.deskName}}&nbsp;{{multiTitleOne}}</div>
+					</div>
+					<div class="modal-foot" v-if="objModal.menuList.length>0">
+						<button type="button" class="btns btns-set" @click="pickChuiAll(1)">全选</button>
+						<button type="button" class="btns btns-set" @click="pickChuiAll(-1)">重置</button>
+						<button type="button" class="btns btns-set" @click="chuiOpt()">确定</button>
+					</div>
+					<div class="modal-body ub-f1">
+						<div class="dish ub-f1 clearfix">
+							<div class="dish-item" v-for="(item, index) in objModal.menuList">
+								<div class="dish-item-box ub ub-ver ub-pc" @click="pickChui(item)">
+									<div class="dish-item-ctr ub ub-ac">
+										<div class="dish-item-title in2line">{{item.foodName}}</div>
+									</div>
+									<div class="dish-item-tick-box" v-if="objModal.chuiArr.indexOf(item.id)!==-1">
+										<i class="iconfont icon-tick dish-item-tick"></i>
+									</div>
+								</div>
+							</div>
+							<div class="dish-item-empty" v-if="objModal.menuList.length===0">无可选菜品</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="orderInfo" :class="{active:myModal===3}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{orderZo.deskName}} 订单资料</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="orderInfoSave()">保存</button>
+					</div>
+					<div class="modal-body ub-f1">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">就餐人数</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]*" v-model="objModal.people" />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">服务员</div>
+									<div class="modal-form-cell ub-f1">
+										<select class="select"  v-model="objModal.ownWaiter">
+											<option  v-for="(item,index) in objModal.waiter" :value="item.id">{{item.realName}}</option>
+										</select>
+
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label-top">备注</div>
+									<div class="modal-form-cell ub-f1">
+										<textarea class="textarea" v-model="objModal.remark"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="shade" id="dishOpt" :class="{active:myModal===4}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===4">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{orderZo.deskName}} 退菜/赠菜</div>
+					</div>
+					<template v-if="objModal.menuList.length!==0">
+						<div class="modal-foot">
+							<button type="button" class="btns btns-set" @click="dishOpt()" v-text="objModal.type===0?'确认退菜':'确认赠送'"></button>
+						</div>
+						<div class="modal-body modal-tab-label tx-l">
+							<button type="button" class="btns btns-set" :class="{'btns-active': objModal.type===0}" @click="objModal.type=0">批量退菜</button>
+							<button type="button" class="btns btns-set" :class="{'btns-active': objModal.type===1}" @click="objModal.type=1">批量赠菜</button>
+						</div>
+					</template>
+					<div class="modal-body ub-f1 ub ub-ver">
+						<template v-if="objModal.menuList.length!==0">
+							<div class="dish ub-f1 clearfix">
+								<div class="dish-item" v-for="(item, index) in objModal.menuList" v-show="(item.type!=1 && objModal.type===1) || objModal.type===0">
+									<div class="dish-item-box ub ub-ver ub-pe" @click="pickModalMenu(item)">
+										<div class="dish-item-top ub ub-ac">
+											<!--<div class="dish-item-text">{{item.quantity}}</div>-->
+										</div>
+										<div class="dish-item-ctr ub ub-ac">
+											<div class="dish-item-title in2line">{{item.foodName}}<template v-if="item.status!=-1">({{item.specificationsName}})</template></div>
+
+										</div>
+										<div class="dish-item-btm ub ub-ac">
+											<div class="dish-item-text dish-item-money">{{item.price}}</div>
+											<div class="dish-item-text">余{{item.amountStill}}份可用</div>
+										</div>
+										<div class="dish-item-tick-box" v-if="item.amountRej">
+											<i class="iconfont icon-tick dish-item-tick"></i>
+										</div>
+									</div>
+									<div class="dish-item-counter ub ub-pc ub-ac" v-if="item.amountRej">
+										<div class="dish-item-counter-btn" @click="rejAdjust(item, -1)">-</div>
+										<div class="dish-item-counter-num">{{item.amountRej}}</div>
+										<div class="dish-item-counter-btn" @click="rejAdjust(item, 1)">+</div>
+									</div>
+								</div>
+							</div>
+							<div class="reason">
+								<div class="reason-title" v-text="objModal.type===0?'退菜原因':'赠菜原因'"></div>
+								<div class="reason-box clearfix">
+									<div class="reason-box-item" v-for="(item, index) in objModal.reasonList[objModal.type]" @click="rejReason(item)" :class="{active: item.id===objModal.reason}">{{item.text}}</div>
+								</div>
+							</div>
+						</template>
+						<div class="dish-item-empty" v-else>无可选菜品</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mask ub ub-ver" id="deskOperation" :class="{active:myModal===5}" v-if="info.length">
+				<div class="tab-label ub">
+					<div class="tab-label-item" v-for="(item, index) in info">
+						<button type="button" class="tab-label-btn" @click="tabDeskType(index)" :class="{active: tab===index}">
+							<span>{{item.typeString}}</span>
+						</button>
+					</div>
+				</div>
+				<div class="tab-body ub-f1">
+					<div class="tab-body-item ub-con clearfix" v-for="(itm, idx) in info" v-show="idx===tab">
+						<div class="desk ub ub-ver ub-pe" v-for="(item, index) in itm.list" :data-status="item.status" v-if=" (modelStatus==1 && item.status==1 && item.id!=orderTableJson.tableId) ||(modelStatus==9 && item.status==1 && item.id!=orderTableJson.tableId) " :class="{hide: item.status===0 && item.id==orderTableJson.tableId}" @click="pickDesk(item)">
+							<div class="desk-line ub ub-ac">
+								<div class="desk-text">{{item.name}}</div>
+								<div class="desk-text-sub">{{item.flag}}</div>
+
+							</div>
+							<div class="desk-line desk-line-money ub ub-ac" v-if="item.status==1">
+								<div class="desk-text-money" v-if="item.maroClientSeatchangeVO.maroClientServerorderVO">{{item.maroClientSeatchangeVO.maroClientServerorderVO.amount}}</div>
+							</div>
+							<div class="desk-line ub ub-ac ub-pe ub-rev">
+								<div class="desk-text" v-if="item.status==1">{{item.maroClientSeatchangeVO.maroClientServerorderVO.personNumber}}人</div>
+								<div class="desk-text" v-if="item.status==-1">{{item.maroClientReserveVOList[0].personNumber}}人</div>
+								<div class="desk-text" v-if="item.status!=1 && item.status!=-1">{{item.number}}座</div>
+							</div>
+
+							<i class="iconfont icon-tick desk-tick"  :class="{active: objModal&&(modelStatus===9&&objModal.newId===item.id || modelStatus===9&&objModal.newId.indexOf(item.id)!==-1)}"></i>
+							<i class="iconfont icon-tick desk-tick" v-if="modelStatus==1"  :class="{active: objModal&&objModal.deskId===item.id}"></i>
+						</div>
+					</div>
+				</div>
+				<div class="room-filter desk-opt-btn">
+					<button type="button" class="btns btns-set" @click="clsModal()">返回</button>
+					<button type="button" class="btns btns-set btns-confirm" @click="dishTrans()">确定</button>
+				</div>
+			</div>
+			
+			<div class="shade" id="dishEdit" :class="{active:myModal===6}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&myModal===6">
+					<div class="modal-head ub">
+						<div class="ub-f1">{{orderZo.deskName}} 菜品修改</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set" @click="dishEdit()">确定</button>
+					</div>
+					<div class="modal-body modal-tab-label tx-l">
+						<button type="button" class="btns btns-set" :class="{'btns-active': objModal.type===2}" @click="dishTick(2)" v-if="objModal.menuInfo.status===-1">忌口备注</button>
+						<!--<button type="button" class="btns btns-set" :class="{'btns-active': objModal.type===3}" @click="dishTick(3)" v-if="objModal.menuInfo.status===-1">状态</button>-->
+						<button type="button" class="btns btns-set" v-if="objModal.menuInfo.status!=-1" :class="{'btns-active': objModal.type===0 }" @click="dishTick(0)">临时改价</button>
+						<button type="button" class="btns btns-set" @click="dishTick(4)" v-if="objModal.menuInfo.status===-1">移除</button>
+						<button type="button" class="btns btns-set" @click="dishTick(1)" v-if="objModal.menuInfo.status!==-1" v-text="objModal.menuInfo.status===6?'取消划菜':'划菜' "></button>
+					</div>
+					<div class="modal-body ub-f1 ub ub-ver" v-if="objModal.type===0 " >
+						<div class="tx-l" v-if="objModal.menuInfo.status!=-1">
+							<div class="dish-edit-line ub">
+								<div>菜品名称：</div>
+								<div class="ub-f1 inaline">{{objModal.menuInfo.foodName}}</div>
+							</div>
+							<div class="dish-edit-line ub">
+								<div>菜品单价：</div>
+								<div class="ub-f1 inaline">{{objModal.menuInfo.price}}</div>
+							</div>
+							<div class="dish-edit-line ub">
+								<div>已点数量：</div>
+								<div class="ub-f1 inaline">{{objModal.menuInfo.quantity}}</div>
+							</div>
+						</div>
+						<div class="modal-form" v-if="objModal.menuInfo.status!=-1">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">临时单价</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]*" v-model="objModal.temporaryPrice" />
+									</div>
+								</div>
+								<div class="modal-form-column ub"></div>
+							</div>
+						</div>
+						<div class="reason" v-if="objModal.menuInfo.status!=-1">
+							<div class="reason-title">改价原因</div>
+							<div class="reason-box clearfix">
+								<div class="reason-box-item" v-for="(item, index) in objModal.reasonList" @click="rejReason(item)" :class="{active: item.id===objModal.reason}">{{item.text}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body ub-f1 ub ub-ver" v-if="objModal.type===2">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub ub-ac">
+									<div class="modal-form-label-top">备注</div>
+									<div class="modal-form-cell ub-f1">
+										<textarea class="textarea" v-model="objModal.remark"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--<div class="modal-body ub-f1 ub ub-ver" v-if="objModal.type===3">
+						<div class="modal-table-btn">
+							<div class="modal-table-btn-row ub">
+								<div class="ub-f1"><button type="button" class="btns btns-set">即起</button></div>
+								<div class="ub-f1"><button type="button" class="btns btns-set">叫起</button></div>
+								<div class="ub-f1"><button type="button" class="btns btns-set">加急</button></div>
+							</div>
+							<div class="modal-table-btn-row ub">
+								<div class="ub-f1"><button type="button" class="btns btns-set">整桌即起</button></div>
+								<div class="ub-f1"><button type="button" class="btns btns-set">整桌叫起</button></div>
+								<div class="ub-f1"><button type="button" class="btns btns-set">整桌加急</button></div>
+							</div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+			
+			<div class="shade" id="dishTrans" :class="{active:myModal===10}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="" v-if="objModal&&(myModal===10)">
+					<div class="modal-head ub">
+						<div class="ub-f1">请选择规格</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set" @click="pickFormat()">确定</button>
+					</div>
+					<div class="modal-body ub-f1 ub ub-ver">
+						<div class="dish ub-f1 clearfix">
+							<div class="dish-item" v-for="(item, index) in objModal.specArr.specificationsList">
+								<div class="dish-item-box ub ub-ver ub-pe" @click="pickFormatItem(item, index)">
+									<div class="dish-item-top ub ub-ac">
+										<!--<div class="dish-item-text">{{item.quantity}}</div>-->
+									</div>
+									<div class="dish-item-ctr ub ub-ac">
+										<div class="dish-item-title in2line">{{item.pageName}}</div>
+									</div>
+									<div class="dish-item-btm ub ub-ac">
+										<div class="dish-item-text dish-item-money">{{item.unitPrice}}</div>
+									</div>
+									<div class="dish-item-tick-box" v-if="item.amountSpe">
+										<i class="iconfont icon-tick dish-item-tick"></i>
+									</div>
+								</div>
+								<div class="dish-item-counter ub ub-pc ub-ac" v-if="item.amountSpe">
+									<div class="dish-item-counter-btn" @click="speAdjust(item, -1)">-</div>
+										<div class="dish-item-counter-num">{{item.amountSpe}}</div>
+									<div class="dish-item-counter-btn" @click="speAdjust(item, 1)">+</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript" src="js/common.js" ></script>
+		<script type="text/javascript" src="js/zepto-1.1.6.min.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/sweetalert2.min.js" ></script>
+		<script type="text/javascript" src="js/menu.js" ></script>
+	</body>
+</html>

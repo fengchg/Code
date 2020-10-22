@@ -1,0 +1,253 @@
+<template>
+  <div class="page" v-cloak>
+    <yd-layout class="content">
+      <yd-navbar class="bg-theme" slot="navbar" title="确认订单">
+        <div slot="left" @click="backTo()">
+          <yd-navbar-back-icon></yd-navbar-back-icon>
+        </div>
+      </yd-navbar>
+      <div class="my-container">
+        <div class="my-box ord-box">
+          <div class="ord-item ord-list" v-for="item, index in confirmList">
+            <yd-flexbox>
+              <yd-flexbox-item>
+                <div class="ord-list-name">{{item.dishesName}}</div>
+                <div class="ord-list-format fc-theme" v-if="item.packageType == 0">
+                  <template v-if="item.specificationsList.length > 1">{{item.spec.pageName}}</template>
+                  <template v-for="value, key in item.spec.remarkArr">{{value}}&nbsp;</template>
+                  <template v-if="item.spec.remark!==''">{{item.spec.remark}}</template>
+                </div>
+                <div class="ord-list-format fc-theme" v-if="item.packageType == 1">
+
+                  <template v-for="value, key in item.spec.remarkArr">{{value}}&nbsp;</template>
+                  <template v-if="item.spec.remark!==''">{{item.spec.remark}}</template>
+                </div>
+
+              </yd-flexbox-item>
+              <div class="ord-list-amount">×{{item.quantity}}</div>
+              <div class="ord-list-price">
+                <span class="my-price fc-theme"><em>¥</em>{{item.spec.unitPrice * item.quantity}}</span>
+              </div>
+            </yd-flexbox>
+          </div>
+        </div>
+      </div>
+      <div slot="bottom" class="my-buy">
+        <yd-flexbox class="my-buy-box">
+          <yd-flexbox-item>
+            <div class="my-buy-left yd-flexbox">
+              <div class="my-price fc-theme"><em>¥</em>{{sum}}</div>
+            </div>
+          </yd-flexbox-item>
+          <div class="my-buy-right">
+            <button type="button" class="my-buy-pay bg-theme" @click="goPay">
+              <span class="my-buy-pay-text">下单</span>
+            </button>
+          </div>
+        </yd-flexbox>
+      </div>
+    </yd-layout>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex'
+
+import Vue from 'vue'
+
+
+export default {
+  data() {
+    return {
+      confirmList: [],
+      sum: 0,
+      pickList:[]
+
+    }
+  },
+  computed: {
+    ...mapGetters([ 'getPick','getOrderId','getSeatId','getSum','getOpenId','getShopId'])
+  },
+
+  mounted(){
+
+
+  },
+  created() {
+    this.confirmList = this.getPick
+    this.sum = this.getSum
+    this.pickList = this.getPick
+  },
+  methods: {
+    goPay() {
+      // 调用下单的的接口
+      let that=this;
+      let foodorderDOList = new Array()
+      if(this.pickList.length==0){
+        return false;
+      }
+      //封装后台要用的数据格式
+      for (let i = 0; i < this.pickList.length; i++) {
+        let food = this.pickList[i]
+
+        let remarkArr = '', foodList;
+
+        if(food.type == "package"){
+
+          let listArr = [],packageRemark = [];
+          for (let k = 0; k < food.spec.food.setmealSishesList.length; k++) {
+            for (let n = 0; n < food.spec.food.setmealSishesList[k].selectList.length; n++) {
+              let obj = food.spec.food.setmealSishesList[k].selectList[n];
+              packageRemark.push(obj.dishesName)
+              listArr.push(
+                {
+                  'foodId':obj.dishesId,
+                  'quantity':obj.quantity,
+                  'specificationsId':'',
+                  'specificationsName':'普通',
+                  'unitCode':obj.dishesUnitCode,
+                  'unitName':obj.dishesUnit,
+                  'price':0,
+                  'packageType':2,
+                }
+              )
+            }
+
+          }
+
+          for (let j = 0; j < food.spec.remarkArr.length; j++) {
+            if(packageRemark.indexOf(food.spec.remarkArr[j]) == -1){
+              remarkArr = remarkArr + food.spec.remarkArr[j]
+            }
+          }
+          foodList = {
+            'foodId': food.id,
+            'quantity': food.quantity,
+            'specificationsId': '',
+            'specificationsName': "普通",
+            'unitCode': food.unit,
+            'unitName': food.unitName,
+            'price': food.spec.unitPrice,
+            'remark': remarkArr,
+            'list': listArr,
+            'packageType': 1
+          }
+        }else {
+          for (let j = 0; j < food.spec.remarkArr.length; j++) {
+            remarkArr = remarkArr + food.spec.remarkArr[j]
+          }
+          foodList = {
+            'foodId': food.id,
+            'quantity': food.quantity,
+            'specificationsId': food.spec.id,
+            'specificationsName': food.spec.pageName,
+            'unitCode': food.unit,
+            'unitName': food.unitName,
+            'price': food.spec.unitPrice,
+            'remark': remarkArr,
+            'list': [],
+            'packageType': 0
+          }
+        }
+
+        foodorderDOList.push(foodList)
+      }
+
+      let foodOrderParamsDTOListJson = {
+        "maroClientServerorderDO": {
+          "id": this.getOrderId,
+          "kitchenNotify": 1,
+        },
+        "maroShopSeatEntity": {
+          "id": this.getSeatId
+        },
+        "maroClientFoodorderDOList": foodorderDOList
+      };
+      let data = new URLSearchParams()
+      data.append('foodOrderParamsDTOString',JSON.stringify(foodOrderParamsDTOListJson));
+      let param={
+        loadingText:'下单中...',
+        isLoading:true,
+        data:data,
+        myVue:this
+      }
+      this.common.$ajax('/maroClientServerorderController.do?orderFood',param,function(data){
+        that.$dialog.toast({
+          mes: '下单成功',
+          timeout: 1500
+        });
+        that.isBack = true;
+        //下单成功后将vuex数据管理器中的数据全部清空
+        that.$store.dispatch('setPick', [])
+        that.$store.dispatch('setSum', 0)
+        that.$store.dispatch('setAmount', 0)
+        //延迟1.5秒跳转到订单详情页。
+        setTimeout(function(){
+          that.$router.push({
+            path:'/detail'
+          })
+        },1500);
+      })
+    },
+    backTo(){
+      this.isBack = false;
+      this.$router.back(-1);
+    }
+  }
+}
+
+</script>
+<style scoped>
+.ord-box {
+  padding: .1rem 0;
+}
+
+.ord-item {
+  font-size: .28rem;
+  line-height: 1.5;
+  padding: .07rem .4rem;
+}
+
+.ord-cell {
+  padding: .07rem .4rem;
+}
+
+.ord-cell-label {
+  text-align: left;
+  padding-right: 1em;
+}
+
+.ord-cell-value {
+  text-align: right;
+}
+
+.ord-list-head {
+  padding: .15rem .4rem .2rem;
+  margin-bottom: .1rem;
+  position: relative;
+}
+
+.ord-list-head:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid #e1e1e1;
+  transform: scaleY(.5);
+  transform-origin: 0 0;
+}
+
+.ord-list-amount {
+  width: 15%;
+}
+
+.ord-list-price {
+  width: 4.5em;
+  text-align: right;
+}
+
+.ord-list-status {
+  width: 2em;
+}
+
+</style>

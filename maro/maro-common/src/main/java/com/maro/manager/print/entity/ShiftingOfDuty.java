@@ -1,0 +1,301 @@
+package com.maro.manager.print.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 交接班
+ * @author Administrator
+ *
+ */
+public class ShiftingOfDuty extends PrinterIp{
+	//店铺名称
+	private String shopName;
+	//交班人
+	private String name;
+	//基础交班信息
+	private List<Map> rootInfo;
+	//区域消费信息
+	private List<Map> areaInfo;
+	//收款方式信息
+	private List<Map> shouKuangInfo;
+	//获取菜品销售信息（种类、名称、数量、金额）
+	private List<Map> menuInfo;
+	//交接班单号
+	private String shiftingOfDutyMark;
+	//班次
+	private String classNext;
+	//开始时间
+	private String startTime;
+	//结束时间
+	private String endTime;
+	//消费台数
+	private String consumeSeatNumber;
+	//消费人数
+	private String consumePersonNumber;
+	//人均消费
+	private String capitaConsume;
+	//单均消费
+	private String singleConsume;
+	//未结台数
+	private String openSeat;
+	//应收金额
+	private String revenueMoney;
+	//食堂
+	private String diningHall;
+	//外卖
+	private String takeOut;
+	//上班余额
+	private String beOnDutyBalance;
+	//备用金额
+	private String standbyBalance;
+	//收到押金
+	private String receiveCashPledge; 
+	//结账押金
+	private String settleCashPledge ;
+	//服务费
+	private String serviceCharge;
+	
+	//收款项目
+	private List<ShiftingOfDutyGatheringProject> gpList = new ArrayList<ShiftingOfDutyGatheringProject>();
+	/*//现金
+	private String cash;
+	//刷卡
+	private String swipingCard ;
+	//支付宝
+	private String alipay;
+	//微信
+	private String  weChat ;
+	//会员主帐号消费
+	private String  numberPrimaryConsume;*/
+	
+	
+	//赠送金额
+	private String  presentedBalance;
+	//免单金额
+	private String  noSingleBalance;
+	//折扣金额
+	private String  discountBalance;
+	//抹零金额
+	private String moLing;
+	//礼卷金额
+	private String liJuan;
+	//红包
+	private String redRnvelope;
+	//地址
+	private String position;
+	//电话
+	private String phone;
+	
+	
+	public List<ShiftingOfDutyGatheringProject> getGpList() {
+		return gpList;
+	}
+	public void setGpList(List<ShiftingOfDutyGatheringProject> gpList) {
+		this.gpList = gpList;
+	}
+	public String getShiftingOfDutyMark() {
+		return shiftingOfDutyMark;
+	}
+	public void setShiftingOfDutyMark(String shiftingOfDutyMark) {
+		this.shiftingOfDutyMark = shiftingOfDutyMark;
+	}
+	public String getClassNext() {
+		return classNext;
+	}
+	public void setClassNext(String classNext) {
+		this.classNext = classNext;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public String getConsumeSeatNumber() {
+		return consumeSeatNumber;
+	}
+	public void setConsumeSeatNumber(String consumeSeatNumber) {
+		this.consumeSeatNumber = consumeSeatNumber;
+	}
+	public String getConsumePersonNumber() {
+		return consumePersonNumber;
+	}
+	public void setConsumePersonNumber(String consumePersonNumber) {
+		this.consumePersonNumber = consumePersonNumber;
+	}
+	public String getCapitaConsume() {
+		return capitaConsume;
+	}
+	public void setCapitaConsume(String capitaConsume) {
+		this.capitaConsume = capitaConsume;
+	}
+	public String getSingleConsume() {
+		return singleConsume;
+	}
+	public void setSingleConsume(String singleConsume) {
+		this.singleConsume = singleConsume;
+	}
+	public String getOpenSeat() {
+		return openSeat;
+	}
+	public void setOpenSeat(String openSeat) {
+		this.openSeat = openSeat;
+	}
+	public String getRevenueMoney() {
+		return revenueMoney;
+	}
+	public void setRevenueMoney(String revenueMoney) {
+		this.revenueMoney = revenueMoney;
+	}
+	public String getDiningHall() {
+		return diningHall;
+	}
+	public void setDiningHall(String diningHall) {
+		this.diningHall = diningHall;
+	}
+	public String getTakeOut() {
+		return takeOut;
+	}
+	public void setTakeOut(String takeOut) {
+		this.takeOut = takeOut;
+	}
+	public String getBeOnDutyBalance() {
+		return beOnDutyBalance;
+	}
+	public void setBeOnDutyBalance(String beOnDutyBalance) {
+		this.beOnDutyBalance = beOnDutyBalance;
+	}
+	public String getStandbyBalance() {
+		return standbyBalance;
+	}
+	public void setStandbyBalance(String standbyBalance) {
+		this.standbyBalance = standbyBalance;
+	}
+	public String getReceiveCashPledge() {
+		return receiveCashPledge;
+	}
+	public void setReceiveCashPledge(String receiveCashPledge) {
+		this.receiveCashPledge = receiveCashPledge;
+	}
+	public String getSettleCashPledge() {
+		return settleCashPledge;
+	}
+	public void setSettleCashPledge(String settleCashPledge) {
+		this.settleCashPledge = settleCashPledge;
+	}
+	public String getServiceCharge() {
+		return serviceCharge;
+	}
+	public void setServiceCharge(String serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+	
+	public String getPresentedBalance() {
+		return presentedBalance;
+	}
+	public void setPresentedBalance(String presentedBalance) {
+		this.presentedBalance = presentedBalance;
+	}
+	public String getNoSingleBalance() {
+		return noSingleBalance;
+	}
+	public void setNoSingleBalance(String noSingleBalance) {
+		this.noSingleBalance = noSingleBalance;
+	}
+	public String getDiscountBalance() {
+		return discountBalance;
+	}
+	public void setDiscountBalance(String discountBalance) {
+		this.discountBalance = discountBalance;
+	}
+	public String getMoLing() {
+		return moLing;
+	}
+	public void setMoLing(String moLing) {
+		this.moLing = moLing;
+	}
+	public String getLiJuan() {
+		return liJuan;
+	}
+	public void setLiJuan(String liJuan) {
+		this.liJuan = liJuan;
+	}
+	public String getRedRnvelope() {
+		return redRnvelope;
+	}
+	public void setRedRnvelope(String redRnvelope) {
+		this.redRnvelope = redRnvelope;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Map> getRootInfo() {
+		return rootInfo;
+	}
+
+	public void setRootInfo(List<Map> rootInfo) {
+		this.rootInfo = rootInfo;
+	}
+
+	public List<Map> getAreaInfo() {
+		return areaInfo;
+	}
+
+	public void setAreaInfo(List<Map> areaInfo) {
+		this.areaInfo = areaInfo;
+	}
+
+	public List<Map> getShouKuangInfo() {
+		return shouKuangInfo;
+	}
+
+	public void setShouKuangInfo(List<Map> shouKuangInfo) {
+		this.shouKuangInfo = shouKuangInfo;
+	}
+
+	public List<Map> getMenuInfo() {
+		return menuInfo;
+	}
+
+	public void setMenuInfo(List<Map> menuInfo) {
+		this.menuInfo = menuInfo;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+}

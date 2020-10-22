@@ -1,0 +1,1799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="b0260f07-d20a-4f73-9c39-5d9ed647e0c8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_3_5_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_3_6_5.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_amqp_1_3_9_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_rabbit_1_3_9_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_retry_spring_retry_1_1_0_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayResultDTO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroClientPayedDetailVO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getReserveFreeSeatBySeatCode.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDetailDO.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/FlagConstant.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/StringConstant.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/FoodOrderStatusEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/FoodTypeEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderLogTypeEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderPayedTerminalTypeEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderPayedTypeEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderStatusEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/dao/ClientCommonDao.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/dao/impl/ClientCommonDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/pojo/BaseVO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/util/EnumUtil.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/util/PojoUtil.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/pojo/entity/MaroClientEvaluateDO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo/entity/MaroClientReserveDO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo/entity/MaroClientReserveFoodorderDO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/constant/enumconstant" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/dao" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/dao/impl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/pojo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/common/util" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/controller" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/dao" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/pojo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/pojo/dto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/pojo/entity" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/pojo/vo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/evaluate/service" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/controller" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/dao" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo/dto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo/entity" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/pojo/vo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/reserve/service" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maro-manager/src/main/java/com/maro/client/module/serverorder" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/maro_client_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/maro_client_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/jeecg" afterPath="$PROJECT_DIR$/logs/jeecg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/ServerOrderApplyService.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/ServerOrderApplyService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/TerminalServerOrderApplyServiceImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/TerminalServerOrderApplyServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/MaroClientServerorderController.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/MaroClientServerorderController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/MaroClientServerorderControllerImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/MaroClientServerorderControllerImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MaroClientServerorderDTO.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MaroClientServerorderDTO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayParamsDTO.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayParamsDTO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientFoodorderService.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientFoodorderService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientPayedService.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientPayedService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientServerorderService.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientServerorderService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientFoodorderServiceImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientFoodorderServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientPayedServiceImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientPayedServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientServerorderServiceImpl.java" afterPath="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientServerorderServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/pay.js" afterPath="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/pay.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientFoodorderDO.java" afterPath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientFoodorderDO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDO.java" afterPath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/service/impl/MaroCommonDishesServiceImpl.java" afterPath="$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/service/impl/MaroCommonDishesServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maro.iml" afterPath="$PROJECT_DIR$/maro.iml" />
+    </list>
+    <ignored path="$PROJECT_DIR$/maro-platform/target/" />
+    <ignored path="$PROJECT_DIR$/maro-client/target/" />
+    <ignored path="$PROJECT_DIR$/maro-manager/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/maro-common/target/" />
+    <ignored path="$PROJECT_DIR$/abc/target/" />
+    <ignored path="$PROJECT_DIR$/ab/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="maro" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="MaroClientPayedServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientPayedServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-612">
+              <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerOrderApplyServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="718" column="21" lean-forward="false" selection-start-line="718" selection-start-column="21" selection-end-line="718" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TerminalServerOrderApplyService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/TerminalServerOrderApplyService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="56" column="13" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TerminalServerOrderApplyServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/TerminalServerOrderApplyServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="741" column="27" lean-forward="true" selection-start-line="741" selection-start-column="27" selection-end-line="741" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerOrderApplyDao_getFreeSeatBySeatCode.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getFreeSeatBySeatCode.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="248">
+              <caret line="32" column="5" lean-forward="false" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>reseve</find>
+      <find>bill</find>
+      <find>period</find>
+      <find>getFreeSeatBySeatCode</find>
+      <find>:shopId</find>
+      <find>billQueryDetailsList</find>
+      <find>TIP_REFUNDFOOD_NO_ORDER_FOOD</find>
+      <find>list</find>
+      <find>listba</find>
+      <find>pay</find>
+      <find>getServerOrderById</find>
+      <find>updateAmount</find>
+      <find>8081</find>
+      <find>listMenu</find>
+      <find>INVALID</find>
+      <find>ServerOrderStatusEnum.INVALID</find>
+      <find>,6,</find>
+      <find>UPDATE_STATUS_SQL</find>
+      <find>updateServerOrderDOStatus</find>
+      <find>status=?</find>
+      <find>status = ?</find>
+      <find>cancelM</find>
+      <find>payedDeposit = 0;</find>
+      <find>inv</find>
+      <find>ListSeat</find>
+      <find>cancelMergeSeat</find>
+      <find>open</find>
+      <find>status</find>
+      <find>listSeat</find>
+      <find>getFreeSeat</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>E:\code\workspace_main\maro\zixuan\maro\maro-client\src\main\java\com\maro\client\common</dir>
+      <dir>E:\code\workspace_main\maro\zixuan\maro\maro-common\src\main</dir>
+      <dir>E:\code\workspace_main\maro\zixuan\maro</dir>
+      <dir>E:\code\workspace_main\maro\zixuan\maro\maro-common</dir>
+      <dir>E:\code\workspace_main\maro\zixuan\maro\maro-common\src\main\java\com\maro\common\dishes\dishes\service</dir>
+    </dirStrings>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/manager/dishes/dishes/service/impl/MaroDishesServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/manager/dishes/dishes/dao/MaroDishesDao.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/manager/dishes/dishes/sql/MaroDishesDao_getMaroDishesEntityList.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/resources/rabbitmq.properties" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/common.js" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/success.js" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/login.js" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/login.html" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/reserve/pojo/vo/MaroClientReserveVO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/test/java/com/maro/client/common/mq/Recv.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getFreeSeat.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/reserve/pojo/entity/MaroClientReserveDO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/reserve/pojo/dto/ReserveParamsDTO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/reserve/service/impl/MaroClientReserveServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/index.html" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/FoodOrderParamsDTO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/net/HttpHelper.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/resources/dbconfig.properties" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getFreeSeatBySeatType.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getFreeSeatBySeatCode.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/MaroClientServerorderDAO_billQuery.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/dao/MaroClientServerorderDAO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/MaroClientServerorderDAO_billQueryDetailsList.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/StringConstant.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/dao/MaroCommonDishesDao.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/service/impl/MaroCommonDishesServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientFoodorderDO.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayParamsDTO.java" />
+        <option value="$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDetailDO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/MaroClientServerorderController.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroClientPayedDetailVO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayResultDTO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MaroClientServerorderDTO.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientPayedService.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientPayedServiceImpl.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/FoodOrderStatusEnum.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/index.js" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/ServerOrderApplyService.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/MaroClientServerorderControllerImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientFoodorderService.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientFoodorderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientServerorderService.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientServerorderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/pay.js" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getReserveFreeSeatBySeatCode.sql" />
+        <option value="$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/TerminalServerOrderApplyServiceImpl.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/LaunchFiles/apache-maven-3.3.3-bin" />
+        <option name="userSettingsFile" value="D:\LaunchFiles\apache-maven-3.3.3-bin\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-client" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-client" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-client" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+          <item name="clean" type="36feed69:MavenProjectsStructure$PluginNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-client" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+          <item name="compiler" type="36feed69:MavenProjectsStructure$PluginNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-common" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="maro-common" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.7" />
+    <option name="vmOptions" value="-server -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+PrintGCDetails -Xloggc:%M2_HOME%/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=%M2_HOME%/java_pid.hprof" />
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/kitchen/my-element/node_modules" />
+    <handled-path value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/order/node_modules" />
+    <handled-path value="$PROJECT_DIR$/maro-client/src/main/webapp/webpage/shopList/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-220" />
+    <option name="width" value="1616" />
+    <option name="height" value="860" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Ali-Check</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="serverorder" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="serverorder" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="dishes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="finance" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="mq" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="member" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maro" type="462c0819:PsiDirectoryNode" />
+              <item name="maro-manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="nodejs_interpreter_path" value="d:/LaunchFiles/AppCanStudioEnterpriseV3.3/HDK/emulator/mas/node" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../wfsc" />
+    <property name="SearchEverywhereHistoryKey" value="ORDERSTA&#9;PSI&#9;JAVA://com.maro.client.common.constant.enumconstant.ServerOrderStatusEnum&#10;Ordersta&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/FoodOrderStatusEnum.java&#10;MaroClientFoodorderDO&#9;PSI&#9;JAVA://com.maro.client.module.serverorder.pojo.entity.MaroClientFoodorderDO&#10;Foodst&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/FoodOrderStatusEnum.java&#10;S&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java&#10;Us&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java&#10;uSER&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java&#10;Users&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java&#10;Serverordersta&#9;PSI&#9;JAVA://com.maro.client.common.constant.enumconstant.ServerOrderStatusEnum&#10;Apply&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java&#10;Ter&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/TerminalServerorderControllerImpl.java&#10;Period&#9;PSI&#9;JAVA://com.maro.client.common.constant.enumconstant.ReservePeriodEnum&#10;terminalServerorderController&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/controller/TerminalServerorderController.java&#10;UserSer&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java&#10;Userservice&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/UserService.java&#10;Userser&#9;PSI&#9;JAVA://com.maro.client.module.user.service.UserService&#10;rabbit&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/resources/rabbitmq.properties&#10;SpecificationsEntity&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/manager/dishes/dishesspecifications/entity/MaroDishesSpecificationsEntity.java&#10;MaroDishesSpecificationsEntity&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/manager/dishes/dishesspecifications/entity/MaroDishesSpecificationsEntity.java&#10;spring-ra&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/resources/spring-rabbitmq.xml&#10;Mq&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java&#10;MqSer&#9;PSI&#9;JAVA://com.maro.common.listener.MqServerListener&#10;OrderSt&#9;PSI&#9;JAVA://com.maro.client.common.constant.enumconstant.ServerOrderStatusEnum&#10;Common&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/CommonTypeEnum.java&#10;User&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/user/service/impl/UserServiceImpl.java&#10;MaroDishes&#9;PSI&#9;JAVA://com.maro.common.dishes.dishes.pojo.entity.MaroDishesEntity&#10;dishes&#9;PSI&#9;JAVA://com.maro.common.dishes.dishes.pojo.entity.MaroDishesClassificationEntity&#10;MaroCl&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientServerorderDO.java&#10;serverOrderApplyServiceImpl&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java&#10;Ajax&#9;PSI&#9;JAVA://com.maro.platform.core.common.model.json.AjaxJson&#10;mqc&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java&#10;serverorderController&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/client/module/serverorder/controller/ServerorderController.java&#10;Http&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/test/java/com/maro/client/common/net/HttpHelperTest.java&#10;MqCus&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java&#10;ServerorderService&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerorderServiceImpl.java&#10;util&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/manager/common/controller/UtilController.java&#10;utilController&#9;PSI&#9;JAVA://com.maro.manager.common.controller.UtilController&#10;cop&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/common/listener/CopyOfMqServerListener.java&#10;copy&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/common/listener/CopyOfMqServerListener.java&#10;MySQLIntegrityConstraintViolationException&#9;PSI&#9;JAVA://com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException&#10;ServerorderController&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/client/module/serverorder/controller/ServerorderController.java&#10;spring-mv&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/resources/spring-mvc.xml&#10;maroclientCon&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/MaroClientServerorderControllerImpl.java&#10;login&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/webapp/webpage/client/login.html&#10;mqController&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/manager/mq/controller/MqController.java&#10;cus&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java&#10;mqcus&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-client/src/main/java/com/maro/client/common/mq/MqCustomerListener.java&#10;StringConstant&#9;PSI&#9;JAVA://com.maro.client.common.constant.StringConstant&#10;utilCon&#9;FILE&#9;file://E:/code/workspace_main/maro/zixuan/maro/maro-common/src/main/java/com/maro/manager/common/controller/UtilController.java&#10;ordersta&#9;PSI&#9;JAVA://com.maro.client.common.constant.enumconstant.ServerOrderStatusEnum" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.maro.client.module.serverorder.pojo.vo" />
+      <recent name="com.maro.client.module.serverorder.pojo.entity" />
+      <recent name="com.maro.common.dishes.dishes.pojo.dto" />
+      <recent name="com.maro.client.common.mq" />
+      <recent name="com.maro.client.common.constant.enumconstant" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\code\workspace_main\maro\zixuan\maro\maro-client\src\main\java\com\maro\client\module\serverorder\sql" />
+      <recent name="E:\code\workspace_main\maro\zixuan\maro\maro-client\src\main\resources" />
+      <recent name="E:\code\workspace_main\maro\zixuan\maro\maro-client\src\test\java\com\maro\client\common\mq" />
+      <recent name="E:\code\workspace_main\maro\zixuan\maro\maro-client\src\main\java\com\maro\client\common\mq" />
+      <recent name="E:\code\workspace_main\maro\zixuan\maro\maro-common\src\main\java\com\maro\client\module" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Maven.run_client">
+    <configuration name="HttpHelperTest.testSendMq" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.common.net.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="maro-client" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.maro.client.common.net" />
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.common.net.HttpHelperTest" />
+      <option name="METHOD_NAME" value="testSendMq" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="MqCustomer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.common.mq.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.common.mq.MqCustomer" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="maro-client" />
+      <envs />
+    </configuration>
+    <configuration name="MqCustomer.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.common.mq.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="maro-client" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.maro.client.common.mq" />
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.common.mq.MqCustomer" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="MqProducer.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.common.mq.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="maro-client" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.maro.client.common.mq" />
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.common.mq.MqProducer" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="ServerOrderApplyServiceTest.listSeat" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.serverorder.apply.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="maro-client" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.maro.client.serverorder.apply" />
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.serverorder.apply.ServerOrderApplyServiceTest" />
+      <option name="METHOD_NAME" value="listSeat" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="ServerOrderApplyServiceTest.testCancen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.maro.client.serverorder.apply.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="maro-client" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.maro.client.serverorder.apply" />
+      <option name="MAIN_CLASS_NAME" value="com.maro.client.serverorder.apply.ServerOrderApplyServiceTest" />
+      <option name="METHOD_NAME" value="testCancen" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration name="run_client" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="jetty:run" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/maro-client" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+    </configuration>
+    <configuration name="run_manager" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="jetty:run" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/maro-manager" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+    </configuration>
+    <list size="8">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.ServerOrderApplyServiceTest.listSeat" />
+      <item index="1" class="java.lang.String" itemvalue="Maven.run_manager" />
+      <item index="2" class="java.lang.String" itemvalue="Maven.run_client" />
+      <item index="3" class="java.lang.String" itemvalue="Application.MqCustomer" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.MqProducer.test" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.MqCustomer.test" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.HttpHelperTest.testSendMq" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.ServerOrderApplyServiceTest.testCancen" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.ServerOrderApplyServiceTest.testCancen" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.HttpHelperTest.testSendMq" />
+        <item index="2" class="java.lang.String" itemvalue="Application.MqCustomer" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.MqCustomer.test" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.MqProducer.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SpringConfigurationTabSettings">
+    <option name="sortAlpha" value="true" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\fengchg\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro\.idea" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro\.idea" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-client" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-client" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-common" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-common" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-platform" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro\maro-platform" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\code\workspace_main\maro\zixuan\maro" />
+          <option name="myCopyRoot" value="E:\code\workspace_main\maro\zixuan\maro" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b0260f07-d20a-4f73-9c39-5d9ed647e0c8" name="Default" comment="" />
+      <created>1522813155873</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1522813155873</updated>
+      <workItem from="1522813157216" duration="2102000" />
+      <workItem from="1522907840531" duration="5114000" />
+      <workItem from="1523154872345" duration="3103000" />
+      <workItem from="1523236009998" duration="10668000" />
+      <workItem from="1523322751796" duration="19118000" />
+      <workItem from="1523408991138" duration="19552000" />
+      <workItem from="1523494546293" duration="22133000" />
+      <workItem from="1523581449545" duration="14399000" />
+      <workItem from="1523612503353" duration="584000" />
+      <workItem from="1523670643676" duration="1302000" />
+      <workItem from="1523674660941" duration="38393000" />
+      <workItem from="1523781769875" duration="555000" />
+      <workItem from="1523782667142" duration="14111000" />
+      <workItem from="1523842751848" duration="4743000" />
+      <workItem from="1523927718471" duration="19416000" />
+      <workItem from="1524113710601" duration="1807000" />
+      <workItem from="1524119164736" duration="26578000" />
+      <workItem from="1524193885858" duration="28482000" />
+      <workItem from="1524279667437" duration="21977000" />
+      <workItem from="1524447142235" duration="5174000" />
+      <workItem from="1524622677818" duration="10763000" />
+      <workItem from="1524657230677" duration="25623000" />
+      <workItem from="1524804831619" duration="19554000" />
+      <workItem from="1524880147715" duration="3421000" />
+      <workItem from="1524912475319" duration="5016000" />
+      <workItem from="1524921859106" duration="7292000" />
+      <workItem from="1525227589176" duration="4333000" />
+      <workItem from="1525401665978" duration="582000" />
+      <workItem from="1525493751878" duration="17970000" />
+      <workItem from="1525659713144" duration="1139000" />
+      <workItem from="1525936768351" duration="9559000" />
+      <workItem from="1526002969407" duration="1318000" />
+      <workItem from="1526092052546" duration="4507000" />
+      <workItem from="1526261453421" duration="3312000" />
+      <workItem from="1526360392821" duration="557000" />
+      <workItem from="1526434129932" duration="21650000" />
+      <workItem from="1526525169989" duration="5073000" />
+      <workItem from="1526607859064" duration="2401000" />
+      <workItem from="1526866484060" duration="23607000" />
+      <workItem from="1527237383382" duration="149346000" />
+      <workItem from="1528077416072" duration="25031000" />
+      <workItem from="1528166888326" duration="4433000" />
+      <workItem from="1528173373955" duration="28940000" />
+      <workItem from="1528268723354" duration="51510000" />
+      <workItem from="1528895083857" duration="82338000" />
+      <workItem from="1529818811896" duration="3097000" />
+      <workItem from="1529906601078" duration="1255000" />
+      <workItem from="1529910738205" duration="10177000" />
+      <workItem from="1529992897543" duration="6854000" />
+      <workItem from="1530002309751" duration="43541000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1528020309328</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1528020309328</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1528022738384</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1528022738384</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1528624512755</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1528624512755</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1528626178325</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1528626178325</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1528900948768</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1528900948768</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1528976267155</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1528976267155</updated>
+    </task>
+    <task id="LOCAL-00007">
+      <created>1528977142855</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1528977142855</updated>
+    </task>
+    <task id="LOCAL-00008">
+      <created>1528981414134</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1528981414134</updated>
+    </task>
+    <task id="LOCAL-00009">
+      <created>1528982691772</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1528982691772</updated>
+    </task>
+    <task id="LOCAL-00010">
+      <created>1529211864418</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1529211864418</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 19h 38m 05s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 19h 57m 57s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 19h 59m 14s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 19h 59m 42s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 20h 13m 42s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 20h 14m 09s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HttpHelperTest_testSendMq - 2018.06.03 at 20h 15m 17s.xml">
+      <configuration name="HttpHelperTest.testSendMq" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ServerOrderApplyServiceTest_testCancen - 2018.06.05 at 11h 50m 43s.xml">
+      <configuration name="ServerOrderApplyServiceTest.testCancen" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ServerOrderApplyServiceTest_testCancen - 2018.06.05 at 11h 53m 14s.xml">
+      <configuration name="ServerOrderApplyServiceTest.testCancen" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ServerOrderApplyServiceTest_testCancen - 2018.06.05 at 11h 54m 11s.xml">
+      <configuration name="ServerOrderApplyServiceTest.testCancen" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="833510000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43194443" sideWeight="0.26542416" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19473007" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49444443" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43194443" sideWeight="0.7345758" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37916666" sideWeight="0.49485862" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35277778" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61527777" sideWeight="0.6182519" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49485862" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24742931" sideWeight="0.475" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25192803" sideWeight="0.52463055" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41580978" sideWeight="0.525" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43194443" sideWeight="0.26542416" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19473007" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.49444443" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43194443" sideWeight="0.7345758" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37916666" sideWeight="0.49485862" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35277778" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61527777" sideWeight="0.6182519" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49485862" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20951156" sideWeight="0.475" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25192803" sideWeight="0.52463055" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41580978" sideWeight="0.525" order="5" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="707" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="ServerOrderStatusEnum.OPEN.getCode()" />
+        <watch expression="ServerOrderStatusEnum.ORDER.getCode()" />
+        <watch expression="ServerOrderStatusEnum.PAY.getCode()" />
+        <watch expression="ServerOrderStatusEnum.CLOSE.getCode()" />
+        <watch expression="maroClientSeatchangeDO" />
+        <watch expression=" file.getName()" />
+        <watch expression="file.getName().split(&quot;.&quot;)" />
+        <watch expression="maroClientServerorderVO.getClass().getDeclaredMethods()" />
+        <watch expression="maroClientServerorderVO.getClass().getMethods()" />
+        <watch expression="targetVO.getClass().getDeclaredMethod(getMethodName)" />
+        <watch expression="ctx.getBean(&quot;maroClientReserveApplyServiceImpl&quot;)" />
+        <watch expression=" maroClientFoodorderVO.getSpecificationsId()" />
+        <watch expression="foodOrderItemResultDTOList" />
+        <watch expression="s" />
+        <watch expression="s" />
+        <watch expression="em.getClass().getDeclaredField(&quot;code&quot;)" />
+        <watch expression="s" />
+        <watch expression="getSessionId()" />
+      </configuration>
+      <configuration name="MavenRunConfiguration">
+        <watch expression="payParamsDTO.getMaroClientServerorderDO().getId()" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroClientServerorderVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="13" column="60" lean-forward="false" selection-start-line="13" selection-start-column="60" selection-end-line="13" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/pojo/entity/MaroDishesEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="26" column="45" lean-forward="true" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/FoodTypeEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/common/dishes/dishes/service/impl/MaroCommonDishesServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="284" column="56" lean-forward="false" selection-start-line="284" selection-start-column="29" selection-end-line="284" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientServerorderDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientFoodorderDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="463" column="26" lean-forward="false" selection-start-line="463" selection-start-column="20" selection-end-line="463" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientSeatchangeDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-694">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2288">
+          <caret line="133" column="39" lean-forward="false" selection-start-line="133" selection-start-column="39" selection-end-line="133" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayParamsDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="27" column="27" lean-forward="false" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.9.RELEASE/spring-web-4.0.9.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/common/dao/impl/ClientCommonDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/FoodOrderParamsDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/FoodOrderItemResultDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MenuItemResultDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MenuResultDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroClientPayedDetailVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroClientPayedVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/PayResultDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/dto/MaroClientServerorderDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientPayedService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="73" column="2" lean-forward="false" selection-start-line="73" selection-start-column="2" selection-end-line="73" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/client/module/serverorder/pojo/entity/MaroClientPayedDetailDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="28" column="24" lean-forward="false" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="109" column="28" lean-forward="false" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-manager/src/main/java/com/maro/manager/shop/reserve/controller/MaroClientReserveController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="488" column="38" lean-forward="false" selection-start-line="488" selection-start-column="30" selection-end-line="488" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/FoodOrderStatusEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderLogTypeEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/test/java/com/maro/client/serverorder/apply/ServerOrderApplyServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="81" column="53" lean-forward="true" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientServerorderlogServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="52" column="16" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-common/src/main/java/com/maro/manager/shop/reserve/service/impl/MaroClientReserveServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="198" column="29" lean-forward="false" selection-start-line="198" selection-start-column="21" selection-end-line="198" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/test/java/com/maro/client/reserve/service/apply/MaroClientReserveApplyServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="71" column="24" lean-forward="false" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/MaroClientServerorderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="359" column="20" lean-forward="false" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/common/constant/enumconstant/ServerOrderStatusEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="16" column="17" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientSeatchangeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-138">
+          <caret line="149" column="71" lean-forward="false" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-528">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/MaroShopSeatVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="230" column="29" lean-forward="false" selection-start-line="230" selection-start-column="23" selection-end-line="230" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/pojo/vo/SeatListVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="27" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="95" column="10" lean-forward="true" selection-start-line="95" selection-start-column="10" selection-end-line="95" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/MapKeyComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/ServerOrderApplyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="164" column="58" lean-forward="false" selection-start-line="164" selection-start-column="58" selection-end-line="164" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/controller/impl/MaroClientServerorderControllerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="100" column="60" lean-forward="false" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientFoodorderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="403" column="13" lean-forward="false" selection-start-line="403" selection-start-column="13" selection-end-line="403" selection-end-column="13" />
+          <folding>
+            <element signature="e#3918#3919#0" expanded="false" />
+            <element signature="e#3980#3981#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientFoodorderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/MaroClientServerorderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="87" column="108" lean-forward="true" selection-start-line="87" selection-start-column="88" selection-end-line="87" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/js/pay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="245" column="0" lean-forward="false" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/webapp/webpage/client/pay.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientServerorderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getFreeSeatBySeatCode.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="32" column="5" lean-forward="false" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/sql/ServerOrderApplyDao_getReserveFreeSeatBySeatCode.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/ServerOrderApplyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="718" column="21" lean-forward="false" selection-start-line="718" selection-start-column="21" selection-end-line="718" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/service/impl/MaroClientPayedServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/TerminalServerOrderApplyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="56" column="13" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maro-client/src/main/java/com/maro/client/module/serverorder/apply/impl/TerminalServerOrderApplyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="741" column="27" lean-forward="true" selection-start-line="741" selection-start-column="27" selection-end-line="741" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>maro-manager:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>maro-common</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: ant:ant:1.6.5</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

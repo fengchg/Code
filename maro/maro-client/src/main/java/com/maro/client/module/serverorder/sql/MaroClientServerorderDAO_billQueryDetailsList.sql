@@ -1,0 +1,1 @@
+select mcf.food_name,mcf.quantity,mcf.unit_name from maro_client__foodorder mcf where server_order_id = :serverOrderId and status != :foodStatus

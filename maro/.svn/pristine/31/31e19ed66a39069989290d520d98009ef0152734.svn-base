@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>结账</title>
+		<script type="text/javascript" src="js/setHtmlRem.js"></script>
+		<link rel="shortcut icon" type="image/x-icon" href="#">
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/pay.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/jquery.numpad.css" />
+	</head>
+
+	<body>
+		<div class="container ub ub-ver" id="pay" v-cloak>
+			<div class="pay-title ub ub-pj">
+				<div class="pay-text" @click="back()">回上一页</div>
+				<div class="pay-text">结账</div>
+			</div>
+			<div class="pay-container ub-f1 ub">
+				<div class="pay-bill ub ub-ver">
+					<div class="pay-bill-info">
+						<div class="pay-bill-info-title tx-c">结账单</div>
+						<div class="pay-bill-info-item ub">
+							<div>桌位号：</div>
+							<div class="ub-f1 inaline">{{pay.deskName}}</div>
+						</div>
+						<div class="pay-bill-info-item ub">
+							<div>订单号：</div>
+							<div class="ub-f1 inaline">{{pay.disNo}}</div>
+						</div>
+						<div class="pay-bill-info-item ub">
+							<div>下单时间：</div>
+							<div class="ub-f1 inaline">{{pay.beginTime}}</div>
+						</div>
+						<div class="pay-bill-info-item ub">
+							<div>订单金额：</div>
+							<div class="ub-f1 inaline">{{pay.payAmount}}</div>
+						</div>
+					</div>
+					<div class="pay-bill-table ub-f1 ub ub-ver">
+						<div class="pay-bill-table-head">
+							<div class="pay-bill-table-row ub ub-ac">
+								<div class="pay-bill-table-item">商品名</div>
+								<div class="pay-bill-table-item">数量</div>
+								<div class="pay-bill-table-item">单价</div>
+								<div class="pay-bill-table-item">实收</div>
+							</div>
+						</div>
+						<div class="pay-bill-table-body ub-f1">
+							<!--<div class="pay-bill-table-type" >
+								<div class="pay-bill-table-item">-&#45;&#45; 酒水1份,已收12.00 -&#45;&#45;</div>
+							</div>-->
+							<div class="pay-bill-table-row ub ub-ac" v-for="(item,index) in pay.orderList" v-if="item.packageType!=2" @click="showPackage(item)">
+								<template v-if="!item.isX">
+									<div class="pay-bill-table-item">
+										<template v-if="item.type==1">
+											<div class="menu-order-list-badge orange">赠</div>
+										</template>{{item.foodName}}
+										<template v-if="item.specificationsName">({{item.specificationsName}})</template>
+									</div>
+									<div class="pay-bill-table-item">{{item.quantity}}</div>
+									<div class="pay-bill-table-item">{{item.price}}</div>
+									<div class="pay-bill-table-item" v-if="item.type!=1">{{item.amountPrice}}</div>
+								</template>
+								<template v-if="item.isX">
+									<div class="pay-bill-table-item" v-if="item.type!=1">--已结--</div>
+									<div class="pay-bill-table-item" v-if="item.type!=1"></div>
+									<div class="pay-bill-table-item" v-if="item.type!=1"></div>
+									<div class="pay-bill-table-item" v-if="item.type!=1">{{item.isXamount}}</div>
+								</template>
+							</div>
+
+						</div>
+					</div>
+					<div class="pay-bill-sum">合计: {{pay.payAmount}}</div>
+				</div>
+
+				<div class="pay-detail ub-f1 ub ub-ver">
+					<div class="pay-fact clear">
+						<div class="pay-fact-text fl">应收:{{pay.payAmount}}</div>
+						<div class="pay-fact-text fr">订金:{{pay.payedDeposit}}</div>
+					</div>
+					<div class="pay-method ub-f1">
+						<div class="pay-method-box">
+							<div class="pay-method-item clearfix">
+								<div class="pay-method-item-left fl ub ub-ac">
+									<div class="pay-method-icon vip"></div>
+									<div class="pay-method-text">会员 {{memberNum}}</div>
+								</div>
+								<div class="pay-method-item-right fr">
+									<button type="button" class="btns btns-set btns-silver" @click="openModalHui()">使用</button>
+								</div>
+							</div>
+							<div class="pay-method-item clearfix">
+								<div class="pay-method-item-left fl ub ub-ac">
+									<div class="pay-method-icon coupon"></div>
+									<div class="pay-method-text">优惠 未使用</div>
+								</div>
+								<div class="pay-method-item-right fr">
+									<button type="button" class="btns btns-set btns-silver">使用</button>
+								</div>
+							</div>
+							<!--<div class="pay-method-item clearfix">
+								<div class="pay-method-item-left fl ub ub-ac">
+									<div class="pay-method-icon discount"></div>
+									<div class="pay-method-text">权限折扣 未使用</div>
+								</div>
+								<div class="pay-method-item-right fr">
+									<button type="button" class="btns btns-set btns-silver">使用</button>
+								</div>
+							</div>-->
+						</div>
+						<div class="pay-btngroup clearfix">
+							<div class="pay-btngroup-text fl">抹零</div>
+							<input type="text" class="pay-btngroup-ipt fl" v-model="pay.smallChange" value="0" />
+							<!--<div class="pay-btngroup-box fl clearfix">
+								<button type="button" class="btns btns-set btns-silver fl">2</button>
+								<button type="button" class="btns btns-set btns-silver fl">其他</button>
+							</div>-->
+						</div>
+						<div class="pay-btngroup clearfix">
+							<div class="pay-btngroup-text fl">发票</div>
+							<input type="text" class="pay-btngroup-ipt fl" v-model="invoiceAmount" value="" />
+							<!--<div class="pay-btngroup-box fl clearfix">
+								<button type="button" class="btns btns-set btns-silver fl">12</button>
+								<button type="button" class="btns btns-set btns-silver fl">15</button>
+							</div>-->
+						</div>
+						<!--<div class="pay-type">-->
+						<!--<div class="pay-cleardesk ub ub-ac">
+							<i class="iconfont icon-tick"></i>
+							<div class="pay-cleardesk-text">结账方式</div>
+						</div>-->
+
+						<div class="pay-method-item ub">
+							<div class="pay-method-item-left ub-f1 ub ub-ac">
+								<div class="pay-btngroup-text"></div>
+							</div>
+							<div class="pay-method-item-right">
+								<button type="button" class="btns btns-set yellow" @click="canPrint()">预打单</button>
+								<button type="button" class="btns btns-set yellow" @click="openModal()">结账</button>
+							</div>
+						</div>
+						<!--<div class="pay-type-box clearfix">
+							<div class="pay-type-item ub ub-ac ub-pc" v-for="(item, index) in payMethods">
+								<div class="pay-type-btn tx-c" @click="pickPayMtd(item)" :class="{'active': thisMethod&&thisMethod.name===item.name}">
+									<div class="pay-type-icon">
+										<i class="iconfont" :class="'icon-'+item.class"></i>
+									</div>
+									<div class="pay-type-btn-text">{{item.name}}</div>
+								</div>
+							</div>
+						</div>-->
+
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+
+			<div class="shade" id="modalCash" :class="{active: myModal===0}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="">
+					<div class="modal-head ub">
+						<div class="ub-f1">现金结账</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="paySuccess()">确定</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">收现金</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount0" readonly id="factAmount0" />
+									</div>
+									<div class="modal-form-label">微信</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount1" readonly id="factAmount1" />
+									</div>
+									<div class="modal-form-label">支付宝</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount2" readonly id="factAmount2" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">会员卡</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount3" readonly id="factAmount3" />
+									</div>
+									<div class="modal-form-label">银联刷卡</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount4" readonly id="factAmount4" />
+									</div>
+									<div class="modal-form-label">其他</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" pattern="[0-9]" v-model="factAmount5" readonly id="factAmount5" />
+									</div>
+								</div>
+							</div>
+							<!--<div class="modal-form-column ub ub-ac">
+									<div class="exchange-text">找零:0.00</div>
+								</div>-->
+
+							<!--<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label"></div>
+									<div class="modal-form-cell ub-f1">
+										<button type="button" class="btns btns-set">12</button>
+										<button type="button" class="btns btns-set">15</button>
+										<button type="button" class="btns btns-set">50</button>
+									</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="shade" id="packageShade" :class="{active: myModal===2}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="">
+					<div class="modal-head ub">
+						<div class="ub-f1">套餐列表</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="clsModal()">确定</button>
+					</div>
+					<div class="modal-body">
+						<table class="modal-table">
+							<tr class="modal-table-tr">
+								<th>商品名</th>
+								<th>数量</th>
+							</tr>
+							<tr class="modal-table-tr" v-for="(item,index) in packageList">
+								<td>{{item.foodName}}</td>
+								<td>{{item.quantity}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="shade" id="openDesk" :class="{active:myModal===1}" @click="clsModal()">
+				<div class="modal ub ub-ver" @click.stop="">
+					<div class="modal-head ub">
+						<div class="ub-f1">会员</div>
+					</div>
+					<div class="modal-foot">
+						<button type="button" class="btns btns-set btns-submit" @click="clsModal()">确定</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-form">
+							<div class="modal-form-row ub">
+								<div class="modal-form-column ub">
+									<div class="modal-form-label">会员号</div>
+									<div class="modal-form-cell ub-f1">
+										<input type="number" class="input" v-model="phone" />
+									</div>
+								</div>
+								<div class="modal-form-column ub">
+									<div class="modal-form-label"> </div>
+									<div class="modal-form-cell ub-f1">
+										<button type="button" class="btns btns-set btns-submit" @click="serch()">搜索</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<table class="modal-table">
+							<tr class="modal-table-tr">
+								<th>姓名</th>
+								<th>手机</th>
+								<th>等级</th>
+								<th>会员号</th>
+							</tr>
+							<tr class="modal-table-tr">
+								<td>{{member.name}}</td>
+								<td>{{member.phone}}</td>
+								<td>{{member.level}}</td>
+								<td>{{member.card}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/sweetalert2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.numpad.js"></script>
+		<script type="text/javascript" src="js/pay.js"></script>
+	</body>
+
+</html>

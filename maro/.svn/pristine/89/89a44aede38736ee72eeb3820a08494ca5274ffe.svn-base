@@ -1,0 +1,107 @@
+package com.maro.manager.print.controller;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.maro.manager.print.entity.SettleAccounts;
+import com.maro.manager.print.entity.ShangPinLingShou;
+import com.maro.manager.print.service.PrintTaiQiuService;
+import com.maro.platform.core.common.controller.BaseController;
+import com.maro.platform.core.common.model.json.AjaxJson;
+
+/**   
+ * @Title: Controller  
+ * @Description: 点机号
+ * @author onlineGenerator
+ * @date 2018-06-13 10:40:59	
+ * @version V1.0   
+ *
+ */
+@Controller
+@RequestMapping("/PrintController")
+public class PrintController extends BaseController {
+	
+	/**
+	 * 01 点菜宝登录
+	 * @param type 打印单
+	 *  结账单 printSettleAccounts
+	 *  预结单 printExpected
+	 * @return
+	 */
+	@RequestMapping(params = "printData")
+	@ResponseBody
+	public AjaxJson printData(String type){
+		AjaxJson aj = new AjaxJson();
+		
+		List<ShangPinLingShou> spsList = new ArrayList<ShangPinLingShou>();
+		ShangPinLingShou sps = new ShangPinLingShou();
+		sps.setShangPin_name("青椒肉丝1");
+		sps.setSingle_Price("1");
+		sps.setShuLiang("1");
+		sps.setTotalMoney("88.9");
+		spsList.add(sps);
+		ShangPinLingShou sps2 = new ShangPinLingShou();
+		sps2.setShangPin_name("青椒肉丝2");
+		sps2.setSingle_Price("1");
+		sps2.setShuLiang("2");
+		sps2.setTotalMoney("100");
+		spsList.add(sps2);
+		ShangPinLingShou sps0 = new ShangPinLingShou();
+		sps0.setShangPin_name("青椒肉丝3");
+		sps0.setSingle_Price("1");
+		sps0.setShuLiang("2");
+		sps0.setTotalMoney("100");
+		spsList.add(sps0);
+		ShangPinLingShou sps3 = new ShangPinLingShou();
+		sps3.setShangPin_name("青椒肉丝4");
+		sps3.setSingle_Price("1");
+		sps3.setShuLiang("2");
+		sps3.setTotalMoney("100");
+		spsList.add(sps3);
+		ShangPinLingShou sps4 = new ShangPinLingShou();
+		sps4.setShangPin_name("青椒肉丝5");
+		sps4.setSingle_Price("1");
+		sps4.setShuLiang("2");
+		sps4.setTotalMoney("100");
+		spsList.add(sps4);
+		ShangPinLingShou sps5 = new ShangPinLingShou();
+		sps5.setShangPin_name("青椒肉丝6");
+		sps5.setSingle_Price("1");
+		sps5.setShuLiang("2");
+		sps5.setTotalMoney("100");
+		spsList.add(sps5);
+		ShangPinLingShou sps6 = new ShangPinLingShou();
+		sps6.setShangPin_name("青椒肉丝7");
+		sps6.setSingle_Price("1");
+		sps6.setShuLiang("2");
+		sps6.setTotalMoney("100");
+		spsList.add(sps6);
+		ShangPinLingShou sps7 = new ShangPinLingShou();
+		sps7.setShangPin_name("青椒肉丝8");
+		sps7.setSingle_Price("1");
+		sps7.setShuLiang("2");
+		sps7.setTotalMoney("100");
+		spsList.add(sps7);
+		ShangPinLingShou sps8 = new ShangPinLingShou();
+		sps8.setShangPin_name("青椒肉丝9");
+		sps8.setSingle_Price("1");
+		sps8.setShuLiang("2");
+		sps8.setTotalMoney("100");
+		spsList.add(sps8);
+		
+		SettleAccounts sa = new SettleAccounts();
+		sa.setAdmin("何善龙");
+		sa.setDanjuh("0001245");
+		sa.setZongJie("9862");
+		sa.setShangPinList(spsList);
+		
+		new PrintTaiQiuService().print(type,sa,19);
+		
+		return aj;
+	}
+	
+	
+}

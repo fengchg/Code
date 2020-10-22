@@ -1,0 +1,197 @@
+<template>
+  <div class="page" v-cloak>
+    <yd-layout class="content">
+      <yd-navbar class="bg-theme" slot="navbar" title="催菜">
+        <div slot="left" @click="$router.goBack()">
+          <yd-navbar-back-icon></yd-navbar-back-icon>
+        </div>
+      </yd-navbar>
+      <div class="my-container">
+        <div class="my-box urge">
+          <yd-checklist v-model="checkList" color="#ED3368">
+            <yd-checklist-item v-for="item, index in urgeList" :key="index" :val="index" v-if="urgeList.length>0">
+              <yd-flexbox class="urge-pick">
+                <yd-flexbox-item>
+                  <div class="urge-pick-name">{{item.foodName}}</div>
+                  <div class="urge-pick-format fc-theme">{{item.specificationsName}}</div>
+                  <div class="urge-pick-format fc-theme">{{item.remark}}</div>
+                </yd-flexbox-item>
+                <div>
+                  <span class="my-price fc-theme"><em>¥</em>{{item.price}}</span>
+                </div>
+              </yd-flexbox>
+            </yd-checklist-item>
+          </yd-checklist>
+        </div>
+        <div class="nothing" :style="img" v-if="urgeList.length==0"></div>
+      </div>
+      <div slot="bottom" class="my-btn-box">
+        <yd-button size="large" type="primary" shape="circle" class="my-btn my-btn-shade bg-theme" @click.native="urgeSubmitHandle">确定</yd-button>
+      </div>
+    </yd-layout>
+  </div>
+</template>
+<script>
+  import { mapGetters } from 'vuex'
+  import Vue from 'vue'
+
+export default {
+  data() {
+    return {
+      serverOrderId: '54598430-3eb7-43f8-9c89-507664c92edb',
+      urgeList: [],
+      checkList: [],
+      submitList: [],
+      img: {background: "url(" + require('../../../static/img/nothing.png') + ")no-repeat center/150px"}
+    }
+  },
+  computed: {
+  ...mapGetters([ 'getOrderId'])
+  },
+  mounted(){
+  },
+  created() {
+    // 获取已点餐单
+    let that=this;
+    let data = new URLSearchParams()
+    data.append('serverOrderId', this.getOrderId);
+    let param={
+      loadingText:'加载中...',
+      isLoading:true,
+      data:data,
+      myVue:this
+    }
+    this.common.$ajax('/maroClientServerorderController.do?getServerOrderById',param,function(data){
+      that.handleDishData(data.obj)
+    })
+
+  },
+  methods: {
+    getDishError(obj) {
+      this.$dialog.loading.close()
+      this.$router.goBack()
+
+      // 获取数据出错的回调函数
+      this.$dialog.notify({
+        mes: '暂时无法获取菜品信息，请稍后重试。',
+        timeout: 5000
+      })
+    },
+    handleDishData(obj) {
+      this.urgeList = obj.maroClientFoodOrderVOs.filter((m) => {
+        return m.states !== 6
+      })
+    },
+    urgeSubmitHandle() {
+      // 处理催菜数据
+      this.submitList.splice(0, this.submitList.length)
+
+      if (this.checkList.length === 0) {
+        this.$dialog.notify({
+          mes: '请先选择需要催的菜品。',
+          timeout: 3000
+        })
+        return
+      }
+
+      for (let i = 0; i < this.checkList.length; i++) {
+        let n = this.urgeList[this.checkList[i]]
+        let urgeObj = {
+          'id': n.id,
+          'foodName': n.foodName,
+          'quantity': n.quantity,
+          'unitName':n.unitName,
+          'remark':n.remark,
+          'list':n.list,
+          'packageType':n.packageType
+        }
+        this.submitList.push(urgeObj)
+      }
+
+      this.urgeSubmit()
+    },
+    urgeSubmit() {
+      // 获取已点餐单
+      let that=this;
+      let data = new URLSearchParams();
+      // 提交催菜数据
+      let thisObj = {
+        'maroClientFoodorderDOList': this.submitList,
+        'maroClientServerorderDO': {
+          'id': this.getOrderId
+        }
+      }
+      data.append('foodOrderParamsDTOJson', JSON.stringify(thisObj));
+      let param={
+        loadingText:'正在为你催菜中...',
+        isLoading:true,
+        data:data,
+        myVue:this
+      }
+      this.common.$ajax('/maroClientServerorderController.do?UrgeFood',param,function(data){
+        that.urgeSubmitSuccess();
+      })
+
+
+    },
+    urgeSubmitError(obj) {
+      // 提交催菜数据出错的回调函数
+      this.$dialog.loading.close()
+      this.$dialog.notify({
+        mes: '暂时未能为您催菜，请稍后重试。',
+        timeout: 5000
+      })
+    },
+    urgeSubmitSuccess() {
+      // 提交催菜数据成功后的操作
+      this.$router.goBack()
+      this.$dialog.toast({
+          mes: '已为您催菜，菜品将尽快上桌',
+          timeout: 2000,
+          icon: 'success'
+      })
+    }
+  }
+}
+
+</script>
+<style scoped>
+.urge .yd-checklist-item {
+  margin-left: .3rem;
+}
+
+.urge .yd-checklist-content {
+  padding-right: .3rem;
+}
+.nothing {
+  margin: 0 auto;
+  width:300px;
+  height: 200px;
+  background-size:100%;
+
+}
+
+.urge .yd-checklist-item-icon {
+  padding: .3rem;
+  margin-left: -.3rem;
+}
+
+.urge .yd-checklist-icon {
+  width: .4rem;
+  height: .4rem;
+}
+
+.urge-pick {
+  min-height: 1.12rem;
+}
+
+.urge-pick-name {
+  font-size: .28rem;
+}
+
+.urge-pick-format {
+  font-size: .24rem;
+  margin-top: .06rem;
+}
+
+</style>

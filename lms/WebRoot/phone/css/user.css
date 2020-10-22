@@ -1,0 +1,11 @@
+﻿[data-page="userMessagePage"].page .icon-undefault{
+    background-position: 0 -20px;
+}
+[data-page="userMessagePage"].page .delete-user{
+    font-size:16px;
+}
+[data-page="userMessagePage"].page .sex{
+    display: inline-block;
+    width: 29px;
+    text-align: center;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>结账成功</title>
+		<script type="text/javascript" src="js/setHtmlRem.js" ></script>
+		<link rel="shortcut icon" type="image/x-icon" href="#">
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<link rel="stylesheet" href="css/success.css" />
+	</head>
+	<body>
+		<div class="container ub ub-ver" id="success" v-cloak>
+			<div class="suc-title ub ub-pj">
+				<div class="suc-title-text">&nbsp;</div>
+			</div>
+			<div class="suc-container ub-f1 ub ub-ver ub-ac">
+				<div class="suc-icon-box tx-c">
+					<i class="iconfont icon-tick"></i>
+					<h1 class="suc-icon-text">结账成功</h1>
+				</div>
+				<div class="suc-info ub-f1 ub ub-ac ub-pc">
+					<div class="suc-info-box ub">
+						<div class="suc-info-list ub-f1">
+							<div class="suc-info-text-lg">应收金额:{{payJson.receivableAmount}}</div>
+							<div class="suc-info-text">订单金额:{{payJson.amount}}</div>
+							<div class="suc-info-text">实收金额:{{payJson.collectedAmount}}</div>
+							<div class="suc-info-text">订金:{{payJson.payedDeposit}}</div>
+							<div class="suc-info-text">优惠总额:{{payJson.payCount}}</div>
+						</div>
+						<div class="suc-info-list ub-f1">
+							<div class="suc-info-text-lg">收款:{{payJson.collectedAmount}}</div>
+							<div class="suc-info-text">结账方式:{{payJson.payTypeString}}</div>
+						</div>
+						<div class="suc-info-list ub-f1">
+							<div class="suc-info-text-lg">抹零:{{payJson.smallChange}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="suc-btn-box">
+					<button type="button" class="btns btns-set btns-silver" @click="backtoIndex()">回主页</button>
+					<button type="button" class="btns btns-set btns-silver" @click="canPrint()">打单</button>
+				</div>
+				<div class="suc-notes">
+					<div class="suc-notes-item">说明：</div>
+					<div class="suc-notes-item">应收金额 = 订单金额 - 优惠总金额 - 订金</div>
+					<div class="suc-notes-item">订单金额 = 订单所有菜品相加的金额 + 其他费用（外卖打包费 + 服务费等）</div>
+					<div class="suc-notes-item">实收金额 = 订单金额 - 优惠总金额</div>
+					<div class="suc-notes-item">优惠总额 = 会员优惠 + 权限折扣 + 抹零 + 活动优惠 + 取舍金额 + 代金券</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="js/common.js" ></script>
+		<script type="text/javascript" src="js/zepto-1.1.6.min.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/success.js" ></script>
+	</body>
+</html>

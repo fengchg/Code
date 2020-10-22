@@ -1,0 +1,142 @@
+<div data-controller="UserInfoController">
+    <div class="pages">
+        <div data-page="userInfoPage" class="page no-tabbar">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="back link">
+                            <i class="icon icon-backgray"></i>
+                        </a>
+                    </div>
+                    <div class="center">用户信息</div><!--
+                    <div class="right">
+                        <a class="link" id="id_userAddBtn">保存</a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="user-list">
+                    <div class="list-block all-order  m-b-0" id="id_userInfoPanel">
+                        
+                    </div>
+                    <div class="list-block m-t-10" id="id_userInfoBtnPanel">
+                        <ul>
+				            <li class="item-content contactPage-btn-del">
+				                <div class="only-one-btn">
+				                    <a class="delete-user color-red" id="id_deleteUserBtn">删除用户</a>
+				                </div>
+				                <div class="only-one-btn">
+				                    <a class="delete-user color-red" id="id_disEnaUserBtn"></a>
+				                </div>
+				            </li>
+				        </ul>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template7" id="userInfoTemplate">
+    	<form id="id_userInfoForm">
+					<input type="hidden" value="{{id}}" name="user.id">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            用户名
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入姓名" value="{{realName}}" name="user.userExp.realName" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">性别</div>
+                                        <div class="item-input">
+                                        	
+                                            <input type="radio" value="男" name="user.gender" checked="checked"><span class="sex">男</span>
+                                            <input type="radio" value="女" name="user.gender"><span class="sex">女</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">年齡</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入年齡" name="user.userExp.age" value="{{age}}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">住址</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入住址" name="user.userExp.address" value="{{address}}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            手机号码
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="tel" placeholder="请输入手机号码" name="user.userExp.phoneNumber" value="{{phoneNumber}}">
+                                        </div>
+                                        <div class="item-after hideForAdd">
+                                            <a class="external"><i class="icon icon-message"></i></a>
+                                            <a class="external"><i class="icon icon-phone"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            身份证号
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="number" placeholder="请输入身份证号" name="user.userExp.code" value="{{code}}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            邮箱
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入邮箱" name="user.userExp.email" value="{{email}}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            备注
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" value="{{remark}}" name="user.userExp.remark">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="last-item isDefault">
+                                    <!--勾选上时加上default即可-->
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">是否启用</div>
+                                            <div class="item-input">
+                                            </div>
+                                            <div class="item-after">
+                                                <i class="icon icon-undefault"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+    </script>
+    <!--<script type="text/template7" id="userInfoBtnTemplate">
+    	 
+    </script>-->
+    <script type="text/javascript" src="../phone/js/pages/UserInfoController.js"></script>
+</div>

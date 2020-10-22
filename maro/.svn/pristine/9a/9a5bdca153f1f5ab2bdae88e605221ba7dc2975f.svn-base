@@ -1,0 +1,380 @@
+package com.maro.client.module.serverorder.controller;
+
+import com.maro.client.module.serverorder.pojo.dto.FoodOrderParamsDTO;
+import com.maro.client.module.serverorder.pojo.dto.MaroClientServerorderDTO;
+import com.maro.client.module.serverorder.pojo.dto.SeatchangeParamsDTO;
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.platform.core.common.model.json.AjaxJson;
+import com.maro.platform.core.common.model.json.DataGrid;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 店铺服务订单模块的控制器，提供接口给对应的JSP页面
+ * @author 冯成果
+ * @date 2018-3-28
+ * @since 版本号 01.00.0001
+*/
+public interface MaroClientServerorderController {
+
+    /**
+     * 跳转到服务订单详情页面
+     * @return MaroClientServerorderDTO，跳转的页面
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-03-30】进行添加
+     */
+    public ModelAndView  listServerOrderDOPage(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 根据参数DTO，查询出符合条件的服务订单列表
+     * @param maroClientServerorderDTO，参数DTO
+     * @return MaroClientServerorderDO，符合条件的服务订单列表
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-03-30】进行添加
+     */
+    public void listServerOrderDO(HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid, MaroClientServerorderDTO maroClientServerorderDTO);
+
+    /**
+     * 根据服务订单id主键查询出对应服务订单DTO，DTO中包括服务订单主表以及点餐记录从表、桌位变更记录从表、支付记录从表等等数据
+     * @param serverOrderId,服务订单id主键
+     * @return MaroClientServerorderDTO，符合搜索条件的服务订单DTO
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-03-28】进行添加
+     */
+    MaroClientServerorderDTO getServerOrder(String serverOrderId);
+
+
+    /**
+     * 跳转到服务订单详情页面
+     * @return ModelAndView，跳转的页面
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-03-28】进行添加
+     */
+    public ModelAndView getServerOrderPage(HttpServletRequest request, HttpServletResponse response,String serverOrderId);
+
+    /**
+     * 根据店铺ID获取桌位信息
+     * @return AjaxJson
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-03-28】进行添加
+     */
+    public AjaxJson listSeat();
+
+
+    /**
+     * 开台
+     * @return AjaxJson
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-04-12】进行添加
+     */
+    public AjaxJson open(MaroClientServerorderDTO dto);
+    /**
+     * 取消开台
+     * @return AjaxJson
+     * @throws
+     * @author 冯成果
+     * @since 版本号 01.00.0001
+     * @version 版本 由【冯成果】于【2018-04-12】进行添加
+     */
+    public AjaxJson cancel(String serverorderId) ;
+    /**
+     * 清台
+     * @return AjaxJson
+     * @throws
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-04-12】进行添加
+     */
+    public AjaxJson clear(String serverorderId) ;
+
+    /**
+     * 获取菜肴列表，并且根据服务订单获取已点菜列表和点菜数量
+     * @param serverOrderId ：服务订单主键
+     * @param maroShopEntity
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-14】进行添加
+     */
+    public AjaxJson listMenu(String serverOrderId,String seatId);
+    /**
+     * 点餐下单
+     * @param foodOrderParamsDTOString：菜品接口有关的参数数据传输对象。包含参数有服务订单DO，桌位信息DO和点餐列表
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-15】进行添加
+     */
+    public AjaxJson orderFood(String foodOrderParamsDTOString);
+
+
+    /**
+     * 换桌
+     * @param seatchangeParamsDTO:桌位更换参数传输对象。服务订单DO、新桌位信息、原桌位信息
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson changeSeat(SeatchangeParamsDTO seatchangeParamsDTO);
+
+    /**
+     * 并桌
+     * @param mergeListSeatJson:桌位更换参数传输对象。服务订单DO、合并的桌位信息
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson mergeListSeat(String mergeListSeatJson);
+
+
+    /**
+     * 取消并桌
+     * @param mergeListSeatJson:桌位更换参数传输对象。服务订单DO、合并的桌位信息
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson cancelMergeSeat(SeatchangeParamsDTO seatchangeParamsDTO);
+
+    /**
+     * 划菜
+     * @param foodOrderParamsDTO:菜品接口有关的参数数据传输对象。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson finishFood(FoodOrderParamsDTO foodOrderParamsDTO);
+
+
+    /**
+     * 起菜
+     * @param foodOrderParamsDTO:菜品接口有关的参数数据传输对象。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson cookedFood(FoodOrderParamsDTO foodOrderParamsDTO);
+
+    /**
+     * 催菜
+     * @param foodOrderParamsDTOJson:菜品接口有关的参数数据传输对象JSON字符串。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson UrgeFood(String foodOrderParamsDTOJson);
+
+    /**
+     * 退菜
+     * @param foodOrderParamsDTOJson:菜品接口有关的参数数据传输对象JSON字符串。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson refundFood(String foodOrderParamsDTOJson);
+
+
+    /**
+     * 取消划菜
+     * @param foodOrderParamsDTO:菜品接口有关的参数数据传输对象。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson unFinishFood(FoodOrderParamsDTO foodOrderParamsDTO);
+
+
+    /**
+     * 赠菜
+     * @param foodOrderParamsDTOJson:菜品接口有关的参数数据传输对象JSON字符串。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson giftFood(String foodOrderParamsDTOJson);
+
+
+    /**
+     * 菜品临时改价
+     * @param foodOrderParamsDTO:菜品接口有关的参数数据传输对象。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson changeFoodTempPrice(FoodOrderParamsDTO foodOrderParamsDTO);
+    /**
+     * 查询退菜记录列表
+     * @param serverorderId:服务订单主键
+     * @param seatId:桌位主键
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson listRefundFood(String serverorderId,String seatId);
+
+
+    /**
+     * 修改订单信息
+     * @param maroClientServerorderDO:服务订单DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson updateServerorder(MaroClientServerorderDO maroClientServerorderDO);
+
+
+    /**
+     * 结账
+     * @param request
+     * @param payParamsDTO:结账参数传输对象，包括服务订单DO、支付记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-20】进行添加
+     */
+    public AjaxJson pay(HttpServletRequest request,String payParamsDTOJson);
+    /**
+     * 根据服务订单主键查询订单详情
+     * @param serverOrderId:服务订单主键
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-20】进行添加
+     */
+    public AjaxJson getServerOrderById(String serverOrderId);
+    /**
+     * 根据手机号码获取会员信息
+     * @param phone:手机号码
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-20】进行添加
+     */
+    public AjaxJson getMember(String phone);
+    /**
+     * 转台
+     * @param foodOrderParamsDTOJson:菜品接口有关的参数数据传输对象JSON字符串。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson changeFoodListTo(String foodOrderParamsDTOJson);
+
+
+    /**
+     * 多桌点餐
+     * @param foodOrderParamsDTOListJson:菜品接口有关的参数数据传输对象列表JSON字符串。服务订单DO、桌位信息DO、点餐记录DO列表、点餐记录DO
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson orderFoodToListSeat(String foodOrderParamsDTOListJson);
+
+    /**
+     * 点餐列表后厨通知
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson listFoodToKitchen();
+
+    /**
+     * 下锅（单菜打厨）
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson cookFood(String foodorderIdListJson);
+
+    /**
+     * 出菜（出锅）
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-17】进行添加
+     */
+    public AjaxJson cookedFood(String foodorderId);
+
+    /**
+     * 获取菜肴列表（专门提供给APP使用），并且根据服务订单获取已点菜列表和点菜数量
+     * @param serverOrderId：服务订单主键
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-14】进行添加
+     */
+    public AjaxJson listMenuForApp(HttpServletRequest req,String shopId,String seatId,String user,String pass,String code);
+    /**
+     * 点餐支付（专门提供给APP使用）
+     * @return
+     * @author 冯成果
+     * @since 01.00.0001
+     * @version 01.00.0001
+     * @description 由【冯成果】于【2018-4-14】进行添加String foodOrderParamsDTOListJson
+     */
+    public AjaxJson orderFoodForApp(HttpServletRequest req,String foodOrderParamsDTOListJson,String payParamsDTOJson,String user,String pass);
+    
+    public AjaxJson printOrder(String orderId,boolean isPre,String payId);
+
+    /**
+     * 获取店铺促销活动，买几赠几
+     * @return
+     */
+    public AjaxJson listSalesPromotion();
+}

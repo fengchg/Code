@@ -1,0 +1,84 @@
+body {
+ margin:0;
+ font:normal 12px Arial,Verdana,Tahoma;
+ text-align:center;
+ line-height:150%;
+ border:1px F499BC solid;
+}
+
+#Nav{
+	 width:100%;
+	 h:100%;
+     margin:0px;
+     padding:0px;
+     text-align:left;
+     list-style:none;
+}
+#Nav li{
+background: url(../../images/light-hd.gif);
+background-repeat: repeat-x;
+border-bottom: 1px #8abb12 solid;
+text-align: center;
+font-weight: bold;
+margin: 0;
+padding: 0;
+}
+a.title:link, a.title:visited {
+ font-family: "宋体";
+ font-size: 12px;
+ color: #000000;
+ height:26px;
+ display:block;
+ background:url(./img/tutu02.gif) no-repeat 10px 50%;
+ color:#000000;
+ padding:2px 0 0 20px;
+ width:117px;
+ line-height:23px;
+ text-decoration:none;
+ text-indent:10px;
+ }
+ a.title:hover{
+    width:117px;
+    line-height:23px;
+	height:26px;
+    display:block;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+ }
+
+
+#Menu{
+background: #FFFFFF;
+text-align: left;
+padding-left: 40px;
+display: none;
+margin: 0;
+padding: 0;
+overflow-y: auto;
+overflow-x: hidden;
+}
+#Menu li{
+	width: 100%;
+	display:block;
+	background-image: none;
+	border-bottom-style: dotted;
+}
+
+a.sub:link,a.sub:visited,a.sub:active{
+ background:url(./img/tutu11.gif) no-repeat 0 50%;
+ padding-left:20px;
+ text-indent:10px;
+ font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+ }
+ a.sub:hover{
+ color:#FF0000;
+ background:url(./img/tutu11_1.gif) no-repeat 0 50%;
+ font-family: "宋体";
+ font-size: 12px;
+ text-decoration: none;
+ }

@@ -1,0 +1,203 @@
+<template>
+  <yd-popup v-model="flag" class="buy-list">
+    <div class="buy-list-head" slot="top">
+      <yd-flexbox>
+        <yd-flexbox-item>
+          <div class="buy-list-title">已选商品</div>
+        </yd-flexbox-item>
+        <div class="buy-list-empty" @click="clrBuyList">
+          <!--<yd-icon name="delete" size=".24rem" color="#bbb"></yd-icon>-->
+          <img :src="icon_del" class="ord-list-del" />
+          <span class="buy-list-empty-text">清空</span>
+        </div>
+      </yd-flexbox>
+    </div>
+    <div class="buy-list-box" slot="bottom">
+      <div class="buy-list-item" v-for="item, index in list" v-if="flag">
+        <yd-flexbox>
+          <yd-flexbox-item>
+            <div class="buy-list-item-title">{{item.dishesName}}</div>
+            <div class="buy-list-item-format" v-if="item.packageType == 0">
+              <template v-if="item.specificationsList.length > 1">{{item.spec.pageName}}</template>
+              <template v-for="value, key in item.spec.remarkArr">{{value}}&nbsp;</template>
+              <template v-if="item.spec.remark!==''">{{item.spec.remark}}</template>
+            </div>
+            <div class="buy-list-item-format" v-if="item.packageType == 1">
+              <template v-for="value, key in item.spec.remarkArr">{{value}}&nbsp;</template>
+              <template v-if="item.spec.remark!==''">{{item.spec.remark}}</template>
+            </div>
+          </yd-flexbox-item>
+          <div class="buy-list-price" v-if="item.hasOwnProperty('spec')&& item.packageType == 0">
+            <span class="my-price fc-theme"><em>¥</em>{{item.spec.unitPrice * item.quantity || '--'}}</span>
+          </div>
+          <div class="buy-list-price" v-else-if="item.hasOwnProperty('spec')&& item.packageType == 1">
+            <span class="my-price fc-theme"><em>¥</em>{{item.salesPrice * item.quantity || '--'}}</span>
+          </div>
+          <div class="buy-list-price" v-else>
+            <span class="my-price-old fc-theme" v-if="item.costPrice && item.salesPrice<item.costPrice"><em>¥</em>{{item.costPrice * item.quantity}}</span>
+            <span class="my-price fc-theme"><em>¥</em>{{item.salesPrice * item.quantity || '--'}}</span>
+          </div>
+          <div>
+            <cart-ctrl :food="item" @zeroFoodQuan="delBuyList($event, index)"></cart-ctrl>
+          </div>
+        </yd-flexbox>
+      </div>
+    </div>
+  </yd-popup>
+</template>
+<script>
+import cartCtrl from '../compo/CartCtrl'
+export default {
+  props: {
+    list: {
+      type: Array,
+      default: []
+    },
+    buyFlag: {
+      type: Boolean
+    }
+  },
+  data() {
+    return {
+      flag: false,
+      icon_del:require('../../assets/icon/buyList_del.jpg'),
+    }
+  },
+  components: {
+    cartCtrl
+  },
+  watch: {
+    buyFlag(v) {
+      this.flag = v
+    },
+    flag(v) {
+      if (!v) {
+        this.$emit('getShowBuyFlag', 1)
+      }
+    }
+  },
+  methods: {
+    delBuyList(v, i) {
+      this.list.splice(i, 1)
+    },
+    clrBuyList() {
+      // 清空购物车
+      this.$dialog.confirm({
+        mes: '清空购物车？',
+        opts: () => {
+          var li = this.list
+          for (var i = 0; i < li.length; i++) {
+            li[i].quantity = 0
+          }
+          this.list.splice(0, li.length)
+        }
+      });
+    }
+  }
+};
+
+</script>
+<style>
+  .ord-list-del{
+    width: .4rem;
+    position: absolute;
+    right: 0.8rem;
+    top: 0.23rem;
+  }
+.buy-list .yd-popup-bottom {
+  bottom: .98rem;
+  max-height: 60%;
+  left: 0;
+  margin: 0 auto;
+}
+
+.buy-list .yd-popup-bottom>div:last-child {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.buy-list-title,
+.buy-list-empty {
+  padding: .24rem .3rem .2rem;
+}
+
+.buy-list-head {
+  background-color: rgb(247, 247, 247);
+  position: relative;
+}
+
+.buy-list-head:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #e1e1e1;
+  transform: scaleY(.5);
+  transform-origin: 0 0;
+}
+
+.buy-list-title {
+  font-size: .28rem;
+  font-weight: 800;
+  line-height: .36rem;
+  color: #666;
+  text-align: left;
+}
+
+.buy-list-empty-text {
+  color: #666;
+  font-size: .24rem;
+}
+
+.buy-list-box {
+  padding-bottom: .35rem;
+}
+
+.buy-list-item {
+  position: relative;
+  padding: .3rem .3rem .42rem;
+}
+
+.buy-list-item:after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: .32rem;
+  right: 0;
+  border-bottom: 1px solid #e1e1e1;
+  transform: scaleY(.5);
+  transform-origin: 0 0;
+}
+
+.buy-list-item-title,
+.buy-list-item-format {
+  line-height: 1.125;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.buy-list-item-title {
+  font-size: .32rem;
+  color: #333;
+  -webkit-line-clamp: 1;
+}
+
+.buy-list-item-format {
+  font-size: .24rem;
+  color: #999;
+  margin-top: .16rem;
+  -webkit-line-clamp: 2;
+}
+
+.buy-list-price {
+  text-align: right;
+  padding: 0 .15rem;
+}
+
+</style>

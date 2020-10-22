@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+
+    <bean id="factory" class="com.rabbitmq.client.ConnectionFactory">
+        <property name="username" value="admin"/>
+        <property name="password" value="123456"/>
+        <property name="port" value="5672"></property>
+        <property name="host" value="193.112.42.207"></property>
+    </bean>
+
+    <bean id="mqCustomerListener" class="com.maro.client.common.mq.MqCustomerListener">
+        <property name="factory" ref="factory"></property>
+        <property name="exchangeName" value="rabbitMQ.out"></property>
+        <property name="queueName" value="rabbitMQ.out"></property>
+        <property name="routingKey" value="rabbitMQ.out"></property>
+        <property name="url" value="http://localhost:8080/maro/serverorderController.do?saveServerorder"></property>
+        <!--<property name="url" value="http://127.0.0.1:8081/serverorderController.do?saveServerorder"></property>-->
+        <!--<property name="url" value="http://193.112.42.207:8091/jeecg/mqController.do?saveServerorder"></property>-->
+        <property name="user" value="admin"></property>
+        <property name="pass" value="123456"></property>
+    </bean>
+
+    <bean id="mqProducer" class="com.maro.client.common.mq.MqProducer">
+        <property name="factory" ref="factory"></property>
+        <property name="exchangeName" value="rabbitMQ.out"></property>
+        <property name="queueName" value="rabbitMQ.out"></property>
+        <property name="routingKey" value="rabbitMQ.out"></property>
+    </bean>
+</beans>

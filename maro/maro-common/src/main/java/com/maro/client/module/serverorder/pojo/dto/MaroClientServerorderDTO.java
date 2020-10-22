@@ -1,0 +1,137 @@
+package com.maro.client.module.serverorder.pojo.dto;
+
+//import com.maro.client.module.evaluate.pojo.entity.MaroClientEvaluateVO;
+
+import com.maro.client.module.serverorder.pojo.entity.MaroClientServerorderDO;
+import com.maro.client.module.serverorder.pojo.vo.*;
+import com.maro.manager.discount.entity.MaroDishesDiscountEntity;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 店铺服务订单流水DTO类，聚合了店铺服务订单的主表VO和有关的子表，用来在controller、service、dao层之间进行参数和返回值传递的类
+ * @author 冯成果
+ * @date 2018-3-26
+ * @since 01.00.0001
+*/
+public class MaroClientServerorderDTO implements Serializable{
+    /**
+     * 服务订单VO
+     */
+    private MaroClientServerorderVO maroClientServerorderVO;
+    /**
+     * 点餐记录VO
+     */
+    private List<MaroClientFoodorderVO> maroClientFoodOrderVOs;
+    /**
+     * 桌位变更VO
+     */
+    private List<MaroClientSeatchangeVO> maroClientSeatchangeVOs;
+    /**
+     * 服务订单流水日志VO
+     */
+    private List<MaroClientServerorderlogVO> maroClientServerorderlogVOs;
+    /**
+     * 服务订单支付记录VO
+     */
+    private List<MaroClientPayedVO> maroClientPayedVOs;
+    /**
+     * 服务订单评价记录VO
+     */
+//    private List<MaroClientEvaluateVO> maroClientEvaluateVOs;
+    /**
+     * 服务订单DO
+     */
+    private MaroClientServerorderDO maroClientServerorderDO;
+
+    private List<PayResultDTO> payResultDTO;
+
+    List<MaroDishesDiscountEntity> discountList;
+
+    List<Map> groupDiscountList;
+
+    public MaroClientServerorderDO getMaroClientServerorderDO() {
+        return maroClientServerorderDO;
+    }
+
+    public void setMaroClientServerorderDO(MaroClientServerorderDO maroClientServerorderDO) {
+        this.maroClientServerorderDO = maroClientServerorderDO;
+    }
+
+    public MaroClientServerorderVO getMaroClientServerorderVO() {
+        return maroClientServerorderVO;
+    }
+
+    public void setMaroClientServerorderVO(MaroClientServerorderVO maroClientServerorderVO) {
+        this.maroClientServerorderVO = maroClientServerorderVO;
+    }
+
+    public List<MaroClientFoodorderVO> getMaroClientFoodOrderVOs() {
+        return maroClientFoodOrderVOs;
+    }
+
+    public void setMaroClientFoodOrderVOs(List<MaroClientFoodorderVO> maroClientFoodOrderVOs) {
+        this.maroClientFoodOrderVOs = maroClientFoodOrderVOs;
+    }
+
+    public List<MaroClientSeatchangeVO> getMaroClientSeatchangeVOs() {
+        return maroClientSeatchangeVOs;
+    }
+
+    public void setMaroClientSeatchangeVOs(List<MaroClientSeatchangeVO> maroClientSeatchangeVOs) {
+        this.maroClientSeatchangeVOs = maroClientSeatchangeVOs;
+    }
+
+    public List<MaroClientServerorderlogVO> getMaroClientServerorderlogVOs() {
+        return maroClientServerorderlogVOs;
+    }
+
+    public void setMaroClientServerorderlogVOs(List<MaroClientServerorderlogVO> maroClientServerorderlogVOs) {
+        this.maroClientServerorderlogVOs = maroClientServerorderlogVOs;
+    }
+
+    public List<MaroClientPayedVO> getMaroClientPayedVOs() {
+        return maroClientPayedVOs;
+    }
+
+    public void setMaroClientPayedVOs(List<MaroClientPayedVO> maroClientPayedVOs) {
+        this.maroClientPayedVOs = maroClientPayedVOs;
+    }
+
+//    public List<MaroClientEvaluateVO> getMaroClientEvaluateVOs() {
+//        return maroClientEvaluateVOs;
+//    }
+//
+//    public void setMaroClientEvaluateVOs(List<MaroClientEvaluateVO> maroClientEvaluateVOs) {
+//        this.maroClientEvaluateVOs = maroClientEvaluateVOs;
+//    }
+
+
+    public List<PayResultDTO> getPayResultDTO() {
+        return payResultDTO;
+    }
+
+    public void setPayResultDTO(List<PayResultDTO> payResultDTO) {
+        this.payResultDTO = payResultDTO;
+    }
+
+
+
+    public List<MaroDishesDiscountEntity> getDiscountList() {
+        return discountList;
+    }
+
+    public void setDiscountList(List<MaroDishesDiscountEntity> discountList) {
+        this.discountList = discountList;
+    }
+
+    public List<Map> getGroupDiscountList() {
+        return groupDiscountList;
+    }
+
+    public void setGroupDiscountList(List<Map> groupDiscountList) {
+        this.groupDiscountList = groupDiscountList;
+    }
+}

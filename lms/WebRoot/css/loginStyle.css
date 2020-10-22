@@ -1,0 +1,122 @@
+/* CSS Document */
+body{
+  text-align:center;
+  margin-top:2px;
+  font-size:12px;
+}
+#flash{
+  width:967px;
+  height:390px;
+}
+#under_box{
+  width:979px;
+}
+#left_box{
+  margin-left:4px;
+  margin-top:8px;
+}
+#box_left{
+  width:4px;
+  height:159px;
+  float:left;
+  background:url(img/box_left.jpg) no-repeat;
+}
+#box_center{
+  width:207px;
+  height:159px;
+  float:left;
+  background:url(img/box_centerbj.jpg);
+}
+#text{
+  width:87px;
+  height:13px;
+  float:left;
+  margin-left:8px;
+  margin-top:10px;
+  background:url(img/text.jpg) no-repeat;
+}
+#under_text{
+  width:207px;
+  height:116px;
+}
+.left_tab{
+  margin-left:15px;
+  margin-top:5px;
+  font-size:12px;
+}
+.left{
+  width:64px;
+  height:22px;
+  text-align:right;
+  color:#FFFFFF;
+}
+#box_right{
+  width:4px;
+  height:159px;
+  float:left;
+  background:url(img/box_right.jpg) no-repeat;
+}
+#under_center{
+  width:365px;
+  height:158px;
+  float:left;
+  margin-left:10px;
+  border:1px #4f9bd7 double;
+}
+#top_img{
+  width:365px;
+  height:22px;
+  background:url(img/under_top.jpg) no-repeat;
+}
+.center_tab{
+  margin-left:5px;
+  margin-top:5px;
+  float:left;
+  text-align:left;
+  font-size:12px;
+}
+a:link{
+  FONT-SIZE: 12px;
+  text-decoration: none;
+  color: #707070;
+}
+#under_right{
+  width:334px;
+  height:161px;
+  float:left;
+  margin-left:8px;
+}
+#under_right_left{
+  width:5px;
+  height:161px;
+  float:left;
+  background:url(img/left_left.jpg) no-repeat;
+}
+#under_right_center{
+  width:310px;
+  height:159px;
+  float:left;
+  border-top:1px #bbbaba double;
+  border-bottom:1px #bbbaba double;
+}
+#under_right_right{
+  width:7px;
+  height:161px;
+  float:left;
+  background:url(img/img_right.jpg) no-repeat;
+}
+.right_tab{
+  text-align:left;
+  line-height:14px;
+  margin-top:3px;
+  margin-left:5px;
+  font-size:12px;
+}
+.more{
+  text-align:right;
+}
+#under{
+  margin-top:9px;
+  font-size:12px;
+}
+  

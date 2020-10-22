@@ -1,0 +1,84 @@
+/* CSS Document */
+body{
+	text-align:center;
+}
+	/*整体控制框*/
+#box{
+    width:678px;
+	height:310px;
+}
+   /*中间控制框*/
+#top{
+    width:678px;
+	height:32px;
+	background:url(./img/controlPanl/top.jpg) no-repeat;
+	float:left;
+}
+#center{
+    width:668px;
+	height:270px;
+	float:left;
+	border-left:5px #6accf9 solid;
+	border-right:5px #6accf9 solid;
+}
+#under{
+    width:678px;
+	height:7px;
+	float:left;
+	background:url(./img/controlPanl/under.jpg) no-repeat;
+}
+  /*list控制*/
+ul{
+    width:668px;
+    padding:0px;
+	margin:0px;
+	margin-top:25px;
+	list-style-type:none;
+	float:left;
+	display:block;
+}
+ul.ulul{
+    width:668px;
+    padding:0px;
+	margin:0px;
+	margin-top:35px;
+	list-style-type:none;
+	float:left;
+	display:block;
+}
+li{
+    margin-left:60px;
+	float:left;
+}
+li.li1{
+    margin-left:57px;
+	float:left;
+}
+li.li2{
+    margin-left:56px!important;
+    margin-left:54px;
+	float:left;
+}
+li.li3{
+    margin-left:59px!important;
+    margin-left:58px;
+	float:left;
+}
+li.li4{
+    margin-left:56px!important;
+    margin-left:55px;
+	float:left;
+}
+li.li5{
+    margin-left:56px!important;
+    margin-left:55px;
+	float:left;
+}
+li.lili{
+    margin-left:78px!important;
+	margin-left:40px;
+}
+li.lili1{
+    margin-left:75px!important;
+	margin-left:40px;
+}

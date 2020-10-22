@@ -1,0 +1,81 @@
+add("座位详情","maroShopSeatController.do?list&shopId="+shopId);//打开弹出框
+addOneTab("座位详情","maroShopSeatController.do?list&shopId="+shopId);//打开tab
+function showMeg(msg) {
+	layer.open({
+		title:'提示信息',
+		offset:'rb',
+		content:msg,
+		time:3000,
+		btn:false,
+		shade:false,
+		icon:1,
+		shift:2
+	});
+}
+
+ function afterSelect(obj){
+    	var materialClassId=$(obj).val();
+    	$.ajax({
+    		url:"maroPurchaseController.do?getMaterialClassInfoById",
+    		data:{
+    			materialClassId:materialClassId
+    		},
+    		dataType:"json",
+    		success:function(result){
+    			if(result.success){
+    				var purchasing_price=result.obj.purchasing_price;
+    				$(obj).parent().parent().find("input[flag='planPrice']").val(purchasing_price);
+    			}else{
+    				showMeg(result.msg);
+    			}
+    		}
+    	});
+    }
+
+//文件上传html
+<td class="value">
+	<input name="shopInfo" value="${maroShopPage.shopInfo}" class="inputxt" readonly="readonly" style="width:150px">
+	<div style="height: 5px"></div>
+	<a class="easyui-linkbutton" iconCls="icon-search" onclick="$(this).parent().find('input[type=\'file\']').trigger('click')">浏览</a>
+	<input type="file" onchange="myupload(this)" style="display:none"/>
+	<input type="hidden" value="files"/>
+	<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="myremove(this)">删除</a>
+</td>
+
+var selections=$("#maroPurchaseList").datagrid("getSelections");//选中行
+	console.info(selections);
+	if(selections.length==0){
+		showMeg("未选择行！");
+	}else{
+		for(var i=0;i<selections.length;i++){
+			alert(selections[i].id);
+		}
+	}
+
+<t:dictSelect field="departId" type="list"  datatype="s" dictTable="v_maro_shops" dictField="id" dictText="name"  defaultVal="${maroShopPage.departId}" hasLabel="false"  title="所属店铺" ></t:dictSelect>
+
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<base href="<%=basePath%>">
+
+//获取角色编码
+String roleCodes = (String)ContextHolderUtils.getSession().getAttribute("maroRoleCodes");
+//验证是不是管理员的角色
+boolean admin = Util.ifRoleCode();
+//错误提示
+tip('获取队列名称失败!');
+//正确提示
+layer.open({
+        title:'提示信息',
+        offset:'rb',
+        content:"获取队列名称失败！",
+        time:3000,
+        btn:false,
+        shade:false,
+        icon:1,
+        shift:2
+    });
+//屏幕中间的错误提示
+alertTip("结束时间不能小于开始时间","提示");

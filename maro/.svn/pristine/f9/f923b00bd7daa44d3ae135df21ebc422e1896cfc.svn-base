@@ -1,0 +1,207 @@
+package com.maro.manager.common.service.impl;
+
+import com.maro.common.shop.pojo.entity.MaroShopEntity;
+import com.maro.common.util.MqUtil;
+import com.maro.common.util.Util;
+import com.maro.manager.common.dao.UtilDao;
+import com.maro.manager.common.service.UtilServiceI;
+import com.maro.platform.core.common.service.impl.CommonServiceImpl;
+import com.maro.platform.core.util.ResourceUtil;
+import com.maro.platform.web.system.pojo.base.TSDepart;
+import com.maro.platform.web.system.pojo.base.TSUser;
+import com.maro.platform.web.system.service.SystemService;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
+
+@Service("utilService")
+@Transactional
+public class UtilServiceImpl extends CommonServiceImpl implements UtilServiceI {
+	@Autowired
+	private UtilDao utilDao;
+	@Autowired
+	private SystemService systemService;
+
+	@Override
+	public List<com.maro.manager.common.entity.ComboTree> getComboTree(String id,
+			String id_field_name, String pid_field_name, String tree_field,
+			String table_name) {
+		// TODO Auto-generated method stub
+		return utilDao.getComboTree(id,id_field_name, pid_field_name, tree_field,table_name);
+	}
+
+	@Override
+	public List<Map> getCombobox(String id, String text, String table_name,
+			String conditions) {
+		// TODO Auto-generated method stub
+		return utilDao.getCombobox(id,text,table_name,conditions);
+	}
+
+	@Override
+	public boolean isAdmin(String userId) {
+		// TODO Auto-generated method stub
+		int num=utilDao.isAdmin(userId);
+		return num!=0?true:false;
+	}
+
+	@Override
+	public String getDepartNameByDepartId(String departId) {
+		// TODO Auto-generated method stub
+		return utilDao.getDepartNameByDepartId(departId);
+	}
+
+	@Override
+	public String getShopIdByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return utilDao.getShopIdByUserId(userId);
+	}
+
+	@Override
+	public List<Map> getStoreIdsByShopId(String shopId) {
+		// TODO Auto-generated method stub
+		if(shopId==null){
+			return null;
+		}
+		return utilDao.getStoreIdsByShopId(shopId);
+	}
+
+	@Override
+	public TSUser approveUser(String userName,String password) {
+		// TODO Auto-generated method stub
+		Criteria tSUser = this.getSession().createCriteria(TSUser.class);
+		tSUser.add(Restrictions.eq("userName", userName));
+		tSUser.add(Restrictions.eq("password", password));
+		List<TSUser> tSUsers = tSUser.list();
+		if(tSUsers!=null&&tSUsers.size()>0){
+			return tSUsers.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public void initDB(final String queueName, final String tableName) {
+		// TODO Auto-generated method stub
+		//获取队列对应的部门id和店铺id
+		Map map=utilDao.getDepartIdAndShopId(queueName);
+		if(map!=null){
+			final String departId = map.get("departId").toString();//部门id
+			final String shopId = map.get("shopId")!=null?map.get("shopId").toString():null;//店铺id
+			new Thread(new Runnable() {  
+				@Override  
+				public void run() { 
+					InputStream inputStream = this.getClass().getResourceAsStream("/initDB.sql");
+					BufferedReader br=new BufferedReader(new InputStreamReader(inputStream));
+					String str="";
+					try {
+						if(tableName==null||tableName.equals("")){//初始化全部数据
+							while ((str = br.readLine()) != null) {
+								if(str.startsWith("#")){
+									 String sql = br.readLine().replace(":departId", "'"+departId+"'").replace(":shopId", "'"+shopId+"'");
+									 List<Object> list = systemService.findListbySql(sql);
+									 if(list!=null&&list.size()!=0){
+										MqUtil.sendTableData(queueName,str.substring(1, str.length()),list);
+									 }
+								}
+							}
+						}
+						if(tableName!=null&&!tableName.equals("")){//初始化单表
+							while ((str = br.readLine()) != null) {
+								if(str.startsWith("#")){
+									if(str.substring(1, str.length()).equals(tableName)){
+										String sql = br.readLine().replace(":departId", "'"+departId+"'").replace(":shopId", "'"+shopId+"'");
+										List<Object> list = systemService.findListbySql(sql);
+										if(list!=null&&list.size()!=0){
+											MqUtil.sendTableData(queueName,str.substring(1, str.length()),list);
+										}
+										break;
+									}
+								}
+							}
+						}
+						//刷新字典表
+						MqUtil.remoteOpt(queueName,"systemController","mqRefreshTypeGroupAndTypes");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}  
+			}).start(); 
+		}
+	}
+
+	@Override
+	public String getOrgCode(String shopId) {
+		//如果是管理员 添加， 将判断是推给指定的用户
+        String orgCode = "";
+		if(Util.ifRoleCode()){
+			//根据店铺id获取店铺详情（店铺的机构id）
+			MaroShopEntity shopEntity = super.getEntity(MaroShopEntity.class,shopId);
+			//根据机构id获取机构的code
+			TSDepart depart = super.getEntity(TSDepart.class, shopEntity.getDepartId());
+			orgCode = depart.getOrgCode();
+		}else{
+			orgCode = ResourceUtil.getSessionUser().getCurrentDepart().getOrgCode();
+		}
+		return orgCode;
+	}
+
+	@Override
+	public TSDepart getDepartByUserId(String userId) {
+		return utilDao.getDepartByUserId(userId);
+	}
+
+	@Override
+	public void syncGroup(String queueName) {
+		//t_s_typegroup
+		//List<Object> listtypegroup = systemService.findListbySql("select  * from t_s_typegroup where user_space=1");
+		List<Object> listtypegroup = systemService.findListbySql("select  * from t_s_typegroup");
+		//t_s_type
+		//List<Object> listtype = systemService.findListbySql("SELECT t.* FROM t_s_type t, t_s_typegroup t1 WHERE t.typegroupid = t1.id AND t1.user_space = 1");
+		List<Object> listtype = systemService.findListbySql("SELECT * FROM t_s_type");
+		try {
+			MqUtil.sendTableData(null,"t_s_typegroup",listtypegroup);
+			MqUtil.sendTableData(null,"t_s_type",listtype);
+			MqUtil.remoteOpt(null,"systemController","mqRefreshTypeGroupAndTypes");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String getShopNameByDepartId(String departId) {
+		return utilDao.getShopNameByDepartId(departId);
+	}
+
+	@Override
+	public Object getRealValueBydictionary(String sql, String value) {
+
+		if(sql.contains(",")&&value!=null&&!value.equals("")){
+			String[] dic = sql.split(",");
+			String _sql = "select " + dic[1] + " as field," + dic[2] + " as text from " + dic[0]+" where id='"+value+"'";
+			List<Map<String, Object>> list = systemService.findForJdbc(_sql);
+			if(list!=null&&list.size()>0){
+				return list.get(0).get("text");
+			}
+		}
+		return "";
+	}
+
+	@Override
+	public MaroShopEntity getShopInfoByUserId(String userId) {
+		List<MaroShopEntity> maroShopEntitys=utilDao.getShopInfoByUserId(userId);
+		if(maroShopEntitys!=null&&maroShopEntitys.size()>0){
+			return maroShopEntitys.get(0);
+		}
+		return null;
+	}
+
+}

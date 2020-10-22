@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>图书管理系统</title>
+    <!--<link rel="stylesheet" href="css/framework7.css">-->
+    <link href="css/framework7.ios.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/my-app-index.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/icon.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/toast.css" />
+    <link rel="stylesheet" href="css/login.css" />
+
+    <link rel="stylesheet" href="css/myAllCss.css" />
+</head>
+<body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>    
+    <div class="login-screen modal-in">
+        <div class="pages">
+            <div class="page">
+                <div class="page-content login-screen-content position-r">
+                    <!--<div class="login-screen-title">U订货</div>-->
+                    <div class="text-right">
+                        <i class="icon icon-help hidden"></i>
+                    </div>
+                    <div class="login-avatar">
+                        <span>图书管理系统</span>
+                    </div>
+                    <form id="mylogin">
+                        <div class="list-block">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-media">
+                                        <i class="icon icon-username"></i>
+                                    </div>
+                                    <div class="item-inner no-border">
+                                        <div class="item-input">
+                                            <input type="email" name="username" placeholder="账户/手机号/邮箱" value="" id="id_usertxt"/>
+                                        </div>
+                                        <span class="list-onOff"><i class="icon icon-dropdown"></i></span>
+                                        <!--此处向上的图标为icon-dropup-->
+                                        <div class="list-login">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media">
+                                        <i class="icon icon-password"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-input">
+                                            <input type="password" name="password" placeholder="请输入密码" value="" id="id_passtxt"/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login-btuuon">
+                            <p>
+                                <a href="#" class="button button-big button-fill bg-green-u submit" id="id_loginbtn">登 录</a>
+                            </p>
+                            <p style="margin-top:10px;">
+                                <a href="pages/userList.html" class="button button-fill border-lightestgray-u bg-green-u" id="id_registerbtn">注  册</a>
+                            </p>
+                        </div>
+                        <div class="">
+                            <a class="forgetPwd" href="#">忘记密码?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
+    
+    <div class="views tabs">
+        <div id="view-1" class="view view-main tab active" data-url="pages/userList.html">
+            <div class="pages navbar-fixed navbar-through tabbar-labels-fixed  fixed-through">
+                <div data-page="userListPage" class="page">
+                    <div class="page-content p-t-0">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="view-2" class="view tab" data-url="pages/categoryList.html">
+            <!-- We can make with view with navigation, let's add Top Navbar-->
+            <div class="pages navbar-through">
+                <div data-page="categoryListPage" class="page">
+                    <div class="page-content"></div>
+                </div>
+            </div>
+        </div>
+        <div id="view-3" class="view tab" data-url="pages/bookList.html">
+            <!-- We can make with view with navigation, let's add Top Navbar-->
+            <!-- Pages-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Page, data-page contains page name-->
+                <div data-page="bookListPage" class="page">
+                    <!-- Scrollable page content-->
+                    <div class="page-content"></div>
+                </div>
+            </div>
+        </div>
+        <div id="view-4" class="view tab" data-url="pages/borrowList.html">
+            <div class="pages navbar-through">
+                <div data-page="borrowListPage" class="page">
+                    <div class="page-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar tabbar tabbar-labels homeNavBar">
+            <div class="toolbar-inner">
+                <a href="#view-1" class="tab-link active">
+                    <i class="icon footer-icon-1"></i>
+                    <span class="tabbar-label">用户</span>
+                </a>
+                <a href="#view-2" class="tab-link">
+                    <i class="icon footer-icon-2"> </i>
+                    <span class="tabbar-label">类别</span>
+                </a>
+                <a href="#view-3" class="tab-link">
+                    <i class="icon footer-icon-3"></i>
+                    <span class="tabbar-label">图书</span>
+                </a>
+                <a href="#view-4" class="tab-link">
+                    <i class="icon footer-icon-4"></i>
+                    <span class="tabbar-label">借阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.js"></script>
+    <script type="text/javascript" src="js/cube.js"></script>
+    <script type="text/javascript" src="js/toast.js"></script>
+    <script type="text/javascript" src="js/ns.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app-index.js"></script>
+    
+</body>
+</html>

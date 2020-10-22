@@ -1,0 +1,63 @@
+package com.maro.manager.print.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SettleAccountsDishes {
+
+	//组名
+	private String className;
+	
+	//出品名称
+	private String shangPin_name;
+	//单价
+	private String single_Price;
+	//数量
+	private String shuLiang;
+	//金额
+	private String totalMoney;
+	
+	private List<SettleAccountsDishes> spsList = new ArrayList<SettleAccountsDishes>();
+	
+	public String getShangPin_name() {
+		return shangPin_name;
+	}
+	public void setShangPin_name(String shangPin_name) {
+		this.shangPin_name = shangPin_name;
+	}
+	public String getSingle_Price() {
+		return single_Price;
+	}
+	public void setSingle_Price(String single_Price) {
+		this.single_Price = single_Price;
+	}
+	public String getShuLiang() {
+		return shuLiang;
+	}
+	public void setShuLiang(String shuLiang) {
+		this.shuLiang = shuLiang;
+	}
+	public String getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(String totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public List<SettleAccountsDishes> getSpsList() {
+		return spsList;
+	}
+	public void setSpsList(List<SettleAccountsDishes> spsList) {
+		this.spsList = spsList;
+	}
+	
+	
+	
+	
+	
+}

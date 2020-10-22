@@ -1,0 +1,305 @@
+/*! layer mobile-v2.0 弹层组件移动版 License LGPL http://layer.layui.com/mobile By 贤心 */
+;!function(a){"use strict";var b=document,c="querySelectorAll",d="getElementsByClassName",e=function(a){return b[c](a)},f={type:0,shade:!0,shadeClose:!0,fixed:!0,anim:"scale"},g={extend:function(a){var b=JSON.parse(JSON.stringify(f));for(var c in a)b[c]=a[c];return b},timer:{},end:{}};g.touch=function(a,b){a.addEventListener("click",function(a){b.call(this,a)},!1)};var h=0,i=["layui-m-layer"],j=function(a){var b=this;b.config=g.extend(a),b.view()};j.prototype.view=function(){var a=this,c=a.config,f=b.createElement("div");a.id=f.id=i[0]+h,f.setAttribute("class",i[0]+" "+i[0]+(c.type||0)),f.setAttribute("index",h);var g=function(){var a="object"==typeof c.title;return c.title?'<h3 style="'+(a?c.title[1]:"")+'">'+(a?c.title[0]:c.title)+"</h3>":""}(),j=function(){"string"==typeof c.btn&&(c.btn=[c.btn]);var a,b=(c.btn||[]).length;return 0!==b&&c.btn?(a='<span yes type="1">'+c.btn[0]+"</span>",2===b&&(a='<span no type="0">'+c.btn[1]+"</span>"+a),'<div class="layui-m-layerbtn">'+a+"</div>"):""}();if(c.fixed||(c.top=c.hasOwnProperty("top")?c.top:100,c.style=c.style||"",c.style+=" top:"+(b.body.scrollTop+c.top)+"px"),2===c.type&&(c.content='<i></i><i class="layui-m-layerload"></i><i></i><p>'+(c.content||"")+"</p>"),c.skin&&(c.anim="up"),"msg"===c.skin&&(c.shade=!1),f.innerHTML=(c.shade?"<div "+("string"==typeof c.shade?'style="'+c.shade+'"':"")+' class="layui-m-layershade"></div>':"")+'<div class="layui-m-layermain" '+(c.fixed?"":'style="position:static;"')+'><div class="layui-m-layersection"><div class="layui-m-layerchild '+(c.skin?"layui-m-layer-"+c.skin+" ":"")+(c.className?c.className:"")+" "+(c.anim?"layui-m-anim-"+c.anim:"")+'" '+(c.style?'style="'+c.style+'"':"")+">"+g+'<div class="layui-m-layercont">'+c.content+"</div>"+j+"</div></div></div>",!c.type||2===c.type){var k=b[d](i[0]+c.type),l=k.length;l>=1&&layer.close(k[0].getAttribute("index"))}document.body.appendChild(f);var m=a.elem=e("#"+a.id)[0];c.success&&c.success(m),a.index=h++,a.action(c,m)},j.prototype.action=function(a,b){var c=this;a.time&&(g.timer[c.index]=setTimeout(function(){layer.close(c.index)},1e3*a.time));var e=function(){var b=this.getAttribute("type");0==b?(a.no&&a.no(),layer.close(c.index)):a.yes?a.yes(c.index):layer.close(c.index)};if(a.btn)for(var f=b[d]("layui-m-layerbtn")[0].children,h=f.length,i=0;h>i;i++)g.touch(f[i],e);if(a.shade&&a.shadeClose){var j=b[d]("layui-m-layershade")[0];g.touch(j,function(){layer.close(c.index,a.end)})}a.end&&(g.end[c.index]=a.end)},a.layer={v:"2.0",index:h,open:function(a){var b=new j(a||{});return b.index},close:function(a){var c=e("#"+i[0]+a)[0];c&&(c.innerHTML="",b.body.removeChild(c),clearTimeout(g.timer[a]),delete g.timer[a],"function"==typeof g.end[a]&&g.end[a](),delete g.end[a])},closeAll:function(){for(var a=b[d](i[0]),c=0,e=a.length;e>c;c++)layer.close(0|a[0].getAttribute("index"))}},"function"==typeof define?define(function(){return layer}):function(){var a=document.scripts,c=a[a.length-1],d=c.src,e=d.substring(0,d.lastIndexOf("/")+1);c.getAttribute("merge")||document.head.appendChild(function(){var a=b.createElement("link");return a.href=e+"need/layer.css?2.0",a.type="text/css",a.rel="styleSheet",a.id="layermcss",a}())}()}(window);
+
+/**
+ *  防止点透, 遮罩出现时锁定body层
+ *
+ *  @param {string} bodyCls 加在body上的类, 用来锁定body
+ */
+var ModalHelper = (function(bodyCls) {
+    var scrollTop;
+    return {
+        afterOpen: function() {
+            scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+            document.body.classList.add(bodyCls);
+            document.body.style.top = -scrollTop + 'px'
+        },
+        beforeClose: function() {
+            document.body.classList.remove(bodyCls);
+            document.documentElement.scrollTop ? document.documentElement.scrollTop = scrollTop : document.body.scrollTop = scrollTop;
+        }
+    }
+})('layui-m-fix');
+
+/**
+ *  添加提示框
+ *
+ *  @param {string} arg_1 显示文字
+ *  @param {number} arg_2 停留时间(秒)
+ */
+function layerToast(arg_1, arg_2){
+    var txt = arg_1 || 'Loading...',
+        sec = arg_2 || 2;
+    layer.open({
+        content: txt
+        ,time: sec
+        ,skin: 'msg'
+    });
+}
+
+/**
+ *  添加loading遮罩
+ * 
+ *  @return{number} layerIndex 该遮罩的索引值
+ */
+function layerLoading(){
+    //ModalHelper.afterOpen();
+    var layerIndex = -1;
+    layer.open({
+        className: 'layer-a'
+        ,type: 2
+        ,shadeClose: false
+        ,content: '加载中，请稍候……'
+        ,success: function(elem){
+            layerIndex = elem.getAttribute('index');
+        }
+    });
+    return layerIndex;
+}
+/**
+ *  一个confirm框
+ *
+ *  @param {object} obj 各种配置项
+ */
+function addConfirm(obj){
+    ModalHelper.afterOpen();
+    var defaults = {
+        className: 'layer-a'
+        ,content: '确定执行该操作吗？'
+        ,btn: ['确定', '取消']
+        ,shadeClose: false
+    };
+    if(!obj.hasOwnProperty('yes')){
+        defaults.yes = function(index){
+            layerRemove(index);
+        };
+    }
+    if(!obj.hasOwnProperty('no')){
+        defaults.no = function(index){
+            layerRemove(index);
+        };
+    }
+    var option = extendObj(defaults, obj);
+    layer.open(option);
+}
+/**
+ *  扩展对象
+ *
+ *  @param {object} arguments[0], arguments[1], ... 各种json对象
+ *
+ *  @return{object} temp 扩展后的json对象
+ */
+function extendObj() { //扩展对象
+    var args = arguments;
+    if (args.length < 2) return;
+    var temp = cloneObj(args[0]); //调用复制对象方法
+    for (var n = 1; n < args.length; n++) {
+        for (var i in args[n]) {
+            temp[i] = args[n][i];
+        }
+    }
+    return temp;
+}
+/**
+ *  复制对象
+ *
+ *  @param {object} oldObj 一个json对象
+ *
+ *  @return{object} newObj oldObj的拷贝
+ */
+function cloneObj(oldObj) {
+    if (typeof(oldObj) != 'object') return oldObj;
+    if (oldObj == null) return oldObj;
+    var newObj = new Object();
+    for (var i in oldObj)
+        newObj[i] = oldObj[i] instanceof Array ? oldObj[i].slice(0):cloneObj(oldObj[i]);
+    return newObj;
+};
+/**
+ *  移除某索引值对应的遮罩
+ *
+ *  @param {number} idx 该遮罩的索引值
+ */
+function layerRemove(idx){
+    if(typeof idx == 'undefined') return;
+    layer.close(idx);
+    [].forEach.call(document.body.classList, function(n, i){
+        if(n == 'layui-m-fix'){
+            ModalHelper.beforeClose();
+            return;
+        }
+    });
+}
+
+/**
+ *  移除所有遮罩
+ */
+function layerRemoveAll(){
+    layer.closeAll();
+    [].forEach.call(document.body.classList, function(n, i){
+        if(n == 'layui-m-fix'){
+            ModalHelper.beforeClose();
+            return;
+        }
+    });
+}
+
+//大路
+ 
+//var commonPath="http://localhost:8080/jeecg/";
+// var commonPath = 'http://10.135.16.104:8080/jeecg/';
+//var commonPath = 'http://10.135.16.174:8082/client/';
+
+var commonPath = 'http://10.135.16.174:8082/client/';
+//var commonPath = 'http://10.10.11.54:8082/';
+//var commonPath = 'http://app.tuxingtianxia.com.cn/client/';
+/*var commonPath="";
+ function getRootPath(){
+    //获取当前网址，如： https://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： https://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    console.log(localhostPaht+projectName);
+	commonPath=localhostPaht+projectName+"/";
+	
+    return(localhostPaht+projectName);
+}
+getRootPath();*/
+function ajaxRequest (obj, funScs, funErr) {
+    var index = null;
+    if(!obj.hasOwnProperty('layer') || obj.layer){
+        index = layerLoading();
+    }
+    console.log(window.client);
+   if(window.client!="undefined" && window.client!=undefined){
+       commonPath=client.addr();
+   }
+	$.ajax({
+		type: "post",
+		url: commonPath+obj.path,
+        //crossDomain: true,
+        xhrFields: {withCredentials: true},
+        //beforeSend:addHeader,
+        //contentType:"application/json;charset=UTF-8",
+        dataType: 'json',
+		data: obj.data,
+		success: function (data) {
+            console.log(data);
+			if (index) {
+				layerRemove(index);
+				index = null;
+			}
+			//表示请求接口成功。
+			if(data.success){
+                if(funScs) funScs(data);
+            }else{
+                console.log(data);
+                if(data.obj==100){
+                    //登录超时重新登录一下
+                    login(obj, funScs, funErr);
+                }else{
+                    if(funErr) funErr(data)// : //layerToast('网络错误，请检查网络环境。');
+                }
+            }
+		},
+		error: function (err) {
+		    console.log(err);
+            layerToast('网络错误，请检查网络环境。');
+			if (index) {
+				layerRemove(index);
+				index = null;
+			}
+           // window.location.href = 'login.html';
+			//funErr ? funErr(err) : layerToast('网络错误，请检查网络环境。');
+		}
+	});
+}
+function login(obj, funScs, funErr){
+    $.ajax({
+        type: "post",
+        url: commonPath+'clientUserController.do?login',
+        xhrFields: {withCredentials: true},
+        dataType: 'json',
+        data:  {
+            "user": window.localStorage.getItem('user'),
+            "pass": window.localStorage.getItem('pass'),
+            "isLogin":true
+        },
+        success: function (data) {
+            //表示请求接口成功。
+            if(data.success){
+                ajaxRequest (obj, funScs, funErr);
+            }else{
+                if(funErr) funErr(data)// : //layerToast('网络错误，请检查网络环境。');
+            }
+        },
+        error: function (err) {
+            window.location.href = 'login.html';
+        }
+    });
+}
+function timestampToTime(timestamp) {
+    var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '-';
+    var M =  (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
+    var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
+    var h = (date.getHours()  < 10 ? '0'+(date.getHours() ) : date.getHours()) + ':';
+    var m = (date.getMinutes()  < 10 ? '0'+(date.getMinutes() ) : date.getMinutes())  + ':';
+    var s = (date.getSeconds() < 10 ? '0'+(date.getSeconds() ) : date.getSeconds()) ;
+    return Y+M+"-"+D+h+m+s;
+
+}
+
+function addHeader(xhr) {
+    var sessionId = '',
+        nowTime = (new Date()).getTime(),
+        ticket = '';
+    var storage = window.localStorage;
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'true');
+    //xhr.setRequestHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
+    //xhr.setRequestHeader('Accept-Encoding', 'gzip, deflate, sdch');
+    //xhr.setRequestHeader('Accept-Language', 'zh-CN,zh;q=0.8');
+    //xhr.setRequestHeader('Connection', 'keep-alive');
+
+    if(storage) {
+        sessionId =  localStorage.sessionId;
+
+    }
+    if(sessionId != "") {
+        sessionId = "JSESSIONID=" + sessionId ;
+        sessionId = sessionId.replace(/\|[0-9]{10}\|/, '|' + parseInt(nowTime / 1000) + '|');
+        //xhr.setRequestHeader('Cookie', sessionId);
+    }
+
+    //xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
+    //xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36');
+}
+
+/**
+ *  验证手机号格式
+ *
+ *  @param {number} str 手机号
+ * 
+ *  @return{boolean}    是否手机号
+ */
+function isPhoneNumber(str) {
+    var pattern = /1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}/;
+    return pattern.test(str);
+}
+function formatDate(ns) {
+    var d = new Date(ns);
+    var dformat = [ d.getFullYear(), d.getMonth() + 1, d.getDate() ].join('-')
+        + ' ' + [ d.getHours(), d.getMinutes(), d.getSeconds() ].join(':');
+    return dformat;
+}
+function formatDateNoTime(ns) {
+    var d = new Date(ns);
+    var dformat = [ d.getFullYear(), d.getMonth() + 1, d.getDate() ].join('-')
+        ;
+    return dformat;
+}
